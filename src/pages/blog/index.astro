@@ -1,0 +1,73 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogCard from '../../components/BlogCard.astro';
+import Icon from '../../components/Icon.astro';
+import MotionReveal from '../../components/react/MotionReveal';
+import { getCollection } from 'astro:content';
+import { collectionPageSchema, breadcrumbSchema } from '../../lib/schema';
+import { SITE } from '../../lib/site';
+import { resolveSocialImage } from '../../lib/social-images';
+
+const blogSocial = resolveSocialImage('/blog/');
+
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+const schema = [
+  collectionPageSchema({
+    title: 'Arc Raiders Blog',
+    description: 'Patch notes, meta analysis, and competitive settings for Arc Raiders.',
+    url: `${SITE.url}/blog/`,
+    image: blogSocial.src,
+    imageAlt: blogSocial.alt,
+  }),
+  breadcrumbSchema([
+    { name: 'Home', url: SITE.url },
+    { name: 'Blog', url: `${SITE.url}/blog/` },
+  ]),
+];
+---
+
+<BaseLayout
+  title="Arc Raider Cheats Blog — Guides & Meta"
+  description="Arc Raider cheats guides, HWID spoofer breakdowns, Season 1 meta analysis, and patch updates from our team."
+  schema={schema}
+>
+  <section class="section listing-section listing-section--center">
+    <div class="section-inner">
+      <MotionReveal client:visible>
+        <div class="listing-intro">
+          <div class="s-tag">// Blog</div>
+          <h1>Arc Raiders Blog</h1>
+          <div class="detail-head-badges">
+            <span class="listing-meta-pill">
+              <Icon name="newspaper" size={11} />
+              {posts.length} Articles
+            </span>
+            <span class="listing-meta-pill">
+              <Icon name="chart" size={11} />
+              Patch Notes · Meta · Settings
+            </span>
+          </div>
+          <p class="listing-intro-desc">
+            Patch notes, meta shifts, and competitive tips — updated whenever Arc Raiders changes.
+          </p>
+        </div>
+
+        <div class="blog-grid animate-grid">
+          {posts.map((post) => (
+            <BlogCard
+              title={post.data.title}
+              description={post.data.description}
+              date={post.data.pubDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+              href={`/blog/${post.id}/`}
+              icon={post.data.icon}
+              readTime={post.data.readTime}
+            />
+          ))}
+        </div>
+      </MotionReveal>
+    </div>
+  </section>
+</BaseLayout>

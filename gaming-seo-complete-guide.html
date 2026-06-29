@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Complete SEO Playbook – Gaming Product Sites 2026</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --bg:#0d0d0f;--bg2:#141416;--bg3:#1a1a1e;--bg4:#222228;
+    --border:#2a2a32;--border2:#3a3a46;
+    --text:#e8e8f0;--text2:#9898b0;--text3:#6868808;
+    --accent:#7c6af5;--accent2:#5b52c4;
+    --green:#22c55e;--yellow:#eab308;--red:#ef4444;--blue:#3b82f6;--orange:#f97316;
+    --radius:8px;--radius2:12px;
+  }
+  body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;font-size:15px;line-height:1.65}
+  .wrap{max-width:1100px;margin:0 auto;padding:2rem 1.5rem}
+  /* header */
+  .hero{background:linear-gradient(135deg,#1a1230 0%,#0d0d0f 60%);border:1px solid var(--border);border-radius:var(--radius2);padding:2.5rem;margin-bottom:2rem;position:relative;overflow:hidden}
+  .hero::before{content:'';position:absolute;top:-80px;right:-80px;width:300px;height:300px;background:radial-gradient(circle,rgba(124,106,245,.15) 0%,transparent 70%);pointer-events:none}
+  .hero h1{font-size:2rem;font-weight:700;letter-spacing:-.5px;margin-bottom:.5rem}
+  .hero h1 span{color:var(--accent)}
+  .hero p{color:var(--text2);max-width:620px}
+  .badge{display:inline-block;background:rgba(124,106,245,.15);color:var(--accent);border:1px solid rgba(124,106,245,.3);border-radius:20px;font-size:12px;padding:3px 10px;margin-bottom:1rem}
+  /* nav tabs */
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:2rem;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius2);padding:.75rem}
+  .tab{padding:7px 14px;border-radius:var(--radius);border:none;background:transparent;color:var(--text2);cursor:pointer;font-size:13px;font-weight:500;transition:all .2s;white-space:nowrap}
+  .tab:hover{background:var(--bg4);color:var(--text)}
+  .tab.active{background:var(--accent);color:#fff}
+  /* sections */
+  .section{display:none}
+  .section.active{display:block}
+  /* cards */
+  .card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius2);padding:1.5rem;margin-bottom:1.25rem}
+  .card-title{font-size:1rem;font-weight:600;margin-bottom:.75rem;display:flex;align-items:center;gap:.5rem}
+  .card-title .icon{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+  /* pillars grid */
+  .pillars{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-bottom:1.5rem}
+  .pillar{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius2);padding:1.25rem;text-align:center}
+  .pillar .num{font-size:2rem;font-weight:700;margin-bottom:.25rem}
+  .pillar .label{font-size:13px;color:var(--text2)}
+  /* checklist */
+  .checklist{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+  .checklist li{display:flex;align-items:flex-start;gap:.6rem;font-size:14px}
+  .checklist li::before{content:'✓';color:var(--green);font-weight:700;flex-shrink:0;margin-top:1px}
+  .warn-list li::before{content:'⚠';color:var(--yellow);font-weight:700;flex-shrink:0;margin-top:1px}
+  /* code block */
+  .code{background:#0a0a10;border:1px solid var(--border);border-radius:var(--radius);padding:1rem 1.25rem;font-family:'Courier New',monospace;font-size:13px;color:#a0d0ff;overflow-x:auto;margin:.75rem 0;line-height:1.55}
+  .code .c{color:#6a7a6a}.code .k{color:#c678dd}.code .s{color:#98c379}.code .attr{color:#e5c07b}
+  /* tag pills */
+  .pill{display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:500;margin:2px}
+  .pill-green{background:rgba(34,197,94,.12);color:#4ade80;border:1px solid rgba(34,197,94,.2)}
+  .pill-red{background:rgba(239,68,68,.12);color:#f87171;border:1px solid rgba(239,68,68,.2)}
+  .pill-yellow{background:rgba(234,179,8,.12);color:#fbbf24;border:1px solid rgba(234,179,8,.2)}
+  .pill-blue{background:rgba(59,130,246,.12);color:#60a5fa;border:1px solid rgba(59,130,246,.2)}
+  .pill-purple{background:rgba(124,106,245,.12);color:#a78bfa;border:1px solid rgba(124,106,245,.2)}
+  .pill-orange{background:rgba(249,115,22,.12);color:#fb923c;border:1px solid rgba(249,115,22,.2)}
+  /* comparison table */
+  table{width:100%;border-collapse:collapse;font-size:14px;margin:.75rem 0}
+  th{background:var(--bg3);padding:.65rem 1rem;text-align:left;font-weight:500;color:var(--text2);border-bottom:1px solid var(--border);font-size:13px}
+  td{padding:.65rem 1rem;border-bottom:1px solid var(--border);vertical-align:top}
+  tr:last-child td{border-bottom:none}
+  tr:hover td{background:rgba(255,255,255,.02)}
+  /* step boxes */
+  .steps{display:flex;flex-direction:column;gap:.75rem}
+  .step{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:1rem 1.25rem;display:flex;gap:1rem;align-items:flex-start}
+  .step-num{background:var(--accent);color:#fff;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:1px}
+  .step-body h4{font-size:14px;font-weight:600;margin-bottom:.25rem}
+  .step-body p{font-size:13px;color:var(--text2);line-height:1.55}
+  /* two-col grid */
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
+  @media(max-width:640px){.two-col{grid-template-columns:1fr}}
+  /* priority badge */
+  .priority{font-size:11px;padding:2px 7px;border-radius:4px;font-weight:600;margin-left:6px}
+  .p-critical{background:rgba(239,68,68,.15);color:#f87171}
+  .p-high{background:rgba(249,115,22,.15);color:#fb923c}
+  .p-med{background:rgba(234,179,8,.15);color:#fbbf24}
+  .p-low{background:rgba(34,197,94,.15);color:#4ade80}
+  /* section heading */
+  h2{font-size:1.35rem;font-weight:600;margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)}
+  h3{font-size:1rem;font-weight:600;margin:.1rem 0 .6rem;color:var(--text)}
+  p{color:var(--text2);font-size:14px;margin-bottom:.75rem;line-height:1.65}
+  /* score meters */
+  .meter-row{display:flex;align-items:center;gap:1rem;margin:.4rem 0}
+  .meter-label{font-size:13px;min-width:160px}
+  .meter-bar{flex:1;height:8px;background:var(--bg4);border-radius:4px;overflow:hidden}
+  .meter-fill{height:100%;border-radius:4px;transition:width .5s}
+  .meter-val{font-size:12px;color:var(--text2);min-width:30px;text-align:right}
+  /* info box */
+  .info-box{background:rgba(59,130,246,.07);border:1px solid rgba(59,130,246,.2);border-radius:var(--radius);padding:1rem 1.25rem;font-size:13px;color:var(--text2);margin:.75rem 0}
+  .warn-box{background:rgba(234,179,8,.07);border:1px solid rgba(234,179,8,.2);border-radius:var(--radius);padding:1rem 1.25rem;font-size:13px;color:var(--text2);margin:.75rem 0}
+  .danger-box{background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.2);border-radius:var(--radius);padding:1rem 1.25rem;font-size:13px;color:var(--text2);margin:.75rem 0}
+  .success-box{background:rgba(34,197,94,.07);border:1px solid rgba(34,197,94,.2);border-radius:var(--radius);padding:1rem 1.25rem;font-size:13px;color:var(--text2);margin:.75rem 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hero">
+  <div class="badge">2026 Complete Guide</div>
+  <h1>The <span>Gaming Sites</span> SEO Playbook</h1>
+  <p>Everything from domain name to #1 ranking — technical, on-page, off-page, stack, backlinks, and beyond. Built for bulk-domain gaming tool sites.</p>
+</div>
+
+<div class="tabs">
+  <button class="tab active" onclick="show('overview',this)">Overview</button>
+  <button class="tab" onclick="show('domain',this)">Domain Strategy</button>
+  <button class="tab" onclick="show('stack',this)">Tech Stack</button>
+  <button class="tab" onclick="show('technical',this)">Technical SEO</button>
+  <button class="tab" onclick="show('onpage',this)">On-Page SEO</button>
+  <button class="tab" onclick="show('content',this)">Content Strategy</button>
+  <button class="tab" onclick="show('offpage',this)">Off-Page & Backlinks</button>
+  <button class="tab" onclick="show('tools',this)">Tools & Monitoring</button>
+  <button class="tab" onclick="show('checklist',this)">Launch Checklist</button>
+</div>
+
+<!-- OVERVIEW -->
+<div id="overview" class="section active">
+  <h2>The 3 Pillars of SEO — How They Stack</h2>
+  <div class="pillars">
+    <div class="pillar"><div class="num" style="color:#7c6af5">01</div><div class="label" style="font-size:15px;font-weight:600;color:#e8e8f0;margin-bottom:.3rem">Technical SEO</div><div class="label">Crawlability, speed, Core Web Vitals, indexing. Google can't rank what it can't read.</div></div>
+    <div class="pillar"><div class="num" style="color:#22c55e">02</div><div class="label" style="font-size:15px;font-weight:600;color:#e8e8f0;margin-bottom:.3rem">On-Page SEO</div><div class="label">Content quality, title tags, meta, schema, keywords, internal linking, E-E-A-T.</div></div>
+    <div class="pillar"><div class="num" style="color:#3b82f6">03</div><div class="label" style="font-size:15px;font-weight:600;color:#e8e8f0;margin-bottom:.3rem">Off-Page SEO</div><div class="label">Backlinks, brand mentions, authority, social signals, PR, community.</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><div class="icon" style="background:rgba(239,68,68,.15);color:#f87171">!</div>Priority Order — Fix in this exact sequence</div>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><h4>Fix Technical Blockers <span class="priority p-critical">CRITICAL</span></h4><p>If Google can't crawl or index your pages, nothing else matters. Speed, mobile, HTTPS, sitemap, robots.txt — all must be clean before you invest in anything else.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><h4>On-Page & Content <span class="priority p-high">HIGH</span></h4><p>Match search intent. Write real helpful content. Add schema markup. Optimize every title tag, meta description, heading, and URL. This is 100% in your control.</p></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><h4>Build Authority (Off-Page) <span class="priority p-med">MEDIUM</span></h4><p>Get backlinks from gaming blogs, Reddit posts, Discord communities, YouTube descriptions. Backlinks are votes of trust — you need quality, not quantity.</p></div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Google Ranking Signal Weight (2026)</div>
+    <div class="meter-row"><span class="meter-label">Content Quality / Intent Match</span><div class="meter-bar"><div class="meter-fill" style="width:95%;background:#7c6af5"></div></div><span class="meter-val">95%</span></div>
+    <div class="meter-row"><span class="meter-label">Backlink Quality & Authority</span><div class="meter-bar"><div class="meter-fill" style="width:88%;background:#3b82f6"></div></div><span class="meter-val">88%</span></div>
+    <div class="meter-row"><span class="meter-label">Core Web Vitals (Speed)</span><div class="meter-bar"><div class="meter-fill" style="width:78%;background:#22c55e"></div></div><span class="meter-val">78%</span></div>
+    <div class="meter-row"><span class="meter-label">E-E-A-T Signals</span><div class="meter-bar"><div class="meter-fill" style="width:72%;background:#eab308"></div></div><span class="meter-val">72%</span></div>
+    <div class="meter-row"><span class="meter-label">Technical Health</span><div class="meter-bar"><div class="meter-fill" style="width:68%;background:#f97316"></div></div><span class="meter-val">68%</span></div>
+    <div class="meter-row"><span class="meter-label">Schema / Structured Data</span><div class="meter-bar"><div class="meter-fill" style="width:50%;background:#a855f7"></div></div><span class="meter-val">50%</span></div>
+    <div class="meter-row"><span class="meter-label">Domain Keywords (EMD)</span><div class="meter-bar"><div class="meter-fill" style="width:10%;background:#6b7280"></div></div><span class="meter-val">10%</span></div>
+    <p style="margin-top:.75rem;font-size:12px;color:#6868a0">These are relative influence weights, not official Google numbers. Based on 2026 SEO research and industry consensus.</p>
+  </div>
+</div>
+
+<!-- DOMAIN -->
+<div id="domain" class="section">
+  <h2>Domain Strategy</h2>
+
+  <div class="card">
+    <div class="card-title">Do Exact Match Domains (EMDs) Like valoranttools.com Still Work?</div>
+    <p>Short answer: <strong style="color:#fbbf24">Somewhat, but don't rely on them.</strong> Google's 2012 EMD update specifically de-ranked low-quality keyword domains. In 2026, they still give a small edge in low-competition niches, but only if backed by strong content.</p>
+    <div class="two-col">
+      <div>
+        <h3 style="color:#4ade80">✓ Benefits of EMDs (valoranttools.com)</h3>
+        <ul class="checklist">
+          <li>Instant clarity — users know what the site is</li>
+          <li>Natural keyword-rich anchor text when others link to you</li>
+          <li>Higher CTR in search results for that exact query</li>
+          <li>Google may treat "valorant tools" searches as branded</li>
+          <li>Works well in gaming niches — lower competition than finance/health</li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="color:#f87171">✗ Risks & Limits</h3>
+        <ul class="checklist warn-list">
+          <li>Thin content = Google penalty, domain history doesn't save you</li>
+          <li>Looks spammy without real branding</li>
+          <li>Locked into one game/niche forever</li>
+          <li>Over-optimized anchor text profile looks manipulative</li>
+          <li>No substitute for content quality and backlinks</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Domain Name Checklist</div>
+    <table>
+      <tr><th>Factor</th><th>Recommendation</th><th>Impact</th></tr>
+      <tr><td><strong>TLD (.com vs others)</strong></td><td>.com always preferred. Higher trust, better memorability (+44% recall). .gg is niche-accepted for gaming. Avoid .info, .biz — seen as spammy.</td><td><span class="pill pill-yellow">Medium</span></td></tr>
+      <tr><td><strong>Domain Age</strong></td><td>Older = more trust. If buying aged domains, always audit backlink history in Ahrefs first. Penalized domain history can follow the domain.</td><td><span class="pill pill-yellow">Medium</span></td></tr>
+      <tr><td><strong>HTTPS on Day 1</strong></td><td>Free via Let's Encrypt. Google confirmed it as a ranking signal. Never launch HTTP-only.</td><td><span class="pill pill-red">High</span></td></tr>
+      <tr><td><strong>Domain Length</strong></td><td>Shorter = more memorable. Under 15 chars is ideal. Long keyword domains like bestvalorantaimtools.com look spammy.</td><td><span class="pill pill-yellow">Medium</span></td></tr>
+      <tr><td><strong>Keywords in Domain</strong></td><td>Small direct SEO benefit. Bigger indirect benefit via CTR and natural anchors. Don't buy a domain JUST for keywords.</td><td><span class="pill pill-blue">Low</span></td></tr>
+      <tr><td><strong>Hyphens</strong></td><td>Avoid. valorant-tools.com reads as lower quality than valoranttools.com. Extra hyphens = spam signals.</td><td><span class="pill pill-blue">Low</span></td></tr>
+      <tr><td><strong>Country Code (ccTLD)</strong></td><td>Use .com for global. Use .pk, .uk etc ONLY if targeting a specific country — it hurts global ranking but boosts local.</td><td><span class="pill pill-yellow">Medium</span></td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Bulk Domain Strategy for Gaming Sites</div>
+    <p>You're buying domains like valoranttools.com, apexlegendstracker.com, etc. Here's how to handle this correctly:</p>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><h4>301 Redirect Weak Domains → 1 Strong Domain</h4><p>Don't split your link equity across 10 thin sites. Build ONE strong domain (e.g., gamingtools.gg) and 301-redirect the EMD keywords domains to it. Link juice passes, and you build one authority instead of ten weak ones.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><h4>Or: Build Real Content on Each Domain</h4><p>If you want each domain to rank independently, each needs 20+ pages of real, unique content. Google penalizes doorway pages (thin pages made just to rank then redirect). Never build identical sites on different domains.</p></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><h4>Never Duplicate Content Across Domains</h4><p>The #1 mistake bulk domain buyers make. If valoranttools.com and apextoolkit.com have the same template text, Google sees duplicate content and demotes both.</p></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><h4>Audit Before Buying Any Domain</h4><p>Check domain history with Wayback Machine + Ahrefs. If previous owner used it for spam/adult content/pharma hacks, the domain may carry a penalty that kills your rankings from day 1.</p></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- TECH STACK -->
+<div id="stack" class="section">
+  <h2>Tech Stack for 100/100 Lighthouse</h2>
+
+  <div class="card">
+    <div class="card-title">Recommended Stack (Gaming Tools Site)</div>
+    <table>
+      <tr><th>Layer</th><th>Recommendation</th><th>Why</th></tr>
+      <tr><td><strong>Frontend Framework</strong></td><td><span class="pill pill-green">Astro</span> (first choice) or Next.js</td><td>Astro = zero JS by default → Lighthouse 100 is realistic. Next.js if you need dynamic features like login, real-time stats.</td></tr>
+      <tr><td><strong>Rendering</strong></td><td>SSG (Static Site Generation)</td><td>Pre-built HTML served via CDN = fastest possible load time. Google indexes it instantly with no JS rendering needed.</td></tr>
+      <tr><td><strong>Hosting</strong></td><td>Vercel, Cloudflare Pages, or Netlify</td><td>Free tier, global CDN edge nodes, automatic HTTPS, instant cache invalidation. Never shared hosting (GoDaddy etc.).</td></tr>
+      <tr><td><strong>CDN</strong></td><td>Cloudflare (free tier)</td><td>Protects against DDoS, caches assets globally, reduces TTFB to &lt;50ms. Essential for Core Web Vitals.</td></tr>
+      <tr><td><strong>Images</strong></td><td>WebP/AVIF format + lazy loading</td><td>50-80% smaller than JPEG/PNG. Astro has built-in image optimization. Next.js has next/image component.</td></tr>
+      <tr><td><strong>Fonts</strong></td><td>Self-hosted or preloaded Google Fonts</td><td>External font requests add 300-500ms. Self-host fonts to eliminate this. Preload critical fonts in &lt;head&gt;.</td></tr>
+      <tr><td><strong>CSS</strong></td><td>Tailwind CSS (purged) or plain CSS</td><td>Purged Tailwind ships ~5KB of CSS. Avoid heavy CSS frameworks like Bootstrap on SEO-critical pages.</td></tr>
+      <tr><td><strong>Analytics</strong></td><td>Google Analytics 4 + Search Console</td><td>GA4 is free. Search Console is mandatory — tells you exactly which queries bring traffic.</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Astro vs Next.js — Which Should You Use?</div>
+    <p>For gaming tools sites that are primarily content pages (guides, trackers, tier lists), use Astro. If you need user accounts, real-time data, or API routes, use Next.js.</p>
+    <table>
+      <tr><th>Feature</th><th>Astro</th><th>Next.js</th></tr>
+      <tr><td>Default JS bundle</td><td><span class="pill pill-green">0–5 KB</span></td><td><span class="pill pill-yellow">70–85 KB</span></td></tr>
+      <tr><td>Lighthouse score (out of box)</td><td><span class="pill pill-green">95–100</span></td><td><span class="pill pill-yellow">80–90</span></td></tr>
+      <tr><td>Build time (1000 pages)</td><td><span class="pill pill-green">~18 sec</span></td><td><span class="pill pill-yellow">~52 sec</span></td></tr>
+      <tr><td>Static generation</td><td><span class="pill pill-green">First-class</span></td><td><span class="pill pill-green">Supported</span></td></tr>
+      <tr><td>Dynamic features / API routes</td><td><span class="pill pill-yellow">Limited</span></td><td><span class="pill pill-green">Full support</span></td></tr>
+      <tr><td>SEO metadata control</td><td><span class="pill pill-green">Built-in</span></td><td><span class="pill pill-green">Built-in</span></td></tr>
+      <tr><td>Best for</td><td><span class="pill pill-purple">Content sites</span></td><td><span class="pill pill-blue">Apps + Content</span></td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title">HTML Head — Every Tag You Need</div>
+    <div class="code"><span class="c">&lt;!-- Basic meta --&gt;</span><br>
+&lt;<span class="k">meta</span> <span class="attr">charset</span>=<span class="s">"UTF-8"</span>&gt;<br>
+&lt;<span class="k">meta</span> <span class="attr">name</span>=<span class="s">"viewport"</span> <span class="attr">content</span>=<span class="s">"width=device-width, initial-scale=1"</span>&gt;<br>
+&lt;<span class="k">title</span>&gt;Valorant Aimbot Tools & Trackers | YourBrand&lt;/<span class="k">title</span>&gt;<br>
+&lt;<span class="k">meta</span> <span class="attr">name</span>=<span class="s">"description"</span> <span class="attr">content</span>=<span class="s">"Best Valorant tools 2026 — aim trainer, rank tracker, crosshair generator. Free and instant."</span>&gt;<br><br>
+<span class="c">&lt;!-- Canonical — CRITICAL for duplicate content --&gt;</span><br>
+&lt;<span class="k">link</span> <span class="attr">rel</span>=<span class="s">"canonical"</span> <span class="attr">href</span>=<span class="s">"https://yoursite.com/this-exact-page/"</span>&gt;<br><br>
+<span class="c">&lt;!-- Open Graph (social sharing) --&gt;</span><br>
+&lt;<span class="k">meta</span> <span class="attr">property</span>=<span class="s">"og:title"</span> <span class="attr">content</span>=<span class="s">"..."</span>&gt;<br>
+&lt;<span class="k">meta</span> <span class="attr">property</span>=<span class="s">"og:description"</span> <span class="attr">content</span>=<span class="s">"..."</span>&gt;<br>
+&lt;<span class="k">meta</span> <span class="attr">property</span>=<span class="s">"og:image"</span> <span class="attr">content</span>=<span class="s">"https://yoursite.com/og-image.png"</span>&gt;<br>
+&lt;<span class="k">meta</span> <span class="attr">property</span>=<span class="s">"og:url"</span> <span class="attr">content</span>=<span class="s">"https://yoursite.com/page/"</span>&gt;<br>
+&lt;<span class="k">meta</span> <span class="attr">property</span>=<span class="s">"og:type"</span> <span class="attr">content</span>=<span class="s">"website"</span>&gt;<br><br>
+<span class="c">&lt;!-- Twitter/X card --&gt;</span><br>
+&lt;<span class="k">meta</span> <span class="attr">name</span>=<span class="s">"twitter:card"</span> <span class="attr">content</span>=<span class="s">"summary_large_image"</span>&gt;<br>
+&lt;<span class="k">meta</span> <span class="attr">name</span>=<span class="s">"twitter:title"</span> <span class="attr">content</span>=<span class="s">"..."</span>&gt;<br><br>
+<span class="c">&lt;!-- Preload critical font --&gt;</span><br>
+&lt;<span class="k">link</span> <span class="attr">rel</span>=<span class="s">"preload"</span> <span class="attr">href</span>=<span class="s">"/fonts/font.woff2"</span> <span class="attr">as</span>=<span class="s">"font"</span> <span class="attr">crossorigin</span>&gt;<br><br>
+<span class="c">&lt;!-- Robots --&gt;</span><br>
+&lt;<span class="k">meta</span> <span class="attr">name</span>=<span class="s">"robots"</span> <span class="attr">content</span>=<span class="s">"index, follow"</span>&gt;</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Core Web Vitals — What They Are & How to Pass Them</div>
+    <table>
+      <tr><th>Metric</th><th>What it measures</th><th>Good score</th><th>How to achieve it</th></tr>
+      <tr><td><strong>LCP</strong><br>Largest Contentful Paint</td><td>Time for biggest content (image/text) to load</td><td><span class="pill pill-green">&lt;2.5s</span></td><td>Use WebP images, preload LCP image, fast hosting/CDN, no render-blocking CSS</td></tr>
+      <tr><td><strong>INP</strong><br>Interaction to Next Paint</td><td>Response time when user clicks/taps</td><td><span class="pill pill-green">&lt;200ms</span></td><td>Minimize JS, avoid long tasks, defer non-critical scripts</td></tr>
+      <tr><td><strong>CLS</strong><br>Cumulative Layout Shift</td><td>Unexpected layout jumps during load</td><td><span class="pill pill-green">&lt;0.1</span></td><td>Always set width/height on images, no ads that shift content, no late-loading embeds</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- TECHNICAL SEO -->
+<div id="technical" class="section">
+  <h2>Technical SEO — The Foundation</h2>
+
+  <div class="card">
+    <div class="card-title">XML Sitemap</div>
+    <p>Your sitemap tells Google every page that exists. Submit it to Search Console. Auto-generate it — never manually maintain it.</p>
+    <div class="code">&lt;<span class="k">urlset</span> <span class="attr">xmlns</span>=<span class="s">"http://www.sitemaps.org/schemas/sitemap/0.9"</span>&gt;<br>
+  &lt;<span class="k">url</span>&gt;<br>
+    &lt;<span class="k">loc</span>&gt;https://yoursite.com/valorant-aim-trainer/&lt;/<span class="k">loc</span>&gt;<br>
+    &lt;<span class="k">lastmod</span>&gt;2026-05-01&lt;/<span class="k">lastmod</span>&gt;<br>
+    &lt;<span class="k">changefreq</span>&gt;weekly&lt;/<span class="k">changefreq</span>&gt;<br>
+    &lt;<span class="k">priority</span>&gt;0.8&lt;/<span class="k">priority</span>&gt;<br>
+  &lt;/<span class="k">url</span>&gt;<br>
+&lt;/<span class="k">urlset</span>&gt;</div>
+    <ul class="checklist" style="margin-top:.75rem">
+      <li>Submit at yoursite.com/sitemap.xml</li>
+      <li>Add sitemap URL to robots.txt</li>
+      <li>Submit to Google Search Console → Sitemaps section</li>
+      <li>Max 50,000 URLs per sitemap file (split into multiple if larger)</li>
+      <li>Only include pages you WANT indexed (exclude login, admin, thank-you pages)</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-title">robots.txt — Control What Google Crawls</div>
+    <div class="code">User-agent: *<br>
+Allow: /<br>
+Disallow: /admin/<br>
+Disallow: /login/<br>
+Disallow: /user/settings/<br>
+Disallow: /*?sort=  <span class="c"># Block parameter URLs that create duplicate content</span><br>
+Disallow: /*?filter=<br><br>
+Sitemap: https://yoursite.com/sitemap.xml</div>
+    <div class="warn-box">⚠ Never disallow CSS or JS files — Google needs to render your page to evaluate it. Never block pages you want ranked.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Canonical Tags — Prevent Duplicate Content Penalties</div>
+    <p>If you have the same content accessible via multiple URLs (e.g. with and without www, with ?ref= parameters), canonicals tell Google which version is the "real" one.</p>
+    <div class="code"><span class="c">&lt;!-- On every page, in the &lt;head&gt; --&gt;</span><br>
+&lt;<span class="k">link</span> <span class="attr">rel</span>=<span class="s">"canonical"</span> <span class="attr">href</span>=<span class="s">"https://yoursite.com/valorant-tracker/"</span>&gt;</div>
+    <ul class="checklist" style="margin-top:.75rem">
+      <li>Canonical should point to itself on unique pages</li>
+      <li>On paginated pages (/page/2, /page/3) — canonical can point to page 1, OR use rel=next/prev</li>
+      <li>If you 301 redirect a domain to another, you don't need canonicals — the redirect handles it</li>
+      <li>Bulk domain redirect: set canonical on the destination site only</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-title">301 vs 302 Redirects</div>
+    <table>
+      <tr><th>Type</th><th>Use case</th><th>SEO effect</th></tr>
+      <tr><td><strong>301 Permanent</strong></td><td>Domain redirects, page moved forever, HTTP→HTTPS</td><td>Passes ~99% of link equity. Use this for all your EMD domain redirects.</td></tr>
+      <tr><td><strong>302 Temporary</strong></td><td>A/B testing, temporary maintenance page</td><td>Does NOT pass link equity. Google keeps indexing original URL.</td></tr>
+      <tr><td><strong>Redirect chains</strong></td><td>A→B→C (avoid!)</td><td>Each hop loses equity. Always redirect directly to final destination.</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title">URL Structure</div>
+    <ul class="checklist">
+      <li>Short and descriptive: yoursite.com/valorant-rank-tracker/ ✓</li>
+      <li>Lowercase only, hyphens not underscores (Google treats underscores as word joiners)</li>
+      <li>Include target keyword in URL</li>
+      <li>No dates in URLs unless news site (hard to update)</li>
+      <li>Max 3-4 directory levels deep: /game/category/page-name/</li>
+      <li>No session IDs, tracking params in URLs (block in robots.txt or use canonical)</li>
+      <li>Use trailing slash consistently and redirect non-trailing to trailing (or vice versa)</li>
+    </ul>
+    <div class="code"><span class="c"># Good URL structure</span><br>
+yoursite.com/valorant/aim-trainer/<br>
+yoursite.com/valorant/rank-tracker/<br>
+yoursite.com/apex-legends/legend-tier-list/<br><br>
+<span class="c"># Bad — avoid</span><br>
+yoursite.com/page?id=123<br>
+yoursite.com/valorant_aim_Trainer.html<br>
+yoursite.com/2024/01/15/aim-trainer-post/</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Mobile-First — Google Only Looks at Mobile Version</div>
+    <div class="danger-box">🚨 Google uses your mobile version to crawl, index, and rank. If your mobile site is broken, slow, or missing content, you don't rank — even if desktop is perfect.</div>
+    <ul class="checklist">
+      <li>Use responsive design (CSS media queries) — one codebase for all screen sizes</li>
+      <li>All content on mobile must match desktop (no hidden text or missing sections)</li>
+      <li>Touch targets minimum 44x44px — buttons must be easily tappable</li>
+      <li>No horizontal scroll on mobile</li>
+      <li>Font size minimum 16px on mobile (Google flags smaller as bad UX)</li>
+      <li>Test with Google's Mobile-Friendly Test tool</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Schema Markup (Structured Data) — Get Rich Results</div>
+    <p>Schema tells Google exactly what your content is. Gaming sites should use these schema types:</p>
+    <div class="code"><span class="c">// SoftwareApplication schema for a game tool</span><br>
+{<br>
+  <span class="s">"@context"</span>: <span class="s">"https://schema.org"</span>,<br>
+  <span class="s">"@type"</span>: <span class="s">"SoftwareApplication"</span>,<br>
+  <span class="s">"name"</span>: <span class="s">"Valorant Rank Tracker"</span>,<br>
+  <span class="s">"applicationCategory"</span>: <span class="s">"GameApplication"</span>,<br>
+  <span class="s">"operatingSystem"</span>: <span class="s">"Web Browser"</span>,<br>
+  <span class="s">"offers"</span>: { <span class="s">"@type"</span>: <span class="s">"Offer"</span>, <span class="s">"price"</span>: <span class="s">"0"</span> },<br>
+  <span class="s">"aggregateRating"</span>: {<br>
+    <span class="s">"@type"</span>: <span class="s">"AggregateRating"</span>,<br>
+    <span class="s">"ratingValue"</span>: <span class="s">"4.8"</span>,<br>
+    <span class="s">"ratingCount"</span>: <span class="s">"1240"</span><br>
+  }<br>
+}</div>
+    <table style="margin-top:.75rem">
+      <tr><th>Schema Type</th><th>When to use</th><th>Benefit</th></tr>
+      <tr><td>SoftwareApplication</td><td>Your tools/apps</td><td>Star ratings in search results</td></tr>
+      <tr><td>HowTo</td><td>Guide pages ("How to improve aim in Valorant")</td><td>Step-by-step rich results</td></tr>
+      <tr><td>FAQPage</td><td>FAQ sections on any page</td><td>Expandable Q&As in SERP</td></tr>
+      <tr><td>BreadcrumbList</td><td>All pages</td><td>Breadcrumbs shown in search URL</td></tr>
+      <tr><td>Article/BlogPosting</td><td>Blog/guide content</td><td>Article rich results, author display</td></tr>
+      <tr><td>VideoObject</td><td>Tutorial videos</td><td>Video thumbnails in search</td></tr>
+      <tr><td>WebSite + Sitelinks searchbox</td><td>Homepage</td><td>Search bar inside your Google listing</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ON-PAGE SEO -->
+<div id="onpage" class="section">
+  <h2>On-Page SEO</h2>
+
+  <div class="card">
+    <div class="card-title">Title Tags — The Single Most Important On-Page Element</div>
+    <ul class="checklist">
+      <li>Length: 50–60 characters (600 pixels). Longer gets truncated in search results.</li>
+      <li>Put your main keyword FIRST in the title, not at the end</li>
+      <li>Every page must have a unique title — never duplicate</li>
+      <li>Include brand name at end: "Valorant Aim Trainer | YourBrand"</li>
+      <li>Make it clickable — would YOU click this in search results?</li>
+      <li>Google rewrites 60% of title tags — if yours gets rewritten, it means it was too long or keyword-stuffed</li>
+    </ul>
+    <table style="margin-top:.75rem">
+      <tr><th>❌ Bad Title</th><th>✅ Good Title</th></tr>
+      <tr><td>Home - Valorant Tools Website Gaming Tracker Free Tools Best</td><td>Valorant Rank Tracker — Free Stats & Match History | ValoTools</td></tr>
+      <tr><td>Aim Trainer Page</td><td>Free Valorant Aim Trainer — Improve Your Accuracy in 10 Min</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Meta Descriptions</div>
+    <p>Google doesn't use meta descriptions as a direct ranking factor, but users read them. A compelling description = higher CTR = more traffic.</p>
+    <ul class="checklist">
+      <li>Length: 120–160 characters. Anything longer is cut off.</li>
+      <li>Include primary keyword (Google bolds it in results)</li>
+      <li>Write a benefit/CTA: "Free • No signup • Instant results"</li>
+      <li>Every page gets a unique description</li>
+      <li>Don't keyword-stuff — write for the human reader</li>
+    </ul>
+    <div class="success-box">✓ Good example: "Track your Valorant rank, K/D, win rate and match history in real time. Free tool, no account needed. Updated live after every match."</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Heading Structure (H1–H6)</div>
+    <ul class="checklist">
+      <li>One H1 per page — contains your primary keyword</li>
+      <li>H2s are main sections — include secondary keywords naturally</li>
+      <li>H3s are subsections under H2s</li>
+      <li>Never skip heading levels (H1 → H3 without H2)</li>
+      <li>Don't use headings just for style — use CSS classes for visual styling</li>
+    </ul>
+    <div class="code"><span class="c">&lt;!-- Good structure for a "Valorant Aim Trainer" page --&gt;</span><br>
+&lt;<span class="k">h1</span>&gt;Valorant Aim Trainer — Free Browser Tool&lt;/<span class="k">h1</span>&gt;<br>
+&lt;<span class="k">h2</span>&gt;How to Use the Aim Trainer&lt;/<span class="k">h2</span>&gt;<br>
+  &lt;<span class="k">h3</span>&gt;Setting Up Your Sensitivity&lt;/<span class="k">h3</span>&gt;<br>
+  &lt;<span class="k">h3</span>&gt;Choosing Practice Scenarios&lt;/<span class="k">h3</span>&gt;<br>
+&lt;<span class="k">h2</span>&gt;Why Aim Training Improves Your Valorant Rank&lt;/<span class="k">h2</span>&gt;<br>
+&lt;<span class="k">h2</span>&gt;Frequently Asked Questions&lt;/<span class="k">h2</span>&gt;</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Internal Linking — The Most Underrated SEO Tactic</div>
+    <p>Internal links pass authority from high-traffic pages to pages you want to rank. They also help Google understand your site structure.</p>
+    <ul class="checklist">
+      <li>Link from your homepage to your most important tool/category pages</li>
+      <li>Use descriptive anchor text with keywords: "Valorant rank tracker" not "click here"</li>
+      <li>Every page should be reachable within 3 clicks from homepage</li>
+      <li>Add "Related Tools" or "You might also like" sections to boost internal links</li>
+      <li>Orphan pages (no internal links pointing to them) rarely rank — always link to new pages</li>
+      <li>Use breadcrumbs on all pages (also helps schema markup)</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Image Optimization</div>
+    <ul class="checklist">
+      <li>Always use descriptive file names: valorant-rank-tracker-screenshot.webp (not img123.jpg)</li>
+      <li>Always add alt text: alt="Valorant rank tracker showing Radiant rank progression"</li>
+      <li>Compress images — use WebP or AVIF format (50-80% smaller)</li>
+      <li>Set explicit width and height on all images to prevent CLS</li>
+      <li>Lazy-load images below the fold: loading="lazy"</li>
+      <li>Preload the LCP (hero) image: &lt;link rel="preload" as="image"&gt;</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Keyword Research for Gaming Sites</div>
+    <p>Find what real gamers are searching for, then build pages for those exact searches.</p>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><h4>Seed Keywords</h4><p>Start with obvious terms: "valorant tracker", "apex legends tier list", "warzone loadout builder". Use Google Autocomplete and "People Also Ask" to find variations.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><h4>Long-tail Keywords</h4><p>Less competition, easier to rank. "best valorant crosshair for low rank" is easier to rank than "valorant crosshair". Build dedicated pages for specific long-tail queries.</p></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><h4>Intent Matching</h4><p>Informational (how to, what is) → write guides. Navigational (brand name) → homepage. Transactional (buy, best, top) → product/tool pages. Google rewards pages that match the intent behind the query.</p></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><h4>Competitor Gap Analysis</h4><p>Put your competitor's domain into Ahrefs "Site Explorer" → Top Pages. This shows every page they rank for. Build better pages for the same keywords.</p></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div id="content" class="section">
+  <h2>Content Strategy</h2>
+
+  <div class="card">
+    <div class="card-title">E-E-A-T: Google's Trust Framework</div>
+    <p>E-E-A-T (Experience, Expertise, Authoritativeness, Trustworthiness) is how Google evaluates if your content deserves to rank. For gaming sites, this means:</p>
+    <table>
+      <tr><th>Signal</th><th>What it means for gaming sites</th></tr>
+      <tr><td><strong>Experience</strong></td><td>Show you actually play the game. Use real screenshots, your actual stats, first-person writing ("In my 500 hours of Valorant...")</td></tr>
+      <tr><td><strong>Expertise</strong></td><td>Demonstrate deep knowledge. Tier lists with explanations, not just rankings. Guides that go beyond surface level.</td></tr>
+      <tr><td><strong>Authoritativeness</strong></td><td>Get mentioned on gaming Reddit, Discord, YouTube. Have an "About" page with a real author bio.</td></tr>
+      <tr><td><strong>Trustworthiness</strong></td><td>HTTPS, privacy policy, contact page, no misleading claims. Real reviews/ratings. Keep content updated.</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Content Types That Rank for Gaming Tool Sites</div>
+    <table>
+      <tr><th>Content Type</th><th>Example</th><th>Why it ranks</th></tr>
+      <tr><td>Free Tools / Calculators</td><td>Valorant rank calculator, crosshair generator</td><td>High utility = high engagement, shares, backlinks</td></tr>
+      <tr><td>Tier Lists</td><td>"Best Valorant Agents Tier List – May 2026"</td><td>Updated frequently = freshness signal. Highly searched.</td></tr>
+      <tr><td>Guides / How-To</td><td>"How to improve aim in Valorant"</td><td>Informational intent, long-form = topical authority</td></tr>
+      <tr><td>Patch Notes Analysis</td><td>"Valorant 9.04 patch notes explained"</td><td>Timely news = Google News + featured snippets</td></tr>
+      <tr><td>Comparisons</td><td>"Valorant vs CS2 — which is better for beginners"</td><td>High buying/decision intent = quality traffic</td></tr>
+      <tr><td>Best-of Lists</td><td>"Best Valorant crosshairs of pro players 2026"</td><td>Aggregator content = natural links from community</td></tr>
+      <tr><td>FAQ Pages</td><td>Common questions about your tool</td><td>Schema FAQ → featured snippets → position 0</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Content Freshness — Keep Updating</div>
+    <ul class="checklist">
+      <li>Update tier lists every game patch — add "Updated: [Date]" in the H1 or near the top</li>
+      <li>Add a "Last Updated" date visible on the page (not hidden in meta)</li>
+      <li>Update year in title tags (e.g. "Best Valorant Agents 2026") at the start of each year</li>
+      <li>Google rewards pages that stay fresh — stale content slowly loses rankings</li>
+      <li>Set up Google Alerts for your game names — write news content when patches drop</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Page Structure for Maximum Rankings</div>
+    <div class="code"><span class="c">/* Template for a gaming tool page */</span><br><br>
+H1: [Keyword] — [Benefit] (50–60 chars)<br>
+P: 2-3 sentence intro with primary keyword<br>
+[THE ACTUAL TOOL / MAIN CONTENT]<br><br>
+H2: How to Use [Tool Name]<br>
+  H3: Step 1 — ...<br>
+  H3: Step 2 — ...<br><br>
+H2: Why [Benefit] Matters<br>
+[300–500 words of helpful content]<br><br>
+H2: Frequently Asked Questions<br>
+  H3: Q1? (schema: FAQPage)<br>
+  H3: Q2? ...<br><br>
+H2: Related Tools<br>
+[Internal links to related pages]</div>
+  </div>
+</div>
+
+<!-- OFF-PAGE -->
+<div id="offpage" class="section">
+  <h2>Off-Page SEO & Backlinks</h2>
+
+  <div class="card">
+    <div class="card-title">Backlinks — The Most Powerful Ranking Signal</div>
+    <p>One backlink from a high-authority gaming site is worth more than 100 backlinks from random blogs. Focus on quality and relevance.</p>
+    <div class="two-col">
+      <div>
+        <h3 style="color:#4ade80;margin-bottom:.5rem">High-Value Backlinks</h3>
+        <ul class="checklist">
+          <li>Gaming subreddit posts (r/Valorant, r/apexlegends)</li>
+          <li>YouTube gaming tutorials that mention your tool</li>
+          <li>Gaming news sites (PCGamer, Dot Esports)</li>
+          <li>Twitch streamer links in their bio/panels</li>
+          <li>Discord server pinned resources</li>
+          <li>Gaming wikis (Fandom, fan wikis)</li>
+          <li>Guest posts on gaming blogs</li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="color:#f87171;margin-bottom:.5rem">Links That Hurt You</h3>
+        <ul class="checklist warn-list">
+          <li>Paid links (Google penalizes if caught)</li>
+          <li>Link farms / PBN (Private Blog Networks)</li>
+          <li>Irrelevant sites (random blogs with no gaming content)</li>
+          <li>Comment spam links</li>
+          <li>Directory spam submissions</li>
+          <li>Forum profile links in bulk</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Backlink Building Tactics for Gaming Sites</div>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><h4>Build a Genuinely Useful Free Tool</h4><p>The #1 backlink magnet. If your crosshair generator, rank calculator, or stat tracker is the best free tool available, gamers WILL share it. Reddit posts, YouTube links, Discord pins — it all comes naturally.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><h4>Reddit Strategy</h4><p>Genuinely participate in gaming subreddits. Post your tool when it's relevant. Share your tier lists. Answer questions and include your link when helpful. DON'T just spam your link — you'll get banned. Build a real account first.</p></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><h4>Reach Out to Gaming YouTubers</h4><p>Find mid-size gaming YouTubers (50k–500k subscribers) in your niche. Offer your tool for free, ask if they'll mention it in a video. Even a small mention creates a YouTube link + traffic flood.</p></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><h4>Create Link-Worthy Content (Linkbait)</h4><p>Publish data nobody else has — "We analyzed 1 million Valorant matches — here's what separates Radiant from Gold players." Gaming journalists will cite this. Data studies = natural editorial links.</p></div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-body"><h4>Broken Link Building</h4><p>Find competitor pages that have 404'd. Use Ahrefs to find who links to them. Email those site owners and suggest your page as a replacement. Conversion rate is 5–15% but it's white-hat and scalable.</p></div></div>
+      <div class="step"><div class="step-num">6</div><div class="step-body"><h4>Discord Community Presence</h4><p>Join official game Discord servers. Become a helpful community member. Get your tool added to the #resources channel. These links count — Discord pages get indexed.</p></div></div>
+      <div class="step"><div class="step-num">7</div><div class="step-body"><h4>HARO / Journalist Requests</h4><p>Sign up for Help A Reporter Out (HARO). When gaming journalists need an expert, respond. Getting cited in a PCGamer or Kotaku article = massive authority boost.</p></div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Anchor Text Distribution</div>
+    <p>If all your backlinks say "valorant tools" it looks manipulative. A natural profile looks like this:</p>
+    <table>
+      <tr><th>Anchor Type</th><th>Example</th><th>% of profile</th></tr>
+      <tr><td>Branded</td><td>"YourBrand", "ValoTools"</td><td>30–40%</td></tr>
+      <tr><td>Naked URL</td><td>yoursite.com</td><td>20–30%</td></tr>
+      <tr><td>Generic</td><td>"click here", "this tool", "here"</td><td>10–20%</td></tr>
+      <tr><td>Partial match</td><td>"valorant rank tool", "fps aim trainer"</td><td>10–20%</td></tr>
+      <tr><td>Exact match</td><td>"valorant tools"</td><td>&lt;10%</td></tr>
+    </table>
+    <div class="warn-box">⚠ If you have an EMD (exact match domain), natural links will automatically use your domain name as the anchor, which is a keyword. This is a natural benefit — don't fight it, but don't manufacture extra exact-match anchors.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Brand Signals (Non-Link Authority)</div>
+    <p>Google uses AI to detect brand mentions even without links. Build these signals:</p>
+    <ul class="checklist">
+      <li>Create and maintain a Twitter/X account for your brand — post game updates, tool announcements</li>
+      <li>Create a YouTube channel with tutorials for your tool</li>
+      <li>Build a Reddit presence (even a subreddit for your tool)</li>
+      <li>Get listed in "free gaming tools" roundups and resource lists</li>
+      <li>Respond to mentions of your tool on social media</li>
+      <li>Get your tools added to gaming wikis as external resources</li>
+    </ul>
+  </div>
+</div>
+
+<!-- TOOLS -->
+<div id="tools" class="section">
+  <h2>Essential SEO Tools</h2>
+
+  <div class="card">
+    <div class="card-title">Free Tools — Use All of These</div>
+    <table>
+      <tr><th>Tool</th><th>What it does</th><th>Use it for</th></tr>
+      <tr><td><strong>Google Search Console</strong></td><td>Official Google data — queries, impressions, clicks, indexing</td><td>Submit sitemap, track rankings, find crawl errors, see which queries bring traffic</td></tr>
+      <tr><td><strong>Google PageSpeed Insights</strong></td><td>Core Web Vitals score + fix suggestions</td><td>Test every page for speed. Fix all "Opportunities" listed.</td></tr>
+      <tr><td><strong>Google Analytics 4</strong></td><td>Traffic, user behavior, conversion tracking</td><td>See which pages get most traffic, bounce rates, user flow</td></tr>
+      <tr><td><strong>Bing Webmaster Tools</strong></td><td>Like Search Console but for Bing</td><td>Submit sitemap — Bing still has 6% market share, worth doing</td></tr>
+      <tr><td><strong>Screaming Frog (free tier)</strong></td><td>Crawls your site like Google does</td><td>Find broken links, duplicate titles, missing meta, redirect chains. Free for 500 URLs.</td></tr>
+      <tr><td><strong>Schema Markup Validator</strong></td><td>Validates your JSON-LD schema</td><td>Test schema before deploying. Find errors.</td></tr>
+      <tr><td><strong>Google Rich Results Test</strong></td><td>Tests if your schema enables rich results</td><td>Verify FAQ, HowTo, SoftwareApp schemas are valid</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Paid Tools — Worth It If Serious</div>
+    <table>
+      <tr><th>Tool</th><th>Cost</th><th>Best for</th></tr>
+      <tr><td><strong>Ahrefs</strong></td><td>$99+/mo</td><td>Backlink analysis, competitor research, keyword gaps, site audits. The most complete SEO tool.</td></tr>
+      <tr><td><strong>Semrush</strong></td><td>$140+/mo</td><td>Similar to Ahrefs. Slightly better for keyword research. Also has content marketing tools.</td></tr>
+      <tr><td><strong>Surfer SEO</strong></td><td>$89+/mo</td><td>On-page content optimization. Tells you exactly what keywords and structure to use.</td></tr>
+      <tr><td><strong>Cloudflare Pro</strong></td><td>$25/mo</td><td>Better caching, image optimization, security. Worth it for 10+ sites.</td></tr>
+    </table>
+    <div class="info-box">💡 Start with just Google Search Console + PageSpeed Insights (both free). Add Ahrefs only when you're ready to do serious keyword research and backlink building.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Google Search Console Setup — Step by Step</div>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><h4>Add Your Property</h4><p>Go to search.google.com/search-console → Add Property → Enter your domain → Choose "Domain" type (covers all subdomains and protocols)</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><h4>Verify Ownership</h4><p>Add the TXT record to your domain's DNS settings (via your registrar like Namecheap/GoDaddy). Or add the HTML meta tag to your homepage &lt;head&gt;.</p></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><h4>Submit Sitemap</h4><p>Sitemaps → Add a new sitemap → Enter yoursite.com/sitemap.xml → Submit. Google will now crawl it within 24–48 hours.</p></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><h4>Request Indexing for Key Pages</h4><p>URL Inspection → Enter your page URL → Request Indexing. Do this for your 10 most important pages when you first launch.</p></div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-body"><h4>Monitor Weekly</h4><p>Check Coverage report (errors), Performance report (which queries get clicks), and Core Web Vitals report. Fix any red errors immediately.</p></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- CHECKLIST -->
+<div id="checklist" class="section">
+  <h2>Pre-Launch SEO Checklist</h2>
+
+  <div class="two-col">
+    <div class="card">
+      <div class="card-title" style="color:#f87171">🔴 Critical — Must Do Before Launch</div>
+      <ul class="checklist">
+        <li>HTTPS enabled and working</li>
+        <li>robots.txt file in place</li>
+        <li>XML sitemap generated and accessible</li>
+        <li>Google Search Console set up</li>
+        <li>Sitemap submitted to GSC</li>
+        <li>Canonical tag on every page</li>
+        <li>Unique title tag on every page (50–60 chars)</li>
+        <li>Unique meta description on every page</li>
+        <li>H1 on every page (contains keyword)</li>
+        <li>Mobile-responsive layout</li>
+        <li>Core Web Vitals: LCP &lt;2.5s, CLS &lt;0.1</li>
+        <li>No broken links (404s)</li>
+        <li>No duplicate content across pages</li>
+        <li>Images have alt text</li>
+        <li>Images are compressed (WebP/AVIF)</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-title" style="color:#fbbf24">🟡 High Priority — Do in Week 1</div>
+      <ul class="checklist">
+        <li>Schema markup on key pages</li>
+        <li>Open Graph tags for social sharing</li>
+        <li>Google Analytics 4 set up</li>
+        <li>Bing Webmaster Tools set up</li>
+        <li>Breadcrumb navigation added</li>
+        <li>Internal links from homepage to key pages</li>
+        <li>About page / author bio (for E-E-A-T)</li>
+        <li>Privacy policy page</li>
+        <li>Contact page</li>
+        <li>404 error page with navigation</li>
+        <li>Favicon set (also helps branding in tabs)</li>
+        <li>Google Rich Results test passed</li>
+        <li>PageSpeed score 90+ on mobile</li>
+        <li>Font preloading for above-fold fonts</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="card">
+      <div class="card-title" style="color:#4ade80">🟢 Growth — Month 1–3</div>
+      <ul class="checklist">
+        <li>10–20 long-form content pages published</li>
+        <li>First backlinks acquired (Reddit, Discord)</li>
+        <li>YouTube video tutorial created</li>
+        <li>Social media accounts created</li>
+        <li>FAQ schema on key pages</li>
+        <li>First competitor backlink analysis done</li>
+        <li>Keyword tracking set up (Search Console)</li>
+        <li>Content update schedule created</li>
+        <li>Page speed audited on PageSpeed Insights</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title" style="color:#60a5fa">🔵 Scale — Month 3+</div>
+      <ul class="checklist">
+        <li>50+ pages of content published</li>
+        <li>Consistent backlink velocity (5–10/month)</li>
+        <li>YouTube channel growing</li>
+        <li>Featured snippets targeted with FAQ/HowTo schema</li>
+        <li>Guest posts on gaming blogs</li>
+        <li>Data study published as linkbait</li>
+        <li>Tier lists updated on every game patch</li>
+        <li>Tool reviewed on 3rd party sites</li>
+        <li>Start targeting "People Also Ask" questions</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Timeline to First Page Rankings</div>
+    <table>
+      <tr><th>Timeframe</th><th>What to expect</th><th>Focus</th></tr>
+      <tr><td>Week 1–2</td><td>Google crawls and indexes your site</td><td>Technical setup, submit sitemap, request indexing</td></tr>
+      <tr><td>Month 1</td><td>Low-volume long-tail keywords start ranking (page 3–5)</td><td>Content creation, internal linking</td></tr>
+      <tr><td>Month 2–3</td><td>Long-tail keywords hit page 1–2. Main keywords still page 3–5.</td><td>More content, first backlinks, schema</td></tr>
+      <tr><td>Month 4–6</td><td>Main keywords approaching page 1 if backlinks are building</td><td>Backlink push, content updates, social growth</td></tr>
+      <tr><td>Month 6–12</td><td>Competitive keywords can reach page 1 with consistent effort</td><td>Scale content and backlinks, optimize top performers</td></tr>
+    </table>
+    <div class="info-box">💡 Gaming tool sites can rank faster than most niches because the competition often has poor technical SEO. A Lighthouse 100 site with 20 good pages can outrank older sites with bad mobile UX.</div>
+  </div>
+</div>
+
+</div>
+
+<script>
+function show(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+</script>
+</body>
+</html>

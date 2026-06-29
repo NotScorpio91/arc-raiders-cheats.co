@@ -1,0 +1,89 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { breadcrumbSchema } from '../lib/schema';
+import { SITE } from '../lib/site';
+
+const schema = breadcrumbSchema([
+  { name: 'Home', url: SITE.url },
+  { name: 'Terms of Use', url: `${SITE.url}/terms/` },
+]);
+---
+
+<BaseLayout
+  title="Terms of Use — Arc Raiders Cheats"
+  description="Terms of use for ArcRaiderCheats.co — rules for using our Arc Raider cheats, guides, and product pages."
+  schema={schema}
+>
+  <section class="section listing-section">
+    <div class="section-inner">
+      <div class="listing-intro">
+        <div class="s-tag">// Legal</div>
+        <h1>Terms of Use</h1>
+        <p class="listing-intro-desc">Last updated: June 28, 2026</p>
+      </div>
+
+      <div class="legal-content legal-content--inline">
+    <p>
+      By accessing ArcRaidersCheats.co, you agree to these terms. If you do not agree, please do not
+      use the site.
+    </p>
+
+    <h2>About This Site</h2>
+    <p>
+      ArcRaidersCheats.co is an independent fan resource for Arc Raiders. We are not affiliated
+      with, endorsed by, or connected to Embark Studios or any game publisher. Arc Raiders is a
+      trademark of its respective owner.
+    </p>
+
+    <h2>Content and Usage</h2>
+    <p>
+      All cheat sheets, guides, blog posts, and product descriptions on this site are provided for
+      personal, non-commercial use. You may not reproduce, redistribute, or resell our content
+      without written permission.
+    </p>
+    <p>
+      Our content is based on in-game experience and community research. Game mechanics, weapon
+      stats, and map layouts may change with patches. We update content regularly but cannot
+      guarantee real-time accuracy.
+    </p>
+
+    <h2>Products</h2>
+    <p>
+      Premium products (Cloud DMA, UGC, and HWID Spoofer) are software tools delivered through our
+      contact flow after purchase. Each product includes setup documentation and support.
+    </p>
+
+    <h2>Disclaimer</h2>
+    <p>
+      Content on this site is provided "as is" without warranty of any kind. We do not guarantee
+      specific in-game results from following our guides or using our products. Your gameplay
+      experience depends on skill, patch version, and many factors outside our control.
+    </p>
+
+    <h2>Limitation of Liability</h2>
+    <p>
+      ArcRaidersCheats.co and its authors are not liable for any damages arising from use of this
+      site or its content, including but not limited to in-game losses, account actions, or
+      purchasing decisions based on our guides.
+    </p>
+
+    <h2>External Links</h2>
+    <p>
+      Our site may link to third-party websites. We are not responsible for the content, accuracy,
+      or practices of external sites.
+    </p>
+
+    <h2>Changes to Terms</h2>
+    <p>
+      We may update these terms at any time. Changes take effect when posted on this page. Your
+      continued use of the site constitutes acceptance of updated terms.
+    </p>
+
+    <h2>Contact</h2>
+    <p>
+      Questions about these terms? Email <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.
+    </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

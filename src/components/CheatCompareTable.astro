@@ -1,0 +1,56 @@
+---
+import Icon from './Icon.astro';
+import { cheats, getComparisonFeatures, cheatHasFeature } from '../data/cheats';
+
+interface Props {
+  activeId: string;
+}
+
+const { activeId } = Astro.props;
+const features = getComparisonFeatures();
+---
+
+<div class="cheat-compare-wrap">
+  <div class="cheat-compare-scroll">
+    <table class="cheat-compare-table">
+      <thead>
+        <tr>
+          <th scope="col">Feature</th>
+          {
+            cheats.map((cheat) => (
+              <th
+                scope="col"
+                class:list={[{ 'is-active': cheat.id === activeId, 'is-featured': cheat.featured }]}
+              >
+                {cheat.name}
+                {cheat.featured && <span class="cheat-compare-pop">Popular</span>}
+              </th>
+            ))
+          }
+        </tr>
+      </thead>
+      <tbody>
+        {
+          features.map((feature) => (
+            <tr>
+              <th scope="row">{feature}</th>
+              {
+                cheats.map((cheat) => (
+                  <td class:list={[{ 'is-active-col': cheat.id === activeId }]}>
+                    {
+                      cheatHasFeature(cheat.id, feature) ? (
+                        <Icon name="check" size={16} class="cheat-compare-yes" />
+                      ) : (
+                        <span class="cheat-compare-no" aria-label="Not included">—</span>
+                      )
+                    }
+                  </td>
+                ))
+              }
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

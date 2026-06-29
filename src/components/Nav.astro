@@ -1,0 +1,36 @@
+---
+import { NAV_LINKS, ZADEYO_CHEATS_URL } from '../lib/site';
+import Logo from './Logo.astro';
+import Icon from './Icon.astro';
+import ThemeToggle from './react/ThemeToggle';
+
+const currentPath = Astro.url.pathname;
+---
+
+<nav aria-label="Main navigation">
+  <div class="nav-inner">
+    <Logo />
+    <ul class="nav-links" id="nav-menu">
+      {NAV_LINKS.map((link) => (
+        <li>
+          <a href={link.href} class:list={{ active: currentPath.startsWith(link.href) }}>
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+    <div class="nav-actions">
+      <ThemeToggle client:load />
+      <a href={ZADEYO_CHEATS_URL} class="nav-cta" rel="noopener noreferrer">Get Access</a>
+      <button
+        class="nav-toggle"
+        type="button"
+        aria-label="Toggle menu"
+        aria-expanded="false"
+        aria-controls="nav-menu"
+      >
+        <Icon name="menu" size={20} />
+      </button>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,104 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import MotionReveal from '../../components/react/MotionReveal';
+import MotionFAQ from '../../components/react/MotionFAQ';
+import { products } from '../../data/products';
+import { collectionPageSchema, breadcrumbSchema, itemListSchema, faqSchema } from '../../lib/schema';
+import { SITE } from '../../lib/site';
+import { resolveSocialImage } from '../../lib/social-images';
+
+const productsSocial = resolveSocialImage('/products/');
+
+const productFaqs = [
+  {
+    question: 'What is Cloud DMA?',
+    answer:
+      'Cloud DMA is the infrastructure layer that powers our cheat stack on one gaming PC. Our installer sets up a Hyper-V virtual environment and completes activation over an encrypted service link. You do not need a second computer, USB DMA bridge, or PCIe card.',
+  },
+  {
+    question: 'What is UGC used for?',
+    answer:
+      'UGC is a tool builder for account recovery and unban workflows. It helps you configure custom tools, automate appeal steps, and rebuild profiles after account restrictions.',
+  },
+  {
+    question: 'Does HWID Spoofer work with major anti-cheats?',
+    answer:
+      'Yes. HWID Spoofer masks disk serials, MAC addresses, GPU IDs, and other hardware identifiers. It is built to work with EAC, BattlEye, Vanguard, and other major anti-cheat systems.',
+  },
+  {
+    question: 'How do I get access after purchase?',
+    answer:
+      'Contact us through the contact page with your chosen product — Cloud DMA, UGC, or HWID Spoofer. We send setup steps and activation details within 24 hours on weekdays.',
+  },
+];
+
+const schema = [
+  collectionPageSchema({
+    title: 'Arc Raider Cheats Products — Cloud DMA, UGC & HWID Spoofer',
+    description: 'Cloud DMA, UGC, and HWID Spoofer for Arc Raider cheats.',
+    url: `${SITE.url}/products/`,
+    image: productsSocial.src,
+    imageAlt: productsSocial.alt,
+  }),
+  itemListSchema(
+    products.map((p) => ({
+      name: p.name,
+      url: `${SITE.url}/products/${p.id}/`,
+      description: p.description,
+    })),
+    'Product',
+  ),
+  breadcrumbSchema([
+    { name: 'Home', url: SITE.url },
+    { name: 'Products', url: `${SITE.url}/products/` },
+  ]),
+  faqSchema(productFaqs, productsSocial.src),
+];
+---
+
+<BaseLayout
+  title="Arc Raider Cheats Products — Cloud DMA, UGC & HWID Spoofer"
+  description="Buy Cloud DMA, UGC, and HWID Spoofer for Arc Raider cheats. Full stack tools with instant access and Season 1 support."
+  schema={schema}
+>
+  <section class="section listing-section">
+    <div class="section-inner">
+      <MotionReveal client:visible>
+        <div class="listing-intro">
+          <div class="s-tag">// Products</div>
+          <h1>Arc Raider Cheats Products</h1>
+          <div class="detail-head-badges">
+            <span class="listing-meta-pill">3 Products</span>
+            <span class="listing-meta-pill">Cloud DMA · UGC · HWID Spoofer</span>
+          </div>
+          <p class="listing-intro-desc">
+            Buy Cloud DMA, UGC, and HWID Spoofer for Arc Raider cheats — single-PC infrastructure,
+            account recovery tools, and hardware spoofing for EAC, BattlEye, and Vanguard.
+          </p>
+        </div>
+
+        <div class="aff-grid aff-grid-three animate-grid">
+          {products.map((product) => (
+            <ProductCard {...product} />
+          ))}
+        </div>
+      </MotionReveal>
+    </div>
+  </section>
+
+  <section class="section alt-bg">
+    <div class="section-inner">
+      <MotionReveal client:visible>
+        <div class="listing-intro listing-intro--compact">
+          <div class="s-tag">// FAQ</div>
+          <h2 class="listing-subtitle">Product Questions</h2>
+          <p class="listing-intro-desc">
+            Common questions about Cloud DMA, UGC, and HWID Spoofer setup and compatibility.
+          </p>
+        </div>
+        <MotionFAQ client:visible items={productFaqs} />
+      </MotionReveal>
+    </div>
+  </section>
+</BaseLayout>

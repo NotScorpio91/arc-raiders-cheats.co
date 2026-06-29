@@ -1,0 +1,104 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Icon from '../../components/Icon.astro';
+import MotionButton from '../../components/react/MotionButton';
+import MotionReveal from '../../components/react/MotionReveal';
+import { products, getProductById } from '../../data/products';
+import { breadcrumbSchema, productSchema } from '../../lib/schema';
+import { SITE } from '../../lib/site';
+import { resolveSocialImage } from '../../lib/social-images';
+
+export function getStaticPaths() {
+  return products.map((product) => ({
+    params: { slug: product.id },
+  }));
+}
+
+const { slug } = Astro.params;
+const product = getProductById(slug!);
+
+if (!product) {
+  return Astro.redirect('/products/');
+}
+
+const url = `${SITE.url}/products/${product.id}/`;
+const socialImage = resolveSocialImage(`/products/${product.id}/`);
+
+const schema = [
+  productSchema({
+    name: `${product.name} — Arc Raider Cheats`,
+    description: product.description,
+    url,
+    image: socialImage.src,
+    imageAlt: socialImage.alt,
+  }),
+  breadcrumbSchema([
+    { name: 'Home', url: SITE.url },
+    { name: 'Products', url: `${SITE.url}/products/` },
+    { name: product.name, url },
+  ]),
+];
+---
+
+<BaseLayout
+  title={`${product.name} for Arc Raider Cheats — ${product.tier}`}
+  description={`${product.name} for Arc Raider cheats — ${product.description}`}
+  canonical={url}
+  schema={schema}
+>
+  <section class="section product-detail-section">
+    <div class="section-inner">
+      <MotionReveal client:visible>
+        <div class="product-detail-layout">
+          <div class="product-detail-about">
+            <div class="product-detail-about-glow" aria-hidden="true"></div>
+            <div class="product-detail-about-icon">
+              <Icon name={product.icon} size={36} />
+            </div>
+            <div class="product-detail-about-head">
+              <h1>{product.name}</h1>
+              <div class="detail-head-badges">
+                <span class="cheat-detail-tier">{product.tier}</span>
+                {product.featured && <span class="cheat-card-badge">Popular</span>}
+              </div>
+            </div>
+            <div class="s-tag">// Overview</div>
+            <p class="product-detail-about-desc">{product.description}</p>
+            <div class="product-detail-meta">
+              <span class="product-detail-meta-pill">{product.features.length} Features</span>
+              <span class="product-detail-meta-pill">{product.tier}</span>
+            </div>
+          </div>
+
+          <div class="product-detail-main">
+            <div class="product-detail-features-head">
+              <h2 class="cheat-detail-section-title">
+                <span class="s-tag">// Features</span>
+                What&apos;s Included
+              </h2>
+            </div>
+
+            <ul class="product-detail-features">
+              {product.features.map((feature) => (
+                <li>
+                  <Icon name="check" size={15} class="cheat-feature-check" />
+                  {feature}
+                </li>
+              ))}
+            </ul>
+
+            <div class="product-detail-cta">
+              <MotionButton
+                client:visible
+                href={`/contact/?product=${product.id}`}
+                className="btn-primary cheat-detail-btn"
+              >
+                Get {product.name} Access
+              </MotionButton>
+            </div>
+          </div>
+        </div>
+      </MotionReveal>
+    </div>
+  </section>
+</BaseLayout>

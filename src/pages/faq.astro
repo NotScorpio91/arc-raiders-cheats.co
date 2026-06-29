@@ -1,0 +1,59 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import MotionFAQ from '../components/react/MotionFAQ';
+import MotionReveal from '../components/react/MotionReveal';
+import { homepageFaqs } from '../data/products';
+import { faqSchema, breadcrumbSchema } from '../lib/schema';
+import { SITE } from '../lib/site';
+import { resolveSocialImage } from '../lib/social-images';
+
+const faqSocial = resolveSocialImage('/faq/');
+
+const generalFaqs = [
+  ...homepageFaqs,
+  {
+    question: 'How often is content updated?',
+    answer:
+      'We review all cheat sheets within 48 hours of major Arc Raiders patches. Blog posts and meta analysis are updated when the meta shifts significantly — usually within a week of balance changes.',
+  },
+  {
+    question: 'Can I suggest a guide topic?',
+    answer:
+      'Yes. Send your suggestion through our contact page or email support@arcraiderscheats.co. We prioritize topics that multiple players request.',
+  },
+  {
+    question: 'Do you accept guest contributions?',
+    answer:
+      'We consider guest guides from experienced players with verifiable in-game experience. Reach out through the contact page with a writing sample and your area of expertise.',
+  },
+];
+
+const schema = [
+  faqSchema(generalFaqs, faqSocial.src),
+  breadcrumbSchema([
+    { name: 'Home', url: SITE.url },
+    { name: 'FAQ', url: `${SITE.url}/faq/` },
+  ]),
+];
+---
+
+<BaseLayout
+  title="Arc Raider Cheats FAQ — Common Questions"
+  description="FAQ about Arc Raider cheats — Xray, Pro, and Private tiers, Cloud DMA, HWID spoofer, access, and Season 1 updates."
+  schema={schema}
+>
+  <section class="section listing-section">
+    <div class="section-inner">
+      <MotionReveal client:visible>
+        <div class="listing-intro">
+          <div class="s-tag">// FAQ</div>
+          <h1>Frequently Asked Questions</h1>
+          <p class="listing-intro-desc">
+            Everything you need to know about our cheat sheets, guides, and premium products.
+          </p>
+        </div>
+        <MotionFAQ client:visible items={generalFaqs} />
+      </MotionReveal>
+    </div>
+  </section>
+</BaseLayout>

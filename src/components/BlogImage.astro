@@ -1,0 +1,15 @@
+---
+interface Props {
+  src: string;
+  alt: string;
+  caption?: string;
+  wide?: boolean;
+}
+
+const { src, alt, caption, wide = false } = Astro.props;
+---
+
+<figure class:list={['blog-figure', { 'blog-figure--wide': wide }]}>
+  <img src={src} alt={alt} loading="lazy" decoding="async" width="1280" height="720" />
+  {caption && <figcaption>{caption}</figcaption>}
+</figure>

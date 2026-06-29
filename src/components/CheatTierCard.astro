@@ -1,0 +1,56 @@
+---
+import type { IconName } from '../lib/icons';
+import Icon from './Icon.astro';
+
+interface Props {
+  icon: IconName;
+  name: string;
+  description: string;
+  features: string[];
+  href: string;
+  tier?: string;
+  featured?: boolean;
+  ctaLabel?: string;
+  showAllFeatures?: boolean;
+}
+
+const {
+  icon,
+  name,
+  description,
+  features,
+  href,
+  tier,
+  featured = false,
+  ctaLabel = 'View Features',
+  showAllFeatures = false,
+} = Astro.props;
+
+const previewFeatures = showAllFeatures ? features : features.slice(0, 5);
+const hiddenCount = showAllFeatures ? 0 : Math.max(0, features.length - previewFeatures.length);
+---
+
+<div class:list={['aff-card', { 'aff-card-featured': featured }]}>
+  {tier && <span class="aff-tier">{tier}</span>}
+  {featured && <span class="aff-badge">Most Popular</span>}
+  <div class="aff-ico">
+    <Icon name={icon} size={28} />
+  </div>
+  <h4>{name}</h4>
+  <p>{description}</p>
+  {!showAllFeatures && (
+    <div class="aff-meta">
+      <span class="aff-count">{features.length} Features</span>
+    </div>
+  )}
+  <ul class="aff-features">
+    {previewFeatures.map((feature) => (
+      <li>
+        <Icon name="check" size={14} class="feature-check" />
+        {feature}
+      </li>
+    ))}
+  </ul>
+  {hiddenCount > 0 && <p class="aff-more">+ {hiddenCount} more on detail page</p>}
+  <a href={href} class="aff-btn">{ctaLabel}</a>
+</div>

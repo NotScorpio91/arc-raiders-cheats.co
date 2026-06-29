@@ -1,0 +1,37 @@
+---
+import Icon from './Icon.astro';
+import { getCategoryIcon } from '../lib/icons';
+
+interface Props {
+  tag: string;
+  title: string;
+  description: string;
+  href: string;
+  status?: string;
+  icon?: IconName;
+}
+
+const { tag, title, description, href, status = 'Updated', icon } = Astro.props;
+const cardIcon = icon ?? getCategoryIcon(tag);
+---
+
+<a href={href} class="c-card">
+  <div class="c-card-top">
+    <div class="c-icon">
+      <Icon name={cardIcon} size={20} />
+    </div>
+    <div class="c-tag">{tag}</div>
+  </div>
+  <h3>{title}</h3>
+  <p>{description}</p>
+  <div class="c-foot">
+    <span class="c-status">
+      <Icon name="status" size={8} class="status-dot" />
+      {status}
+    </span>
+    <span class="c-btn">
+      View
+      <Icon name="chevron-right" size={14} />
+    </span>
+  </div>
+</a>

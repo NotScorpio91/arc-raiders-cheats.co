@@ -1,0 +1,138 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import type { IconName } from '../lib/icons';
+import MotionReveal from '../components/react/MotionReveal';
+
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  ogType?: 'website' | 'article';
+  schema?: Record<string, unknown> | Record<string, unknown>[];
+  icon?: IconName;
+  updated?: Date;
+  readTime?: string;
+  author?: string;
+  coverImage?: string;
+  coverImageAlt?: string;
+  keywords?: string[];
+  ogImage?: string;
+  ogImageAlt?: string;
+  articlePublished?: string;
+  articleModified?: string;
+}
+
+const {
+  title,
+  description,
+  canonical,
+  ogType = 'article',
+  schema,
+  icon = 'file-text',
+  updated,
+  readTime,
+  author = 'Arc Raiders Cheats Team',
+  coverImage,
+  coverImageAlt,
+  keywords = [],
+  ogImage,
+  ogImageAlt,
+  articlePublished,
+  articleModified,
+} = Astro.props;
+
+const updatedLabel = updated?.toLocaleDateString('en-US', {
+  month: 'long',
+  day: 'numeric',
+  year: 'numeric',
+});
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonical={canonical}
+  ogType={ogType}
+  ogImage={ogImage}
+  ogImageAlt={ogImageAlt}
+  schema={schema}
+  keywords={keywords}
+  articlePublished={articlePublished}
+  articleModified={articleModified}
+>
+  <section class="section listing-section listing-section--center blog-post-page">
+    <div class="section-inner">
+      <MotionReveal client:visible>
+        <a href="/blog/" class="blog-back-link">
+          <Icon name="arrow-left" size={14} class="blog-back-icon" />
+          All Blog Posts
+        </a>
+
+        {coverImage && (
+          <div class="blog-post-banner">
+            <img
+              src={coverImage}
+              alt={coverImageAlt ?? title}
+              width="1280"
+              height="720"
+              loading="eager"
+              decoding="async"
+            />
+          </div>
+        )}
+
+        <header class="blog-post-hero">
+          <div class="blog-post-hero-glow" aria-hidden="true"></div>
+          <div class="blog-post-hero-icon">
+            <Icon name={icon} size={30} />
+          </div>
+          <div class="s-tag">// Blog</div>
+          <h1>{title}</h1>
+          <ul class="blog-post-meta">
+            {updated && (
+              <li>
+                <Icon name="calendar" size={14} />
+                Updated {updatedLabel}
+              </li>
+            )}
+            {readTime && (
+              <li>
+                <Icon name="clock" size={14} />
+                {readTime} read
+              </li>
+            )}
+            <li>
+              <Icon name="user" size={14} />
+              {author}
+            </li>
+          </ul>
+          <p class="blog-post-lead">{description}</p>
+        </header>
+
+        <article class="blog-article content-main blog-article--prose">
+          <slot />
+        </article>
+
+        <footer class="blog-post-footer">
+          <div class="s-tag">// Continue</div>
+          <h2 class="blog-post-footer-title">Explore More</h2>
+          <div class="blog-post-footer-links">
+            <a href="/blog/" class="blog-post-footer-link">
+              <Icon name="newspaper" size={16} />
+              All Posts
+            </a>
+            <a href="/cheats/" class="blog-post-footer-link">
+              <Icon name="crosshair" size={16} />
+              Browse Cheats
+            </a>
+            <a href="/products/" class="blog-post-footer-link">
+              <Icon name="cloud" size={16} />
+              View Products
+            </a>
+          </div>
+        </footer>
+      </MotionReveal>
+    </div>
+  </section>
+</BaseLayout>

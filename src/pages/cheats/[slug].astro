@@ -1,0 +1,105 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CheatCompareTable from '../../components/CheatCompareTable.astro';
+import Icon from '../../components/Icon.astro';
+import MediaSwiper from '../../components/react/MediaSwiper';
+import MotionButton from '../../components/react/MotionButton';
+import { cheats, getCheatById } from '../../data/cheats';
+import { articleSchema, breadcrumbSchema, softwareApplicationSchema } from '../../lib/schema';
+import { SITE } from '../../lib/site';
+import { resolveSocialImage } from '../../lib/social-images';
+
+export function getStaticPaths() {
+  return cheats.map((cheat) => ({
+    params: { slug: cheat.id },
+  }));
+}
+
+const { slug } = Astro.params;
+const cheat = getCheatById(slug!);
+
+if (!cheat) {
+  return Astro.redirect('/cheats/');
+}
+
+const url = `${SITE.url}/cheats/${cheat.id}/`;
+const socialImage = resolveSocialImage(`/cheats/${cheat.id}/`);
+
+
+const schema = [
+  softwareApplicationSchema({
+    name: `${cheat.name} Arc Raider Cheats`,
+    description: cheat.description,
+    url,
+    image: socialImage.src,
+    imageAlt: socialImage.alt,
+    category: 'GameApplication',
+  }),
+  breadcrumbSchema([
+    { name: 'Home', url: SITE.url },
+    { name: 'Cheats', url: `${SITE.url}/cheats/` },
+    { name: cheat.name, url },
+  ]),
+];
+---
+
+<BaseLayout
+  title={`${cheat.name} Arc Raider Cheats — ${cheat.tier} Tier`}
+  description={`Buy ${cheat.name} Arc Raider cheats — ${cheat.description}`}
+  canonical={url}
+  schema={schema}
+>
+  <section class="section cheat-detail-section">
+    <div class="section-inner">
+      <div class="cheat-detail-layout">
+        <div class="cheat-detail-left">
+          <div class="cheat-detail-left-head">
+            <h1>{cheat.name}</h1>
+            <div class="detail-head-badges">
+              <span class="cheat-detail-tier">{cheat.tier}</span>
+              {cheat.featured && <span class="cheat-card-badge">Popular</span>}
+            </div>
+          </div>
+          <div class="cheat-detail-media">
+            <MediaSwiper client:visible media={cheat.media} />
+          </div>
+          <p class="cheat-detail-desc">{cheat.description}</p>
+        </div>
+
+        <div class="cheat-detail-features">
+          <h2 class="cheat-detail-section-title">
+            <span class="s-tag">// Features</span>
+            What&apos;s Included
+          </h2>
+          <ul class="cheat-feature-list">
+            {cheat.features.map((feature) => (
+              <li>
+                <Icon name="check" size={15} class="cheat-feature-check" />
+                {feature}
+              </li>
+            ))}
+          </ul>
+          <div class="cheat-detail-actions">
+            <MotionButton client:visible href={`/contact/?cheat=${cheat.id}`} className="btn-primary cheat-detail-btn">
+              Get {cheat.name} Access
+            </MotionButton>
+            <MotionButton client:visible href="/cheats/" className="btn-ghost cheat-detail-btn">
+              All Cheats
+            </MotionButton>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt-bg">
+    <div class="section-inner">
+      <div class="cheat-compare-head">
+        <div class="s-tag">// Tiers</div>
+        <h2 class="cheat-detail-section-title">All Arc Raider Cheat Tiers</h2>
+        <p class="cheat-compare-sub">Xray, Pro, and Private — full feature breakdown.</p>
+      </div>
+      <CheatCompareTable activeId={cheat.id} />
+    </div>
+  </section>
+</BaseLayout>

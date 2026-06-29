@@ -1,0 +1,210 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import MotionButton from '../components/react/MotionButton';
+import MotionReveal from '../components/react/MotionReveal';
+import { cheats } from '../data/cheats';
+import { products } from '../data/products';
+import { breadcrumbSchema } from '../lib/schema';
+import { SITE } from '../lib/site';
+
+const aboutSections = [
+  {
+    icon: 'guide' as const,
+    tag: 'Mission',
+    title: 'Why This Site Exists',
+    paragraphs: [
+      'Arc Raiders dropped and the learning curve hit hard. Scattered Reddit threads, outdated wiki pages, and copy-paste guides that nobody verified in-game. We started ArcRaidersCheats.co because we wanted one place with accurate, updated, actually useful information.',
+      'Every recommendation on this site comes from live extraction experience — not theorycraft spreadsheets. We built the resource we wished existed on day one: clear tiers, honest feature lists, and setup paths that do not waste your time.',
+    ],
+  },
+  {
+    icon: 'crosshair' as const,
+    tag: 'Coverage',
+    title: 'What We Build',
+    paragraphs: [
+      'Our cheat stack covers three tiers — Xray for core ESP, Pro for combat tools, and Private for the full extraction suite. Each tier is documented with real feature lists so you know exactly what you are getting before you reach out.',
+      'Beyond cheats, we ship infrastructure and utility products: Cloud DMA for single-PC setup, UGC for account recovery workflows, and HWID Spoofer for hardware ID masking across major anti-cheats.',
+    ],
+  },
+  {
+    icon: 'shield' as const,
+    tag: 'Standards',
+    title: 'How We Operate',
+    paragraphs: [
+      'Real players write every guide and product description — no AI-generated filler. We cite patch dates on pages so you always know whether information is current for the live build of Arc Raiders.',
+      'We prioritize clarity over hype. Feature lists match what the software delivers, setup docs are step-by-step, and our team responds to access requests within 24 hours on weekdays.',
+    ],
+  },
+  {
+    icon: 'status' as const,
+    tag: 'Updates',
+    title: 'Patch-Ready Workflow',
+    paragraphs: [
+      'Major Arc Raiders patches can shift weapon balance, loot tables, and extraction routes overnight. We review cheat sheets, blog posts, and product docs within 48 hours of each major update.',
+      'When the meta moves, we update tier comparisons and blog breakdowns first — those are the pages most players rely on during the first week of a new season.',
+    ],
+  },
+  {
+    icon: 'extraction' as const,
+    tag: 'Audience',
+    title: 'Who We Serve',
+    paragraphs: [
+      'Solo raiders who want cleaner ESP and faster target identification. Squad leads who need shared intel on ARC patrols, loot value, and extraction timing without tabbing out to wikis.',
+      'Competitive players tuning settings and loadouts, plus users who need the full stack — cheats plus Cloud DMA, account tools, or HWID protection — on one coordinated setup path.',
+    ],
+  },
+  {
+    icon: 'cloud' as const,
+    tag: 'Access',
+    title: 'Getting Started',
+    paragraphs: [
+      'Browse our cheat tiers to find the feature set that matches your playstyle — minimal overlay, mid-tier combat suite, or the complete Private package with extraction intel.',
+      'Review products if you need infrastructure or account recovery tools alongside cheats. When you are ready, use the contact page with your chosen tier or product and we send setup steps and activation details.',
+    ],
+  },
+];
+
+const schema = [
+  breadcrumbSchema([
+    { name: 'Home', url: SITE.url },
+    { name: 'About', url: `${SITE.url}/about/` },
+  ]),
+];
+---
+
+<BaseLayout
+  title="About Arc Raider Cheats — Who We Are"
+  description="Arc Raider cheats, ESP and aimbot tiers, and premium tools — built and maintained by players who actually raid in Season 1."
+  schema={schema}
+>
+  <section class="section listing-section listing-section--center about-page">
+    <div class="section-inner">
+      <MotionReveal client:visible>
+        <div class="listing-intro">
+          <div class="s-tag">// About</div>
+          <h1>About Us</h1>
+          <div class="detail-head-badges">
+            <span class="listing-meta-pill">Independent Team</span>
+            <span class="listing-meta-pill">Player-Built · Patch-Tested</span>
+            <span class="listing-meta-pill">Season 1 · June 2026</span>
+          </div>
+          <p class="listing-intro-desc">
+            We are independent Arc Raiders players who built ArcRaidersCheats.co to combine verified
+            strategy content, three cheat tiers, and premium products in one place — updated after
+            every major patch so you extract with current information, not last season&apos;s meta.
+          </p>
+        </div>
+
+        <div class="about-stats">
+          <div class="stat">
+            <div class="val">3</div>
+            <div class="lbl">Cheat Tiers</div>
+          </div>
+          <div class="stat">
+            <div class="val">3</div>
+            <div class="lbl">Products</div>
+          </div>
+          <div class="stat">
+            <div class="val">48h</div>
+            <div class="lbl">Patch Reviews</div>
+          </div>
+          <div class="stat">
+            <div class="val">24h</div>
+            <div class="lbl">Support Response</div>
+          </div>
+        </div>
+
+        <div class="about-story">
+          <div class="about-story-accent" aria-hidden="true"></div>
+          <div class="s-tag">// Our Story</div>
+          <h2 class="about-story-title">Built By Raiders, For Raiders</h2>
+          <p class="about-story-text">
+            Arc Raiders rewards preparation — knowing extraction windows, ARC behavior, and where value
+            sits on the map. But most online resources were either outdated within a week or written by
+            people who never logged in after launch. We fixed that by testing every guide in live raids
+            and documenting our cheat stack the same way: transparent tiers, no mystery features, and
+            support when you need access.
+          </p>
+          <p class="about-story-text">
+            Today the site covers free blog content for meta and settings, full cheat tier breakdowns
+            with feature comparisons, and products for players who need infrastructure or account tools
+            on top of the overlay suite. Everything lives here so you do not have to piece together
+            Discord snippets and random forum posts before your next run.
+          </p>
+        </div>
+
+        <div class="about-grid">
+          {aboutSections.map((section) => (
+            <article class="about-panel">
+              <div class="about-panel-accent" aria-hidden="true"></div>
+              <div class="about-panel-head">
+                <div class="about-panel-icon">
+                  <Icon name={section.icon} size={22} />
+                </div>
+                <div>
+                  <span class="about-panel-tag">{section.tag}</span>
+                  <h2 class="about-panel-title">{section.title}</h2>
+                </div>
+              </div>
+              {section.paragraphs.map((paragraph) => (
+                <p class="about-panel-text">{paragraph}</p>
+              ))}
+            </article>
+          ))}
+        </div>
+
+        <div class="about-offers">
+          <article class="about-offer-panel">
+            <div class="about-panel-accent" aria-hidden="true"></div>
+            <div class="s-tag">// Cheats</div>
+            <h2 class="about-offer-title">Arc Raiders Cheat Tiers</h2>
+            <ul class="about-offer-list">
+              {cheats.map((cheat) => (
+                <li>
+                  <strong>{cheat.name}</strong>
+                  <span>{cheat.tier}</span>
+                  <p>{cheat.description}</p>
+                </li>
+              ))}
+            </ul>
+          </article>
+
+          <article class="about-offer-panel">
+            <div class="about-panel-accent" aria-hidden="true"></div>
+            <div class="s-tag">// Products</div>
+            <h2 class="about-offer-title">Tools & Infrastructure</h2>
+            <ul class="about-offer-list">
+              {products.map((product) => (
+                <li>
+                  <strong>{product.name}</strong>
+                  <span>{product.tier}</span>
+                  <p>{product.description}</p>
+                </li>
+              ))}
+            </ul>
+          </article>
+        </div>
+
+        <div class="about-contact">
+          <div class="about-contact-glow" aria-hidden="true"></div>
+          <div class="s-tag">// Explore</div>
+          <h2 class="about-contact-title">Find Your Setup</h2>
+          <p class="about-contact-desc">
+            Compare cheat tiers for ESP, aim tools, and extraction intel — or browse products for
+            Cloud DMA infrastructure, UGC account tools, and HWID Spoofer. Pick what fits your run,
+            then reach out through the contact page when you are ready for access.
+          </p>
+          <div class="about-contact-actions">
+            <MotionButton client:visible href="/cheats/" className="btn-primary">
+              Browse Cheats
+            </MotionButton>
+            <MotionButton client:visible href="/products/" className="btn-ghost">
+              View Products
+            </MotionButton>
+          </div>
+        </div>
+      </MotionReveal>
+    </div>
+  </section>
+</BaseLayout>

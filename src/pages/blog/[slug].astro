@@ -1,0 +1,62 @@
+---
+import { getCollection, render } from 'astro:content';
+import ContentLayout from '../../layouts/ContentLayout.astro';
+import { blogPostingSchema, breadcrumbSchema } from '../../lib/schema';
+import { SITE } from '../../lib/site';
+import { resolveSocialImage } from '../../lib/social-images';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const url = `${SITE.url}/blog/${post.id}/`;
+const modified = post.data.updated ?? post.data.pubDate;
+const fallbackSocial = resolveSocialImage(`/blog/${post.id}/`);
+const ogImage = post.data.coverImage ?? fallbackSocial.src;
+const ogImageAlt = post.data.coverImageAlt ?? fallbackSocial.alt;
+
+const schema = [
+  blogPostingSchema({
+    title: post.data.title,
+    description: post.data.description,
+    url,
+    datePublished: post.data.pubDate.toISOString(),
+    dateModified: modified.toISOString(),
+    author: post.data.author,
+    image: ogImage,
+    imageAlt: ogImageAlt,
+    keywords: post.data.keywords,
+  }),
+  breadcrumbSchema([
+    { name: 'Home', url: SITE.url },
+    { name: 'Blog', url: `${SITE.url}/blog/` },
+    { name: post.data.title, url },
+  ]),
+];
+---
+
+<ContentLayout
+  title={post.data.title}
+  description={post.data.description}
+  canonical={url}
+  icon={post.data.icon}
+  updated={modified}
+  readTime={post.data.readTime}
+  author={post.data.author}
+  coverImage={post.data.coverImage}
+  coverImageAlt={post.data.coverImageAlt}
+  keywords={post.data.keywords ?? []}
+  ogImage={ogImage}
+  ogImageAlt={ogImageAlt}
+  articlePublished={post.data.pubDate.toISOString()}
+  articleModified={modified.toISOString()}
+  schema={schema}
+>
+  <Content />
+</ContentLayout>

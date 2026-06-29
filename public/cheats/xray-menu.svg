@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" fill="none">
+  <rect width="960" height="540" fill="#0f0f1c"/>
+  <rect x="40" y="40" width="880" height="460" rx="8" stroke="#7c3aed" stroke-width="2" stroke-opacity="0.4"/>
+  <text x="480" y="250" text-anchor="middle" fill="#a855f7" font-family="Segoe UI, system-ui, sans-serif" font-size="28" font-weight="700">Xray — Overlay Menu</text>
+  <text x="480" y="290" text-anchor="middle" fill="#8b7fb3" font-family="Segoe UI, system-ui, sans-serif" font-size="16">Configs · Cloud-Sync · FOV Settings</text>
+</svg>

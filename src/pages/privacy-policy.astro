@@ -1,0 +1,85 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { breadcrumbSchema } from '../lib/schema';
+import { SITE } from '../lib/site';
+
+const schema = breadcrumbSchema([
+  { name: 'Home', url: SITE.url },
+  { name: 'Privacy Policy', url: `${SITE.url}/privacy-policy/` },
+]);
+---
+
+<BaseLayout
+  title="Privacy Policy — Arc Raiders Cheats"
+  description="Privacy policy for ArcRaiderCheats.co — what data we collect when you contact us and how we handle it. No third-party analytics."
+  schema={schema}
+>
+  <section class="section listing-section">
+    <div class="section-inner">
+      <div class="listing-intro">
+        <div class="s-tag">// Legal</div>
+        <h1>Privacy Policy</h1>
+        <p class="listing-intro-desc">Last updated: June 28, 2026</p>
+      </div>
+
+      <div class="legal-content legal-content--inline">
+    <p>
+      ArcRaidersCheats.co ("we," "us," or "our") operates the website arcraiderscheats.co. This page
+      explains how we handle information when you visit our site.
+    </p>
+
+    <h2>Information We Collect</h2>
+    <p>
+      When you contact us through our contact form or email, we collect the name, email address, and
+      message content you provide. We do not run third-party analytics or advertising trackers on this
+      site.
+    </p>
+
+    <h2>How We Use Information</h2>
+    <p>We use collected information to:</p>
+    <ul>
+      <li>Respond to your inquiries and support requests</li>
+      <li>Improve our content and site performance</li>
+      <li>Understand which guides and products are most useful to visitors</li>
+      <li>Send product-related communications if you purchased a premium product</li>
+    </ul>
+
+    <h2>Local Storage</h2>
+    <p>
+      We use browser local storage only to remember your light or dark theme preference. No tracking
+      cookies are set by this site.
+    </p>
+
+    <h2>Third-Party Links</h2>
+    <p>
+      Our site may contain links to external websites. We are not responsible for the privacy
+      practices of those sites. Review their privacy policies before providing personal information.
+    </p>
+
+    <h2>Data Retention</h2>
+    <p>
+      Contact form submissions and email correspondence are retained as long as needed to resolve
+      your inquiry.
+    </p>
+
+    <h2>Your Rights</h2>
+    <p>
+      You may request access to, correction of, or deletion of personal data we hold about you by
+      emailing <a href={`mailto:${SITE.email}`}>{SITE.email}</a>. We will respond within 30 days.
+    </p>
+
+    <h2>Changes to This Policy</h2>
+    <p>
+      We may update this privacy policy from time to time. Changes will be posted on this page with
+      an updated date. Continued use of the site after changes constitutes acceptance of the revised
+      policy.
+    </p>
+
+    <h2>Contact</h2>
+    <p>
+      Privacy questions? Email us at <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.
+    </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

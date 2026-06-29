@@ -1,0 +1,49 @@
+---
+import { SITE } from '../lib/site';
+import Logo from './Logo.astro';
+import Icon from './Icon.astro';
+---
+
+<footer>
+  <div class="footer-inner">
+    <div class="f-grid">
+      <div class="f-brand">
+        <Logo />
+        <p>
+          Arc Raider cheats, premium tools, and raid guides — buy ESP and aimbot tiers, grab Cloud
+          DMA or a spoofer, and get set up for Season 1.
+        </p>
+      </div>
+      <div class="f-col">
+        <h4>Content</h4>
+        <ul>
+          <li><a href="/cheats/"><Icon name="crosshair" size={14} /> Cheats</a></li>
+          <li><a href="/products/"><Icon name="cloud" size={14} /> Products</a></li>
+          <li><a href="/blog/"><Icon name="newspaper" size={14} /> Blog</a></li>
+        </ul>
+      </div>
+      <div class="f-col">
+        <h4>Site</h4>
+        <ul>
+          <li><a href="/about/"><Icon name="guide" size={14} /> About</a></li>
+          <li><a href="/contact/"><Icon name="mail" size={14} /> Contact</a></li>
+          <li><a href="/faq/"><Icon name="file-text" size={14} /> FAQ</a></li>
+        </ul>
+      </div>
+      <div class="f-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="/privacy-policy/"><Icon name="shield" size={14} /> Privacy Policy</a></li>
+          <li><a href="/terms/"><Icon name="file-text" size={14} /> Terms of Use</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="f-bottom">
+      <p>© {new Date().getFullYear()} {SITE.name}. Not affiliated with Embark Studios.</p>
+      <p class="f-disclaimer">
+        Arc Raiders is a trademark of Embark Studios. This site is an independent fan resource and is
+        not endorsed by or affiliated with the developer or publisher.
+      </p>
+    </div>
+  </div>
+</footer>

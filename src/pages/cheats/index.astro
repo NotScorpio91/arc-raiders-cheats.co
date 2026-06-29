@@ -1,0 +1,72 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CheatTierCard from '../../components/CheatTierCard.astro';
+import MotionReveal from '../../components/react/MotionReveal';
+import { cheats } from '../../data/cheats';
+import { collectionPageSchema, breadcrumbSchema, itemListSchema } from '../../lib/schema';
+import { SITE } from '../../lib/site';
+import { resolveSocialImage } from '../../lib/social-images';
+
+const cheatsSocial = resolveSocialImage('/cheats/');
+
+const schema = [
+  collectionPageSchema({
+    title: 'Arc Raiders Cheats — Xray, Pro & Private',
+    description: 'Buy Arc Raider cheats — Xray, Pro, and Private with ESP, aimbot, and extraction tools.',
+    url: `${SITE.url}/cheats/`,
+    image: cheatsSocial.src,
+    imageAlt: cheatsSocial.alt,
+  }),
+  itemListSchema(
+    cheats.map((cheat) => ({
+      name: cheat.name,
+      url: `${SITE.url}/cheats/${cheat.id}/`,
+      description: cheat.description,
+    })),
+    'SoftwareApplication',
+  ),
+  breadcrumbSchema([
+    { name: 'Home', url: SITE.url },
+    { name: 'Cheats', url: `${SITE.url}/cheats/` },
+  ]),
+];
+---
+
+<BaseLayout
+  title="Arc Raider Cheats — Buy Xray, Pro & Private"
+  description="Arc Raider cheats with ESP, aimbot, and extraction tools. Buy Xray, Pro, or Private — three tiers built for Season 1 raids."
+  schema={schema}
+>
+  <section class="section listing-section">
+    <div class="section-inner">
+      <MotionReveal client:visible>
+        <div class="listing-intro">
+          <div class="s-tag">// Cheats</div>
+          <h1>Arc Raider Cheats</h1>
+          <div class="detail-head-badges">
+            <span class="listing-meta-pill">3 Tiers</span>
+            <span class="listing-meta-pill">Xray · Pro · Private</span>
+          </div>
+          <p class="listing-intro-desc">
+            Buy Arc Raider cheats in three tiers — Xray for ESP, Pro for combat tools, and Private
+            with the full extraction and ARC tracking suite.
+          </p>
+        </div>
+
+        <div class="aff-grid aff-grid-three cheat-grid animate-grid">
+          {cheats.map((cheat) => (
+            <CheatTierCard
+              icon={cheat.icon}
+              name={cheat.name}
+              description={cheat.description}
+              features={cheat.features}
+              tier={cheat.tier}
+              featured={cheat.featured}
+              href={`/cheats/${cheat.id}/`}
+            />
+          ))}
+        </div>
+      </MotionReveal>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" fill="none">
+  <rect width="1200" height="630" fill="#09090f"/>
+  <rect x="60" y="60" width="1080" height="510" rx="12" fill="#0f0f1c" stroke="#1e1e38" stroke-width="2"/>
+  <circle cx="980" cy="120" r="180" fill="url(#glow)"/>
+  <text x="100" y="280" fill="#f0eeff" font-family="system-ui,sans-serif" font-size="72" font-weight="900" letter-spacing="-2">ARC RAIDERS</text>
+  <text x="100" y="360" fill="#a855f7" font-family="system-ui,sans-serif" font-size="72" font-weight="900" letter-spacing="-2">CHEATS</text>
+  <text x="100" y="430" fill="#8b7fb3" font-family="system-ui,sans-serif" font-size="28">Loadouts · Guides · Extraction Tips</text>
+  <text x="100" y="520" fill="#7c3aed" font-family="system-ui,sans-serif" font-size="22" font-weight="700">arcraiderscheats.co</text>
+  <defs>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#7c3aed" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#7c3aed" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+</svg>
