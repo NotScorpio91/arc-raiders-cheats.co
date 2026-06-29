@@ -1,6 +1,12 @@
 import type { IconName } from '../lib/icons';
 import type { MediaItem } from '../lib/media';
 
+export type CheatPricing = {
+  day?: string;
+  week?: string;
+  month?: string;
+};
+
 export type CheatTier = {
   id: string;
   icon: IconName;
@@ -9,6 +15,8 @@ export type CheatTier = {
   description: string;
   features: string[];
   media: MediaItem[];
+  pricing?: CheatPricing;
+  systemRequirements?: string[];
   featured?: boolean;
 };
 
@@ -94,6 +102,67 @@ export const cheats: CheatTier[] = [
       'Secure Boot Compatible',
       'Save Configs',
       'Cloud-Sync Option',
+    ],
+    featured: true,
+  },
+  {
+    id: 'viper',
+    icon: 'target',
+    tier: 'Private Build',
+    name: 'Viper',
+    description:
+      'Our own in-house ARC Raiders cheat — aimbot, full ESP, and 2D radar built for smart play and long-term safety. Not resold, only available directly from us.',
+    pricing: {
+      day: '$5.99',
+      week: '$14.99',
+      month: '$29.99',
+    },
+    systemRequirements: [
+      'Steam version only (not Epic Games)',
+      'Windows 10: 22H2, 21H2, 21H1, 20H2, 2004, 1909',
+      'Windows 11: 23H2, 24H2, 25H2',
+      'Intel Virtualization (VT-D) or AMD SVM enabled in BIOS',
+      'Compatible with all CPUs and GPUs',
+    ],
+    media: [
+      { type: 'image', src: '/cheats/viper-aimbot.svg', alt: 'Viper aimbot preview', label: 'Aimbot' },
+      { type: 'image', src: '/cheats/viper-esp.svg', alt: 'Viper ESP overlay preview', label: 'ESP' },
+      {
+        type: 'video',
+        poster: '/cheats/viper-video-poster.svg',
+        alt: 'Viper gameplay demo',
+        label: 'Gameplay Demo',
+      },
+    ],
+    features: [
+      'Enable Aimbot',
+      'Drone Aimbot',
+      'Custom Aim Keys (2 Slots)',
+      'Selectable Hitboxes (Head, Neck, Chest, Body)',
+      'Hold Shift = Head Aim',
+      'Aim Smoothing',
+      'Custom FOV Circle',
+      'Visibility Check',
+      'Max Aim Distance',
+      'Dead Zone Control',
+      'Focus Bots / Teams',
+      'Draw Dead Zone',
+      'Player ESP',
+      'Drone ESP',
+      'Team ESP',
+      '2D Box ESP',
+      'Names & Distance',
+      'Health & Armor Bars',
+      'Skeleton ESP',
+      'Weapon Display',
+      'Item & Loot ESP',
+      'Max ESP Distance',
+      '2D Radar Hack',
+      'Radar Styles (Square, Circle, Custom)',
+      'Show Players on Radar',
+      'Show Drones on Radar',
+      'Remaining Duration Display',
+      'Language Switch (Chinese Supported)',
     ],
     featured: true,
   },

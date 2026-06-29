@@ -118,7 +118,7 @@ export const homepageFaqs = [
   {
     question: 'What Arc Raiders cheat tiers do you offer?',
     answer:
-      'Three tiers: Xray for core ESP and targeting, Pro for aim assist and trigger tools, and Private with the full stack — extraction intel, ARC patrol ESP, and stream-safe mode.',
+      'Three tiers: Xray for core ESP and targeting, Pro for aim assist and trigger tools, and Private with the full stack — extraction intel, ARC patrol ESP, and stream-safe mode. We also offer Viper, our own private in-house build with aimbot, ESP, and 2D radar.',
   },
   {
     question: 'What products are available besides cheats?',
@@ -129,5 +129,25 @@ export const homepageFaqs = [
     question: 'How do I get access after purchase?',
     answer:
       'Use the contact page with your chosen tier or product. We send setup steps and activation details within 24 hours on weekdays.',
+  },
+  {
+    question: 'Which OS does the Viper cheat support?',
+    answer:
+      'Windows 10 (22H2, 21H2, 21H1, 20H2, 2004, 1909) and Windows 11 (23H2, 24H2, 25H2). Compatible with all CPUs and GPUs. Intel Virtualization (VT-D) or AMD SVM must be enabled in BIOS. Steam version only — does not work with the Epic Games launcher.',
+  },
+  {
+    question: 'Can I use my license key on another computer?',
+    answer:
+      'No. Your key locks to the first computer you activate it on. If you reinstall Windows or change hardware, open a Discord ticket and we will reset your HWID for you.',
+  },
+  {
+    question: 'What payment methods are available?',
+    answer:
+      'We accept credit/debit cards, Apple Pay, and Google Pay with instant delivery. For Russian users we also provide a separate FunPay store that supports local card payments. If you prefer Alipay or WeChat, we offer a separate shop for those payment methods as well.',
+  },
+  {
+    question: 'I found a bug or have a suggestion — where do I report it?',
+    answer:
+      'Post it in our Discord. There is a dedicated ARC Raiders channel for bug reports and suggestions, and that is where we track and fix issues.',
   },
 ] as const;

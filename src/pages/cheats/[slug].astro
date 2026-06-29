@@ -67,6 +67,37 @@ const schema = [
         </div>
 
         <div class="cheat-detail-features">
+          {cheat.pricing && (
+            <div class="cheat-pricing">
+              <h2 class="cheat-detail-section-title">
+                <span class="s-tag">// Pricing</span>
+                Purchase {cheat.name}
+              </h2>
+              <div class="cheat-pricing-grid">
+                {cheat.pricing.day && (
+                  <div class="cheat-pricing-card">
+                    <span class="cheat-pricing-label">1 Day</span>
+                    <span class="cheat-pricing-price">{cheat.pricing.day}</span>
+                    <span class="cheat-pricing-note">One time purchase</span>
+                  </div>
+                )}
+                {cheat.pricing.week && (
+                  <div class="cheat-pricing-card cheat-pricing-card-featured">
+                    <span class="cheat-pricing-label">1 Week</span>
+                    <span class="cheat-pricing-price">{cheat.pricing.week}</span>
+                    <span class="cheat-pricing-note">One time purchase</span>
+                  </div>
+                )}
+                {cheat.pricing.month && (
+                  <div class="cheat-pricing-card">
+                    <span class="cheat-pricing-label">1 Month</span>
+                    <span class="cheat-pricing-price">{cheat.pricing.month}</span>
+                    <span class="cheat-pricing-note">One time purchase</span>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
           <h2 class="cheat-detail-section-title">
             <span class="s-tag">// Features</span>
             What&apos;s Included
@@ -79,6 +110,22 @@ const schema = [
               </li>
             ))}
           </ul>
+          {cheat.systemRequirements && (
+            <div class="cheat-sysreq">
+              <h3 class="cheat-sysreq-title">
+                <Icon name="settings" size={15} class="cheat-feature-check" />
+                System Requirements
+              </h3>
+              <ul class="cheat-feature-list">
+                {cheat.systemRequirements.map((req) => (
+                  <li>
+                    <Icon name="check" size={15} class="cheat-feature-check" />
+                    {req}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
           <div class="cheat-detail-actions">
             <MotionButton client:visible href={`/contact/?cheat=${cheat.id}`} className="btn-primary cheat-detail-btn">
               Get {cheat.name} Access
