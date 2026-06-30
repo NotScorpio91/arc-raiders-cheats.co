@@ -10,24 +10,28 @@ import {
   getPagePriority,
   getPageSitemapImage,
   LEGACY_BLOG_REDIRECTS,
+  LEGACY_CHEAT_REDIRECTS,
   SITE_URL,
 } from './src/lib/sitemap-meta.mjs';
 
 const blogMeta = getBlogSitemapMeta();
 
+const legacyRedirectsMap = { ...LEGACY_BLOG_REDIRECTS, ...LEGACY_CHEAT_REDIRECTS };
+
 /** @type {Record<string, import('astro').RedirectConfig>} */
 const legacyRedirects = Object.fromEntries(
-  Object.entries(LEGACY_BLOG_REDIRECTS).map(([source, destination]) => [
+  Object.entries(legacyRedirectsMap).map(([source, destination]) => [
     source,
     { status: 301, destination },
   ]),
 );
 
-const legacyRedirectUrls = new Set(Object.keys(LEGACY_BLOG_REDIRECTS).map((path) => `${SITE_URL}${path}`));
+const legacyRedirectUrls = new Set(Object.keys(legacyRedirectsMap).map((path) => `${SITE_URL}${path}`));
 
 export default defineConfig({
   site: SITE_URL,
   trailingSlash: 'always',
+  prefetch: false,
   integrations: [
     mdx(),
     sitemap({
@@ -66,4 +70,7 @@ export default defineConfig({
   ],
   redirects: legacyRedirects,
   compressHTML: true,
+  build: {
+    inlineStylesheets: 'always',
+  },
 });

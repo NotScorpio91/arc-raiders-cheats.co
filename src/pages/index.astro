@@ -3,14 +3,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import CheatTierCard from '../components/CheatTierCard.astro';
 import ProductCard from '../components/ProductCard.astro';
 import BlogCard from '../components/BlogCard.astro';
-import MotionHero from '../components/react/MotionHero';
-import MotionSectionHead from '../components/react/MotionSectionHead';
-import MotionButton from '../components/react/MotionButton';
-import MotionFAQ from '../components/react/MotionFAQ';
-import MotionReveal from '../components/react/MotionReveal';
-import MediaSwiper from '../components/react/MediaSwiper';
+import FAQAccordion from '../components/FAQAccordion.astro';
+import LazyVideo from '../components/LazyVideo.astro';
+import ShowcaseSlider from '../components/ShowcaseSlider.astro';
 import { getCollection } from 'astro:content';
-import { cheats } from '../data/cheats';
+import { cheats, getCheatFeatures } from '../data/cheats';
 import { homepageShowcase, homepageHero, homepageHeroImage, homepageShowcaseVideo } from '../data/homepage';
 import { homepageGuideIntro, homepageGuideSections, homepageGuideTakeaways } from '../data/homepage-guide';
 import { homepageFaqs, products } from '../data/products';
@@ -28,15 +25,24 @@ const schema = [websiteSchema(), faqSchema([...homepageFaqs], homeSocial.src)];
 ---
 
 <BaseLayout
-  title="Arc Raider Cheats — ESP, Aimbot & More 2026"
-  description="Arc Raider cheats with ESP, aimbot, and wallhack tools. Buy Xray, Pro, or Private — undetected Arc Raider cheats with instant access. Cloud DMA & HWID spoofer available."
+  title="Arc Raiders Cheats — ESP, Aimbot & More 2026"
+  description="Arc Raiders cheats with ESP, aimbot, and wallhack tools. Buy Xray, Pro, or Private — undetected Arc Raiders cheats with instant access. Cloud DMA & HWID spoofer available."
   schema={schema}
   keywords={[...SITE_KEYWORDS]}
   lcpImage={homepageHeroImage.src}
 >
   <section class="hero">
     <div class="hero-bg-photo" aria-hidden="true">
-      <img src={homepageHeroImage.src} alt="" width="1280" height="720" loading="eager" fetchpriority="high" decoding="async" />
+      <img
+        src={homepageHeroImage.src}
+        alt=""
+        width="960"
+        height="540"
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+        sizes="100vw"
+      />
     </div>
     <div class="hero-bg"></div>
     <div class="hero-glow hero-glow-left"></div>
@@ -46,200 +52,175 @@ const schema = [websiteSchema(), faqSchema([...homepageFaqs], homeSocial.src)];
     <div class="hero-slash hero-slash-right"></div>
     <div class="hero-slash2 hero-slash2-right"></div>
     <div class="section-inner hero-inner">
-      <div class="hero-content">
-        <MotionHero client:load>
-          <div class="hero-badge">{homepageHero.badge}</div>
-          <h1>{homepageHero.title}</h1>
-          <p class="hero-desc">{homepageHero.description}</p>
-          <div class="hero-btns">
-            <MotionButton client:load href={ZADEYO_CHEATS_URL} className="btn-primary">Browse Cheats</MotionButton>
-            <MotionButton client:load href="/products/" className="btn-ghost">View Products</MotionButton>
-          </div>
-          <div class="hero-stats">
-            <div class="stat"><div class="val">3</div><div class="lbl">Cheat Tiers</div></div>
-            <div class="stat"><div class="val">3</div><div class="lbl">Products</div></div>
-            <div class="stat"><div class="val">Jun 2026</div><div class="lbl">Last Updated</div></div>
-          </div>
-        </MotionHero>
+      <div class="hero-content hero-animate">
+        <div class="hero-badge">{homepageHero.badge}</div>
+        <h1>{homepageHero.title}</h1>
+        <p class="hero-desc">{homepageHero.description}</p>
+        <div class="hero-btns">
+          <a href={ZADEYO_CHEATS_URL} class="btn-primary" rel="noopener noreferrer" target="_blank">Browse Cheats</a>
+          <a href="/products/" class="btn-ghost">View Products</a>
+        </div>
       </div>
     </div>
   </section>
 
   <section class="section showcase-section alt-bg" id="showcase">
     <div class="section-inner">
-      <MotionReveal client:visible>
-        <div class="listing-intro">
-          <div class="s-tag">// Showcase</div>
-          <h2 class="listing-subtitle">See It In Action</h2>
-          <p class="listing-intro-desc">
-            Official ARC Raiders gameplay — surface raids, extractions, and combat from the loop our
-            tools are built for.
-          </p>
-        </div>
+      <div class="listing-intro">
+        <h2 class="listing-subtitle">See It In Action</h2>
+        <p class="listing-intro-desc">
+          Real cheat screenshots — ESP, aimbot, radar, and in-game overlays from our ARC Raiders
+          tools.
+        </p>
+      </div>
 
-        <div class="showcase-panel showcase-panel--single">
-          <div class="showcase-video">
-            <span class="cheat-slide-label">Gameplay Demo</span>
-            <video
-              class="showcase-video-media"
-              src={homepageShowcaseVideo.src}
-              poster={homepageShowcaseVideo.poster}
-              autoplay
-              muted
-              loop
-              playsinline
-              preload="none"
-              aria-label={homepageShowcaseVideo.alt}
-            ></video>
-          </div>
-          <div class="showcase-media">
-            <MediaSwiper client:visible media={homepageShowcase} />
-          </div>
+      <div class="showcase-panel showcase-panel--single">
+        <LazyVideo
+          src={homepageShowcaseVideo.src}
+          poster={homepageShowcaseVideo.poster}
+          alt={homepageShowcaseVideo.alt}
+        />
+        <div class="showcase-media">
+          <ShowcaseSlider media={homepageShowcase} />
         </div>
-      </MotionReveal>
+      </div>
     </div>
   </section>
 
   <section class="section homepage-guide-section" id="guide">
     <div class="section-inner">
-      <MotionReveal client:visible>
-        <div class="listing-intro homepage-guide-intro">
-          <div class="s-tag">// Guide</div>
-          <h2 class="listing-subtitle">Arc Raider Cheats Guide</h2>
-          <p class="listing-intro-desc">
-            What to look for when buying Arc Raider cheats — features, safety, and support without
-            the sales pitch.
-          </p>
+      <div class="listing-intro homepage-guide-intro">
+        <div class="s-tag">// Guide</div>
+        <h2 class="listing-subtitle">Arc Raider Cheats Guide</h2>
+        <p class="listing-intro-desc">
+          What to look for when buying Arc Raider cheats — features, safety, and support without
+          the sales pitch.
+        </p>
+      </div>
+
+      <article class="blog-article blog-article--prose content-main homepage-guide-panel">
+        <p class="homepage-guide-intro-text">{homepageGuideIntro}</p>
+
+        <div class="homepage-guide-takeaways">
+          <p class="homepage-guide-takeaways-label">Key takeaways</p>
+          <ul>
+            {homepageGuideTakeaways.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
         </div>
 
-        <article class="blog-article blog-article--prose content-main homepage-guide-panel">
-          <p class="homepage-guide-intro-text">{homepageGuideIntro}</p>
-
-          <div class="homepage-guide-takeaways">
-            <p class="homepage-guide-takeaways-label">Key takeaways</p>
-            <ul>
-              {homepageGuideTakeaways.map((item) => (
-                <li>{item}</li>
-              ))}
-            </ul>
-          </div>
-
-          {homepageGuideSections.map((section) => (
-            <section class="homepage-guide-block">
-              <h2>{section.title}</h2>
-              {section.lead && <p class="homepage-guide-lead">{section.lead}</p>}
-              {section.paragraphs.map((paragraph) => (
-                <p>
-                  {paragraph.includes('Zadeyo') ? (
-                    <>
-                      {paragraph.split('Zadeyo')[0]}
-                      <a href={ZADEYO_CHEATS_URL} rel="noopener noreferrer">Zadeyo</a>
-                      {paragraph.split('Zadeyo')[1]}
-                    </>
-                  ) : (
-                    paragraph
-                  )}
-                </p>
-              ))}
-              {section.bullets && section.bullets.length > 0 && (
-                <ul class="homepage-guide-bullets">
-                  {section.bullets.map((item) => (
-                    <li>{item}</li>
-                  ))}
-                </ul>
-              )}
-            </section>
-          ))}
-        </article>
-      </MotionReveal>
+        {homepageGuideSections.map((section) => (
+          <section class="homepage-guide-block">
+            <h2>{section.title}</h2>
+            {section.lead && <p class="homepage-guide-lead">{section.lead}</p>}
+            {section.paragraphs.map((paragraph) => (
+              <p>
+                {paragraph.includes('Zadeyo') ? (
+                  <>
+                    {paragraph.split('Zadeyo')[0]}
+                    <a href={ZADEYO_CHEATS_URL} rel="noopener noreferrer">Zadeyo</a>
+                    {paragraph.split('Zadeyo')[1]}
+                  </>
+                ) : (
+                  paragraph
+                )}
+              </p>
+            ))}
+            {section.bullets && section.bullets.length > 0 && (
+              <ul class="homepage-guide-bullets">
+                {section.bullets.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            )}
+          </section>
+        ))}
+      </article>
     </div>
   </section>
 
   <section class="section" id="cheats">
     <div class="section-inner">
-      <MotionSectionHead client:visible>
+      <div class="s-head">
         <div class="s-tag">// Cheats</div>
         <h2 class="s-title">Arc Raider Cheats</h2>
         <p class="s-sub">Buy Xray, Pro, or Private — ESP, aimbot, and extraction tools for every raid.</p>
-      </MotionSectionHead>
-      <MotionReveal client:visible>
-        <div class="aff-grid aff-grid-three cheat-grid animate-grid">
-          {cheats.map((cheat) => (
-            <CheatTierCard
-              icon={cheat.icon}
-              name={cheat.name}
-              description={cheat.description}
-              features={cheat.features}
-              tier={cheat.tier}
-              featured={cheat.featured}
-              href={`/cheats/${cheat.id}/`}
-            />
-          ))}
-        </div>
-      </MotionReveal>
+      </div>
+      <div class="aff-grid aff-grid-three cheat-grid animate-grid">
+        {cheats.map((cheat) => (
+          <CheatTierCard
+            icon={cheat.icon}
+            name={cheat.name}
+            description={cheat.description}
+            features={getCheatFeatures(cheat.id)}
+            tier={cheat.tier}
+            featured={cheat.featured}
+            href={`/cheats/${cheat.id}/`}
+          />
+        ))}
+      </div>
     </div>
   </section>
 
   <section class="section alt-bg" id="products">
     <div class="section-inner">
-      <MotionSectionHead client:visible>
+      <div class="s-head">
         <div class="s-tag">// Products</div>
         <h2 class="s-title">Arc Raider Cheats Products</h2>
         <p class="s-sub">Cloud DMA, UGC account tools, and HWID Spoofer for a full Arc Raider cheats stack.</p>
-      </MotionSectionHead>
-      <MotionReveal client:visible>
-        <div class="aff-grid aff-grid-three animate-grid">
-          {products.map((product) => (
-            <ProductCard {...product} />
-          ))}
-        </div>
-      </MotionReveal>
+      </div>
+      <div class="aff-grid aff-grid-three animate-grid">
+        {products.map((product) => (
+          <ProductCard {...product} />
+        ))}
+      </div>
     </div>
   </section>
 
   <section class="section" id="faq">
     <div class="section-inner">
-      <MotionSectionHead client:visible>
+      <div class="s-head">
         <div class="s-tag">// FAQ</div>
         <h2 class="s-title">Frequently Asked</h2>
-      </MotionSectionHead>
-      <MotionFAQ client:visible items={[...homepageFaqs]} />
+      </div>
+      <div class="faq-wrap">
+        {homepageFaqs.map((faq) => (
+          <FAQAccordion question={faq.question} answer={faq.answer} />
+        ))}
+      </div>
     </div>
   </section>
 
   <section class="section alt-bg" id="blog">
     <div class="section-inner">
-      <MotionSectionHead client:visible>
+      <div class="s-head">
         <div class="s-tag">// Blog</div>
         <h2 class="s-title">Latest Updates</h2>
         <p class="s-sub">Patch breakdowns, meta analysis, and Arc Raider cheats guides from our team.</p>
-      </MotionSectionHead>
-      <MotionReveal client:visible>
-        <div class="blog-grid animate-grid">
-          {blogPosts.map((post) => (
-            <BlogCard
-              title={post.data.title}
-              description={post.data.description}
-              date={post.data.pubDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
-              href={`/blog/${post.id}/`}
-              icon={post.data.icon}
-              readTime={post.data.readTime}
-            />
-          ))}
-        </div>
-      </MotionReveal>
+      </div>
+      <div class="blog-grid animate-grid">
+        {blogPosts.map((post) => (
+          <BlogCard
+            title={post.data.title}
+            description={post.data.description}
+            date={post.data.pubDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+            href={`/blog/${post.id}/`}
+            icon={post.data.icon}
+            readTime={post.data.readTime}
+          />
+        ))}
+      </div>
     </div>
   </section>
 
   <section class="section">
     <div class="section-inner">
-      <MotionReveal client:visible>
-        <div class="cta-banner">
-          <h2>Ready to Run Arc Raider Cheats?</h2>
-          <p>Get Xray, Pro, or Private access — or add Cloud DMA, UGC, and HWID Spoofer to your setup.</p>
-          <MotionButton client:load href={ZADEYO_CHEATS_URL} className="btn-primary">Get Access Now</MotionButton>
-        </div>
-      </MotionReveal>
+      <div class="cta-banner">
+        <h2>Ready to Run Arc Raider Cheats?</h2>
+        <p>Get Xray, Pro, or Private access — or add Cloud DMA, UGC, and HWID Spoofer to your setup.</p>
+        <a href={ZADEYO_CHEATS_URL} class="btn-primary" rel="noopener noreferrer" target="_blank">Get Access Now</a>
+      </div>
     </div>
   </section>
 </BaseLayout>

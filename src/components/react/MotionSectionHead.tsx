@@ -1,11 +1,18 @@
 import { motion } from 'framer-motion';
 import type { ReactNode } from 'react';
+import { useMounted } from './useMounted';
 
 interface Props {
   children: ReactNode;
 }
 
 export default function MotionSectionHead({ children }: Props) {
+  const mounted = useMounted();
+
+  if (!mounted) {
+    return <div className="s-head">{children}</div>;
+  }
+
   return (
     <motion.div
       className="s-head"

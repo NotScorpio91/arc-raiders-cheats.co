@@ -76,8 +76,9 @@ const updatedLabel = updated?.toLocaleDateString('en-US', {
               alt={coverImageAlt ?? title}
               width="1280"
               height="720"
-              loading="eager"
+              loading="lazy"
               decoding="async"
+              sizes="(max-width: 900px) 100vw, 960px"
             />
           </div>
         )}

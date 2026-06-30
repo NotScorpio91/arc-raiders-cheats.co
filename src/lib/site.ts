@@ -1,8 +1,8 @@
 export const SITE = {
   name: 'ArcRaidersCheats',
-  title: 'Arc Raider Cheats — ESP, Aimbot & Premium Tools',
+  title: 'Arc Raiders Cheats — ESP, Aimbot & Premium Tools',
   description:
-    'Arc Raider cheats with ESP, aimbot, and premium tools. Buy Xray, Pro, and Private tiers — plus Cloud DMA and HWID spoofer. Updated for Season 1.',
+    'Arc Raiders cheats with ESP, aimbot, and premium tools. Buy Xray, Pro, and Private tiers — plus Cloud DMA and HWID spoofer. Updated for Season 1.',
   url: 'https://arcraiderscheats.co',
   locale: 'en_US',
   author: 'Arc Raiders Cheats Team',
@@ -24,10 +24,12 @@ export const SITE_KEYWORDS = [
   'buy arc raider cheats',
 ] as const;
 
-export const PRECONNECT_ORIGINS = [
-  'https://images.igdb.com',
-  'https://bryjchknhsrmjdunnfer.supabase.co',
-] as const;
+export const VIDEO_ORIGIN = 'https://bryjchknhsrmjdunnfer.supabase.co';
+
+export const SITE_FONT = {
+  family: 'Inter Variable',
+  preload: '/fonts/inter-latin.woff2',
+} as const;
 
 export const SITE_LOGO_URL = `${SITE.url}${SITE.logo}`;
 

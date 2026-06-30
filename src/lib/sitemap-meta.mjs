@@ -11,6 +11,11 @@ export const LEGACY_BLOG_REDIRECTS = {
   '/blog/patch-1-2-meta-shift/': '/blog/arc-raiders-spoofer-guide/',
 };
 
+/** @type {Record<string, string>} */
+export const LEGACY_CHEAT_REDIRECTS = {
+  '/cheats/viper/': '/cheats/private/',
+};
+
 function parseFrontmatter(content) {
   const match = content.match(/^---\r?\n([\s\S]*?)\r?\n---/);
   return match?.[1] ?? '';
@@ -35,8 +40,7 @@ const STATIC_PAGE_SITEMAP_IMAGES = {
   '/cheats/': { url: `${IGDB}/sc11kk7.jpg`, title: 'ARC Raiders cheat tiers' },
   '/cheats/xray/': { url: `${IGDB}/scii62.jpg`, title: 'ARC Raiders Xray cheat' },
   '/cheats/pro/': { url: `${IGDB}/sc11kk8.jpg`, title: 'ARC Raiders Pro cheat' },
-  '/cheats/viper/': { url: `${IGDB}/sc11kk7.jpg`, title: 'ARC Raiders Viper cheat — aimbot, ESP, and radar' },
-  '/cheats/private/': { url: `${IGDB}/sc11kk9.jpg`, title: 'ARC Raiders Private cheat' },
+  '/cheats/private/': { url: `${IGDB}/sc11kk7.jpg`, title: 'ARC Raiders Private cheat — Viper in-house build' },
   '/products/': { url: `${IGDB}/sc11kka.jpg`, title: 'ARC Raiders products' },
   '/products/ugc/': { url: `${IGDB}/sc11kka.jpg`, title: 'ARC Raiders UGC tools' },
   '/products/cloud-dma/': { url: `${IGDB}/sc11kk9.jpg`, title: 'ARC Raiders Cloud DMA' },

@@ -7,10 +7,10 @@ export function igdbImage(imageId: string, size: string) {
 /** Official ARC Raiders imagery from [IGDB](https://www.igdb.com/games/arc-raiders). */
 export const ARC_RAIDERS_IGDB = {
   cover: igdbImage('co9rk1', '1080p'),
-  banner: igdbImage('scii62', 'screenshot_huge'),
+  banner: igdbImage('scii62', '720p'),
   screenshots: [
     {
-      src: igdbImage('scii62', 'screenshot_huge'),
+      src: igdbImage('scii62', '720p'),
       alt: 'ARC Raiders Raider overlooking a ruined surface zone',
     },
     {

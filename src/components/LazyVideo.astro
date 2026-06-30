@@ -1,0 +1,24 @@
+---
+interface Props {
+  src: string;
+  poster: string;
+  alt: string;
+  label?: string;
+}
+
+const { src, poster, alt, label = 'Gameplay Demo' } = Astro.props;
+---
+
+<div class="showcase-video">
+  <span class="cheat-slide-label">{label}</span>
+  <video
+    class="showcase-video-media"
+    poster={poster}
+    controls
+    playsinline
+    preload="none"
+    aria-label={alt}
+  >
+    <source src={src} type="video/mp4" />
+  </video>
+</div>

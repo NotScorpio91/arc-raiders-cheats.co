@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import type { ReactNode } from 'react';
+import { useMounted } from './useMounted';
 
 interface Props {
   children: ReactNode;
@@ -9,6 +10,12 @@ interface Props {
 }
 
 export default function MotionReveal({ children, className, delay = 0, y = 28 }: Props) {
+  const mounted = useMounted();
+
+  if (!mounted) {
+    return <div className={className}>{children}</div>;
+  }
+
   return (
     <motion.div
       className={className}

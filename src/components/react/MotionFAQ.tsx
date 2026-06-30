@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useId, useState } from 'react';
+import { useMounted } from './useMounted';
 
 interface FAQ {
   question: string;
@@ -12,9 +13,33 @@ interface Props {
   style?: React.CSSProperties;
 }
 
+function StaticFAQ({ items, className = 'faq-wrap', style }: Props) {
+  return (
+    <div className={className} style={style}>
+      {items.map((faq) => (
+        <div key={faq.question} className="faq-item">
+          <button type="button" className="faq-q" aria-expanded="false">
+            {faq.question}
+            <span className="faq-ico-wrap" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M5 12h14M12 5v14" strokeLinecap="round" />
+              </svg>
+            </span>
+          </button>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export default function MotionFAQ({ items, className = 'faq-wrap', style }: Props) {
+  const mounted = useMounted();
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const baseId = useId();
+
+  if (!mounted) {
+    return <StaticFAQ items={items} className={className} style={style} />;
+  }
 
   return (
     <div className={className} style={style}>

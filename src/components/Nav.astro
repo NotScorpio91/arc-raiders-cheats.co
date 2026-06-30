@@ -2,13 +2,14 @@
 import { NAV_LINKS, ZADEYO_CHEATS_URL } from '../lib/site';
 import Logo from './Logo.astro';
 import Icon from './Icon.astro';
-import ThemeToggle from './react/ThemeToggle';
+import ThemeToggle from './ThemeToggle.astro';
 
 const currentPath = Astro.url.pathname;
 ---
 
 <nav aria-label="Main navigation">
   <div class="nav-inner">
+    <input type="checkbox" id="nav-open" class="nav-check" aria-hidden="true" tabindex="-1" />
     <Logo />
     <ul class="nav-links" id="nav-menu">
       {NAV_LINKS.map((link) => (
@@ -20,17 +21,11 @@ const currentPath = Astro.url.pathname;
       ))}
     </ul>
     <div class="nav-actions">
-      <ThemeToggle client:load />
+      <ThemeToggle />
       <a href={ZADEYO_CHEATS_URL} class="nav-cta" rel="noopener noreferrer">Get Access</a>
-      <button
-        class="nav-toggle"
-        type="button"
-        aria-label="Toggle menu"
-        aria-expanded="false"
-        aria-controls="nav-menu"
-      >
+      <label for="nav-open" class="nav-toggle" aria-label="Toggle menu">
         <Icon name="menu" size={20} />
-      </button>
+      </label>
     </div>
   </div>
 </nav>

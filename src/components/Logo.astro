@@ -9,7 +9,7 @@ const { class: className = '' } = Astro.props;
 ---
 
 <a href="/" class:list={['logo-brand', className]}>
-  <img src={SITE.logo} alt={SITE.logoAlt} class="logo-mark" width="40" height="47" />
+  <img src="/logo.webp" alt={SITE.logoAlt} class="logo-mark" width="40" height="47" loading="lazy" decoding="async" />
   <span class="logo-text">ZAD<span>EYO</span></span>
 </a>
 

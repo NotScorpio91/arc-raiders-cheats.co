@@ -12,6 +12,7 @@ interface Props {
   featured?: boolean;
   ctaLabel?: string;
   showAllFeatures?: boolean;
+  headingLevel?: 2 | 3;
 }
 
 const {
@@ -24,6 +25,7 @@ const {
   featured = false,
   ctaLabel = 'View Features',
   showAllFeatures = false,
+  headingLevel = 3,
 } = Astro.props;
 
 const previewFeatures = showAllFeatures ? features : features.slice(0, 5);
@@ -36,7 +38,11 @@ const hiddenCount = showAllFeatures ? 0 : Math.max(0, features.length - previewF
   <div class="aff-ico">
     <Icon name={icon} size={28} />
   </div>
-  <h4>{name}</h4>
+  {headingLevel === 2 ? (
+    <h2 class="aff-card-title">{name}</h2>
+  ) : (
+    <h3 class="aff-card-title">{name}</h3>
+  )}
   <p>{description}</p>
   {!showAllFeatures && (
     <div class="aff-meta">
@@ -45,10 +51,7 @@ const hiddenCount = showAllFeatures ? 0 : Math.max(0, features.length - previewF
   )}
   <ul class="aff-features">
     {previewFeatures.map((feature) => (
-      <li>
-        <Icon name="check" size={14} class="feature-check" />
-        {feature}
-      </li>
+      <li>{feature}</li>
     ))}
   </ul>
   {hiddenCount > 0 && <p class="aff-more">+ {hiddenCount} more on detail page</p>}

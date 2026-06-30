@@ -118,7 +118,7 @@ export const homepageFaqs = [
   {
     question: 'What Arc Raiders cheat tiers do you offer?',
     answer:
-      'Three tiers: Xray for core ESP and targeting, Pro for aim assist and trigger tools, and Private with the full stack — extraction intel, ARC patrol ESP, and stream-safe mode. We also offer Viper, our own private in-house build with aimbot, ESP, and 2D radar.',
+      'Three tiers: Xray for core ESP and targeting, Pro for aim assist and trigger tools, and Private — our in-house Viper build with full aimbot, ESP, radar, and extraction intel.',
   },
   {
     question: 'What products are available besides cheats?',
@@ -131,7 +131,7 @@ export const homepageFaqs = [
       'Use the contact page with your chosen tier or product. We send setup steps and activation details within 24 hours on weekdays.',
   },
   {
-    question: 'Which OS does the Viper cheat support?',
+    question: 'Which OS does the Private cheat support?',
     answer:
       'Windows 10 (22H2, 21H2, 21H1, 20H2, 2004, 1909) and Windows 11 (23H2, 24H2, 25H2). Compatible with all CPUs and GPUs. Intel Virtualization (VT-D) or AMD SVM must be enabled in BIOS. Steam version only — does not work with the Epic Games launcher.',
   },

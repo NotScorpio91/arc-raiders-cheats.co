@@ -1,5 +1,6 @@
 import type { IconName } from '../lib/icons';
 import type { MediaItem } from '../lib/media';
+import { getCheatTierMedia } from '../lib/cheat-media';
 
 export type CheatPricing = {
   day?: string;
@@ -28,16 +29,7 @@ export const cheats: CheatTier[] = [
     name: 'Xray',
     description:
       'Entry-level Arc Raiders overlay with core ESP and smooth targeting — clean visuals without the full toolkit.',
-    media: [
-      { type: 'image', src: '/cheats/xray-esp.svg', alt: 'Xray ESP overlay preview', label: 'ESP Preview' },
-      { type: 'image', src: '/cheats/xray-menu.svg', alt: 'Xray overlay menu preview', label: 'Overlay Menu' },
-      {
-        type: 'video',
-        poster: '/cheats/xray-video-poster.svg',
-        alt: 'Xray gameplay demo',
-        label: 'Gameplay Demo',
-      },
-    ],
+    media: getCheatTierMedia('xray'),
     features: [
       'Raider Visibility Check',
       'ARC Weakpoint Selection',
@@ -64,16 +56,7 @@ export const cheats: CheatTier[] = [
     name: 'Pro',
     description:
       'Mid-tier combat suite — aim assist, trigger tools, and deep ESP. More than Xray, without the full Private stack.',
-    media: [
-      { type: 'image', src: '/cheats/pro-aim.svg', alt: 'Pro aim assist preview', label: 'Aim Assist' },
-      { type: 'image', src: '/cheats/pro-esp.svg', alt: 'Pro ESP suite preview', label: 'ESP Suite' },
-      {
-        type: 'video',
-        poster: '/cheats/pro-video-poster.svg',
-        alt: 'Pro gameplay demo',
-        label: 'Gameplay Demo',
-      },
-    ],
+    media: getCheatTierMedia('pro'),
     features: [
       'Enable Aim Assist',
       'Aim Key Bind',
@@ -106,12 +89,12 @@ export const cheats: CheatTier[] = [
     featured: true,
   },
   {
-    id: 'viper',
-    icon: 'target',
-    tier: 'Private Build',
-    name: 'Viper',
+    id: 'private',
+    icon: 'enemy',
+    tier: 'Private',
+    name: 'Private',
     description:
-      'Our own in-house ARC Raiders cheat — aimbot, full ESP, and 2D radar built for smart play and long-term safety. Not resold, only available directly from us.',
+      'Our in-house Viper private build — full aimbot, ESP, 2D radar, and extraction intel. Not resold, only available directly from us with long-term safety in mind.',
     pricing: {
       day: '$5.99',
       week: '$14.99',
@@ -124,16 +107,7 @@ export const cheats: CheatTier[] = [
       'Intel Virtualization (VT-D) or AMD SVM enabled in BIOS',
       'Compatible with all CPUs and GPUs',
     ],
-    media: [
-      { type: 'image', src: '/cheats/viper-aimbot.svg', alt: 'Viper aimbot preview', label: 'Aimbot' },
-      { type: 'image', src: '/cheats/viper-esp.svg', alt: 'Viper ESP overlay preview', label: 'ESP' },
-      {
-        type: 'video',
-        poster: '/cheats/viper-video-poster.svg',
-        alt: 'Viper gameplay demo',
-        label: 'Gameplay Demo',
-      },
-    ],
+    media: getCheatTierMedia('private'),
     features: [
       'Enable Aimbot',
       'Drone Aimbot',
@@ -161,82 +135,11 @@ export const cheats: CheatTier[] = [
       'Radar Styles (Square, Circle, Custom)',
       'Show Players on Radar',
       'Show Drones on Radar',
+      'Extraction Zone ESP',
+      'ARC Patrol ESP',
+      'Stream-Safe Mode',
       'Remaining Duration Display',
       'Language Switch (Chinese Supported)',
-    ],
-    featured: true,
-  },
-  {
-    id: 'private',
-    icon: 'enemy',
-    tier: 'Full Access',
-    name: 'Private',
-    description:
-      'Full Arc Raiders stack — extraction intel, ARC tracking, stream-safe mode, and every feature we offer.',
-    media: [
-      {
-        type: 'image',
-        src: '/cheats/private-intel.svg',
-        alt: 'Private extraction intel preview',
-        label: 'Extraction Intel',
-      },
-      {
-        type: 'image',
-        src: '/cheats/private-stream.svg',
-        alt: 'Private stream-safe mode preview',
-        label: 'Stream-Safe',
-      },
-      {
-        type: 'video',
-        poster: '/cheats/private-video-poster.svg',
-        alt: 'Private gameplay demo',
-        label: 'Gameplay Demo',
-      },
-    ],
-    features: [
-      'Enable Aim Assist',
-      'Aim Key Bind',
-      'Raider Visibility Check',
-      'Stun & Smoke Check',
-      'ARC Weakpoint Selection',
-      'Targeting FOV',
-      'Show Targeting FOV Ring',
-      'Smooth Targeting (Advanced)',
-      'Enable Trigger Assist',
-      'Trigger Key Bind',
-      'Trigger FOV',
-      'Show Trigger FOV',
-      'Enable Overlay ESP',
-      'Raider Box ESP',
-      'Fill Box ESP',
-      'Health Bar ESP',
-      'Distance Readout',
-      'Player Name ESP',
-      'Skeleton ESP',
-      'Head Marker ESP',
-      'Threat Level ESP',
-      'Weapon ESP',
-      'ARC Patrol ESP',
-      'Extraction Zone ESP',
-      'Loot Crate ESP',
-      'Loot Value ESP',
-      'Box Type (Square, Corner, 2D, 3D)',
-      'Health Bar Position (Right, Left, Bottom, Above)',
-      'Hostile Only Filter',
-      'Inactive Raider Check',
-      'Anti-AFK Protection',
-      'Hazard Immunity Indicator',
-      'Custom Color Profiles',
-      'Overlay Menu',
-      'Menu Theme Selector',
-      'Stream-Safe Mode',
-      'Wireframe Gear View',
-      'Map Mini-Radar',
-      'Squad Member Highlight',
-      'Secure Boot Compatible',
-      'Save Configs (Unlimited)',
-      'Priority Cloud-Sync',
-      'Private Build Access',
       'Direct Support Channel',
     ],
   },
@@ -261,7 +164,16 @@ export function getComparisonFeatures(): string[] {
   return ordered;
 }
 
+/** Display features per tier — Private includes the full merged stack. */
+export function getCheatFeatures(cheatId: string): string[] {
+  if (cheatId === 'private') {
+    return getComparisonFeatures();
+  }
+  return getCheatById(cheatId)?.features ?? [];
+}
+
 export function cheatHasFeature(cheatId: string, feature: string): boolean {
+  if (cheatId === 'private') return true;
   const cheat = getCheatById(cheatId);
   return cheat?.features.includes(feature) ?? false;
 }

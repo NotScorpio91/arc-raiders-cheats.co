@@ -1,13 +1,12 @@
 ---
 import '../styles/global.css';
-import { SITE, SITE_LOGO_URL, PRECONNECT_ORIGINS } from '../lib/site';
+import { SITE, SITE_LOGO_URL, SITE_FONT } from '../lib/site';
 import { buildTitle, buildCanonical, trimDescription } from '../lib/seo';
 import { organizationSchema, webPageSchema } from '../lib/schema';
 import { resolveSocialImage, resolveOgImageUrl } from '../lib/social-images';
 import SchemaOrg from '../components/SchemaOrg.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
-import { ClientRouter } from 'astro:transitions';
 
 interface Props {
   title: string;
@@ -77,6 +76,27 @@ const jsonLd = [
         } catch (e) {
           document.documentElement.setAttribute('data-theme', 'dark');
         }
+
+        function syncThemeToggle(button) {
+          var theme = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+          button.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+          button.classList.toggle('is-light', theme === 'light');
+        }
+
+        document.addEventListener('click', function (event) {
+          var button = event.target.closest('[data-theme-toggle]');
+          if (!button) return;
+          var current = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+          var next = current === 'dark' ? 'light' : 'dark';
+          document.documentElement.setAttribute('data-theme', next);
+          try { localStorage.setItem('theme', next); } catch (e) {}
+          syncThemeToggle(button);
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+          var button = document.querySelector('[data-theme-toggle]');
+          if (button) syncThemeToggle(button);
+        });
       })();
     </script>
     <title>{pageTitle}</title>
@@ -90,18 +110,13 @@ const jsonLd = [
     <link rel="icon" type="image/png" href={SITE.logo} sizes="32x32" />
     <link rel="icon" type="image/png" href={SITE.logo} sizes="192x192" />
     <link rel="apple-touch-icon" href={SITE.logo} />
-    <link rel="manifest" href="/site.webmanifest" />
     <link rel="alternate" hreflang="en" href={canonicalUrl} />
     <link rel="alternate" hreflang="x-default" href={canonicalUrl} />
-    {PRECONNECT_ORIGINS.map((origin) => (
-      <>
-        <link rel="preconnect" href={origin} crossorigin />
-        <link rel="dns-prefetch" href={origin} />
-      </>
-    ))}
+    <link rel="preload" href={SITE_FONT.preload} as="font" type="font/woff2" crossorigin="anonymous" />
     {lcpImage && (
       <link rel="preload" as="image" href={lcpImage} fetchpriority="high" />
     )}
+    <slot name="head" />
 
     <meta property="og:type" content={ogType} />
     <meta property="og:site_name" content={SITE.name} />
@@ -133,103 +148,17 @@ const jsonLd = [
     <meta name="twitter:image:alt" content={ogImageAltText} />
 
     <meta name="generator" content={Astro.generator} />
-    <SchemaOrg schema={jsonLd} />
-    <ClientRouter />
-    <script is:inline>
-      (function () {
-        if (window.__arcNavInit) return;
-        window.__arcNavInit = true;
-
-        var hideTimer = null;
-        var fadeTimer = null;
-        var showTime = 0;
-        var hiding = false;
-        var MIN_VISIBLE_MS = 380;
-        var FADE_OUT_MS = 220;
-
-        function getLoader() {
-          return document.getElementById('page-loader');
-        }
-
-        function isInternalNavLink(link) {
-          if (!link || link.origin !== location.origin) return false;
-          if (link.hasAttribute('download') || link.target === '_blank') return false;
-          var path = link.getAttribute('href');
-          if (!path || path.startsWith('#') || path.startsWith('mailto:')) return false;
-          var targetPath = path.split('?')[0].split('#')[0];
-          return targetPath !== location.pathname;
-        }
-
-        function showLoader() {
-          var loader = getLoader();
-          if (!loader) return;
-
-          hiding = false;
-          clearTimeout(hideTimer);
-          clearTimeout(fadeTimer);
-
-          showTime = Date.now();
-          document.documentElement.classList.add('is-navigating');
-          loader.classList.remove('is-leaving');
-          loader.classList.add('is-active');
-          loader.setAttribute('aria-hidden', 'false');
-          void loader.offsetHeight;
-        }
-
-        function hideLoader() {
-          var loader = getLoader();
-          if (!loader || !loader.classList.contains('is-active') || hiding) return;
-
-          var elapsed = Date.now() - showTime;
-          var waitBeforeFade = Math.max(60, MIN_VISIBLE_MS - elapsed);
-
-          clearTimeout(hideTimer);
-          hideTimer = setTimeout(function () {
-            hiding = true;
-            loader.classList.add('is-leaving');
-
-            clearTimeout(fadeTimer);
-            fadeTimer = setTimeout(function () {
-              loader.classList.remove('is-active', 'is-leaving');
-              loader.setAttribute('aria-hidden', 'true');
-              document.documentElement.classList.remove('is-navigating');
-              hiding = false;
-            }, FADE_OUT_MS);
-          }, waitBeforeFade);
-        }
-
-        document.addEventListener('astro:before-preparation', showLoader);
-        document.addEventListener('astro:page-load', hideLoader);
-
-        document.addEventListener('click', function (e) {
-          var link = e.target.closest('a[href]');
-          if (!isInternalNavLink(link)) return;
-          showLoader();
-        }, true);
-
-        document.addEventListener('click', function (e) {
-          var toggle = e.target.closest('.nav-toggle');
-          if (!toggle) return;
-          var menu = document.querySelector('.nav-links');
-          var open = menu?.classList.toggle('open');
-          toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-        });
-      })();
-    </script>
   </head>
   <body>
     <a class="skip-link" href="#main-content">Skip to main content</a>
-    <div id="page-loader" class="page-loader-static" aria-hidden="true" transition:persist="page-loader">
-      <div class="page-loader-simple" role="status" aria-label="Loading page">
-        <div class="page-loader-spinner" aria-hidden="true"></div>
-        <img src={SITE.logo} alt={SITE.logoAlt} width="40" height="47" class="page-loader-logo" />
-      </div>
-    </div>
 
-    <Nav transition:persist />
+    <Nav />
     <main id="main-content">
       <slot />
     </main>
-    <Footer transition:persist />
+    <Footer />
+
+    <SchemaOrg schema={jsonLd} />
+    <link rel="manifest" href="/site.webmanifest" />
   </body>
 </html>

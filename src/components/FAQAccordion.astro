@@ -9,13 +9,13 @@ interface Props {
 const { question, answer } = Astro.props;
 ---
 
-<div class="faq-item">
-  <button class="faq-q" type="button">
+<details class="faq-item">
+  <summary class="faq-q">
     {question}
     <span class="faq-ico-wrap">
       <span class="faq-ico faq-ico-plus"><Icon name="plus" size={18} /></span>
       <span class="faq-ico faq-ico-minus"><Icon name="minus" size={18} /></span>
     </span>
-  </button>
-  <div class="faq-a">{answer}</div>
-</div>
+  </summary>
+  <div class="faq-a-inner">{answer}</div>
+</details>
