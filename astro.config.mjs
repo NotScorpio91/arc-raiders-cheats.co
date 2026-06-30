@@ -14,6 +14,8 @@ import {
   SITE_URL,
 } from './src/lib/sitemap-meta.mjs';
 
+import cloudflare from '@astrojs/cloudflare';
+
 const blogMeta = getBlogSitemapMeta();
 
 const legacyRedirectsMap = { ...LEGACY_BLOG_REDIRECTS, ...LEGACY_CHEAT_REDIRECTS };
@@ -32,6 +34,7 @@ export default defineConfig({
   site: SITE_URL,
   trailingSlash: 'always',
   prefetch: false,
+
   integrations: [
     mdx(),
     sitemap({
@@ -68,9 +71,13 @@ export default defineConfig({
     }),
     react(),
   ],
+
   redirects: legacyRedirects,
   compressHTML: true,
+
   build: {
     inlineStylesheets: 'always',
   },
+
+  adapter: cloudflare(),
 });
