@@ -1,9 +1,12 @@
 {
 	"$schema": "./node_modules/wrangler/config-schema.json",
-	"name": "arc-raiders-cheats",
 	"compatibility_date": "2026-07-02",
+	"compatibility_flags": ["global_fetch_strictly_public"],
+	"name": "arc-raiders-cheats",
+	"main": "@astrojs/cloudflare/entrypoints/server",
 	"assets": {
-		"directory": "./dist"
+		"directory": "./dist",
+		"binding": "ASSETS"
 	},
 	"observability": {
 		"enabled": true

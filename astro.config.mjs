@@ -8,6 +8,8 @@ import {
   SITE_URL,
 } from './src/lib/sitemap-meta.mjs';
 
+import cloudflare from '@astrojs/cloudflare';
+
 const legacyRedirectsMap = { ...LEGACY_BLOG_REDIRECTS, ...LEGACY_CHEAT_REDIRECTS };
 
 /** @type {Record<string, import('astro').RedirectConfig>} */
@@ -22,13 +24,18 @@ export default defineConfig({
   site: SITE_URL,
   trailingSlash: 'always',
   prefetch: false,
+
   integrations: [
     mdx(),
     react(),
   ],
+
   redirects: legacyRedirects,
   compressHTML: true,
+
   build: {
     inlineStylesheets: 'always',
   },
+
+  adapter: cloudflare(),
 });

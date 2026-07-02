@@ -8,13 +8,15 @@
   "scripts": {
     "dev": "astro dev",
     "build": "node scripts/optimize-images.mjs && node scripts/copy-fonts.mjs && astro build",
-    "deploy": "npm run build && wrangler deploy",
-    "preview": "astro preview",
+    "preview": "npm run build && wrangler dev",
     "optimize:images": "node scripts/optimize-images.mjs",
     "postinstall": "node scripts/copy-fonts.mjs",
-    "astro": "astro"
+    "astro": "astro",
+    "generate-types": "wrangler types",
+    "deploy": "npm run build && wrangler deploy"
   },
   "dependencies": {
+    "@astrojs/cloudflare": "^14.1.0",
     "@astrojs/mdx": "^7.0.0",
     "@astrojs/react": "^6.0.0",
     "@fontsource-variable/inter": "^5.2.8",
@@ -30,6 +32,6 @@
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "sharp": "^0.35.2",
-    "wrangler": "^4.24.0"
+    "wrangler": "^4.106.0"
   }
 }
