@@ -6,7 +6,6 @@ export const SITE = {
   url: 'https://arcraiderscheats.co',
   locale: 'en_US',
   author: 'ArcRaidersCheats',
-  email: 'support@arcraiderscheats.co',
   twitter: '@arcraiderscheats',
   logo: '/logo.png',
   logoAlt: 'ArcRaidersCheats',

@@ -67,7 +67,6 @@ export function organizationSchema() {
     alternateName: ['Arc Raiders Cheats', 'ArcRaidersCheats.co'],
     url: SITE.url,
     description: SITE.description,
-    email: SITE.email,
     logo: organizationLogo(),
     image: socialImageObject(
       ORGANIZATION_SOCIAL_IMAGE.src,

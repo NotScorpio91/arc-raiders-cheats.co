@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { breadcrumbSchema } from '../lib/schema';
-import { SITE } from '../lib/site';
+import { SITE, ZADEYO_CHEATS_URL } from '../lib/site';
 
 const schema = breadcrumbSchema([
   { name: 'Home', url: SITE.url },
@@ -30,15 +30,15 @@ const schema = breadcrumbSchema([
 
     <h2>Information We Collect</h2>
     <p>
-      When you email us at support@arcraiderscheats.co, we collect the email address and message
-      content you provide. We do not run third-party analytics or advertising trackers on this
+      When you use checkout or linked external services, those services may collect the information
+      needed to process access. We do not run third-party analytics or advertising trackers on this
       site.
     </p>
 
     <h2>How We Use Information</h2>
     <p>We use collected information to:</p>
     <ul>
-      <li>Respond to your inquiries and support requests</li>
+      <li>Provide access and product-related information after checkout</li>
       <li>Improve our content and site performance</li>
       <li>Understand which guides and products are most useful to visitors</li>
       <li>Send product-related communications if you purchased a premium product</li>
@@ -58,14 +58,14 @@ const schema = breadcrumbSchema([
 
     <h2>Data Retention</h2>
     <p>
-      Contact email correspondence is retained as long as needed to resolve
-      your inquiry.
+      Product access records are retained only as long as needed to provide service and maintain
+      account access.
     </p>
 
     <h2>Your Rights</h2>
     <p>
-      You may request access to, correction of, or deletion of personal data we hold about you by
-      emailing <a href={`mailto:${SITE.email}`}>{SITE.email}</a>. We will respond within 30 days.
+      You may request access to, correction of, or deletion of personal data through the checkout and
+      support flow linked below.
     </p>
 
     <h2>Changes to This Policy</h2>
@@ -77,7 +77,10 @@ const schema = breadcrumbSchema([
 
     <h2>Contact</h2>
     <p>
-      Privacy questions? Email us at <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.
+      Privacy questions or access requests can be started through the button below.
+    </p>
+    <p>
+      <a href={ZADEYO_CHEATS_URL} class="btn-primary">Get Access</a>
     </p>
       </div>
     </div>

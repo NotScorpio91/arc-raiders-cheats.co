@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { breadcrumbSchema } from '../lib/schema';
-import { SITE } from '../lib/site';
+import { SITE, ZADEYO_CHEATS_URL } from '../lib/site';
 
 const schema = breadcrumbSchema([
   { name: 'Home', url: SITE.url },
@@ -49,8 +49,8 @@ const schema = breadcrumbSchema([
 
     <h2>Products</h2>
     <p>
-      Premium products (Cloud DMA, UGC, and HWID Spoofer) are software tools delivered through our
-      contact flow after purchase. Each product includes setup documentation and support.
+      Premium products (Cloud DMA, UGC, and HWID Spoofer) are software tools delivered through the
+      checkout flow. Each product includes setup documentation and access instructions.
     </p>
 
     <h2>Disclaimer</h2>
@@ -81,7 +81,10 @@ const schema = breadcrumbSchema([
 
     <h2>Contact</h2>
     <p>
-      Questions about these terms? Email <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.
+      Questions about access or products can be started through the checkout button below.
+    </p>
+    <p>
+      <a href={ZADEYO_CHEATS_URL} class="btn-primary">Get Access</a>
     </p>
       </div>
     </div>
