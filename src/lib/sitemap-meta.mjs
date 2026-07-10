@@ -40,6 +40,7 @@ const STATIC_PAGE_SITEMAP_IMAGES = {
   '/cheats/private/': { url: `${IGDB}/sc11kk7.jpg`, title: 'ARC Raiders Private cheat — Viper in-house build' },
   '/products/': { url: `${IGDB}/sc11kka.jpg`, title: 'ARC Raiders products' },
   '/products/ugc/': { url: `${IGDB}/sc11kka.jpg`, title: 'ARC Raiders UGC tools' },
+  '/products/skin-changer/': { url: `${IGDB}/sc11kkc.jpg`, title: 'Skin Changer cosmetics unlock' },
   '/products/cloud-dma/': { url: `${IGDB}/sc11kk9.jpg`, title: 'ARC Raiders Cloud DMA' },
   '/products/hwid-spoofer/': { url: `${IGDB}/sc11kkc.jpg`, title: 'ARC Raiders HWID Spoofer' },
   '/blog/': { url: `${IGDB}/sc11kk7.jpg`, title: 'ARC Raiders blog' },

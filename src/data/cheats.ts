@@ -12,6 +12,9 @@ export type CheatTier = {
   media: MediaItem[];
   systemRequirements?: string[];
   featured?: boolean;
+  seoTitle: string;
+  seoDescription: string;
+  keywords: string[];
 };
 
 export const cheats: CheatTier[] = [
@@ -22,6 +25,16 @@ export const cheats: CheatTier[] = [
     name: 'Xray',
     description:
       'Entry-level Arc Raiders overlay with core ESP and smooth targeting — clean visuals without the full toolkit.',
+    seoTitle: 'Xray Arc Raiders Cheat — ESP & Smooth Targeting 2026',
+    seoDescription:
+      'Buy Xray Arc Raiders cheat — player ESP, health bars, skeleton ESP, loot ESP, and smooth targeting. Entry-tier overlay updated for Season 1.',
+    keywords: [
+      'xray arc raiders cheat',
+      'arc raiders esp',
+      'arc raiders overlay',
+      'arc raiders loot esp',
+      'arc raiders skeleton esp',
+    ],
     media: getCheatTierMedia('xray'),
     features: [
       'Raider Visibility Check',
@@ -49,6 +62,16 @@ export const cheats: CheatTier[] = [
     name: 'Pro',
     description:
       'Mid-tier combat suite — aim assist, trigger tools, and deep ESP. More than Xray, without the full Private stack.',
+    seoTitle: 'Pro Arc Raiders Cheat — Aim Assist, Trigger & ESP 2026',
+    seoDescription:
+      'Buy Pro Arc Raiders cheat — aim assist, trigger tools, deep ESP, weapon ESP, and combat filters. Mid-tier suite for Season 1 raids.',
+    keywords: [
+      'pro arc raiders cheat',
+      'arc raiders aim assist',
+      'arc raiders triggerbot',
+      'arc raiders combat cheat',
+      'arc raiders weapon esp',
+    ],
     media: getCheatTierMedia('pro'),
     features: [
       'Enable Aim Assist',
@@ -88,6 +111,17 @@ export const cheats: CheatTier[] = [
     name: 'Private',
     description:
       'Our in-house Viper private build — full aimbot, ESP, 2D radar, and extraction intel. Not resold, only available directly from us with long-term safety in mind.',
+    seoTitle: 'Private Arc Raiders Cheat — Aimbot, ESP & 2D Radar 2026',
+    seoDescription:
+      'Buy Private Arc Raiders cheat (Viper) — full aimbot, player ESP, loot ESP, 2D radar hack, and extraction intel. In-house private build for Season 1.',
+    keywords: [
+      'private arc raiders cheat',
+      'viper arc raiders',
+      'arc raiders aimbot',
+      'arc raiders 2d radar',
+      'arc raiders extraction esp',
+      'arc raiders private cheat',
+    ],
     systemRequirements: [
       'Steam version only (not Epic Games)',
       'Windows 10: 22H2, 21H2, 21H1, 20H2, 2004, 1909',

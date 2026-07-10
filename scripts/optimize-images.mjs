@@ -1,11 +1,21 @@
-import { readdir } from 'node:fs/promises';
+import { access, readdir } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import sharp from 'sharp';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
+const sourceDir = join(root, 'assets', 'source', 'cheats');
 const cheatsDir = join(root, 'public', 'images', 'cheats');
 const publicDir = join(root, 'public');
+
+async function exists(path) {
+  try {
+    await access(path);
+    return true;
+  } catch {
+    return false;
+  }
+}
 
 async function writeWebp(input, output, width, height, quality) {
   await sharp(input)
@@ -15,10 +25,19 @@ async function writeWebp(input, output, width, height, quality) {
 }
 
 async function optimizeCheats() {
-  const files = (await readdir(cheatsDir)).filter((file) => file.endsWith('.png'));
+  if (!(await exists(sourceDir))) {
+    console.log('No PNG sources in assets/source/cheats — skipping cheat image optimization');
+    return;
+  }
+
+  const files = (await readdir(sourceDir)).filter((file) => file.endsWith('.png'));
+  if (files.length === 0) {
+    console.log('No PNG sources found — skipping cheat image optimization');
+    return;
+  }
 
   for (const file of files) {
-    const input = join(cheatsDir, file);
+    const input = join(sourceDir, file);
     const base = file.replace(/\.png$/i, '');
 
     await writeWebp(input, join(cheatsDir, `${base}.webp`), 960, 540, 76);
@@ -27,25 +46,11 @@ async function optimizeCheats() {
     console.log(`Optimized ${file} -> ${base}.webp + ${base}-640.webp`);
   }
 
-  const posterInput = join(cheatsDir, 'ss1.png');
-  await writeWebp(posterInput, join(cheatsDir, 'video-poster.webp'), 960, 540, 72);
-  console.log('Created video-poster.webp');
-
-  await writeWebp(join(cheatsDir, 'ss2.png'), join(publicDir, 'images', 'hero.webp'), 960, 540, 68);
-  console.log('Created hero.webp');
-}
-
-async function optimizeLogo() {
-  const input = join(publicDir, 'logo.png');
-  const output = join(publicDir, 'logo.webp');
-
-  await sharp(input)
-    .resize(88, 104, { fit: 'inside', withoutEnlargement: true })
-    .webp({ quality: 85 })
-    .toFile(output);
-
-  console.log('Created logo.webp');
+  const heroInput = join(sourceDir, 'ss2.png');
+  if (await exists(heroInput)) {
+    await writeWebp(heroInput, join(publicDir, 'images', 'hero.webp'), 960, 540, 68);
+    console.log('Created hero.webp');
+  }
 }
 
 await optimizeCheats();
-await optimizeLogo();

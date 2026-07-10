@@ -8,24 +8,18 @@ import {
   LEGACY_CHEAT_REDIRECTS,
   SITE_URL,
 } from './sitemap-meta.mjs';
+import { CHEAT_DETAIL_PATHS, PRODUCT_DETAIL_PATHS } from './page-catalog.mjs';
 
 const STATIC_SITEMAP_PATHS = [
   '/',
   '/about/',
   '/cheats/',
   '/products/',
+  '/blog/',
   '/contact/',
   '/faq/',
   '/privacy-policy/',
   '/terms/',
-];
-
-const CHEAT_DETAIL_PATHS = ['/cheats/xray/', '/cheats/pro/', '/cheats/private/'];
-
-const PRODUCT_DETAIL_PATHS = [
-  '/products/ugc/',
-  '/products/cloud-dma/',
-  '/products/hwid-spoofer/',
 ];
 
 const LEGACY_PATHS = new Set([

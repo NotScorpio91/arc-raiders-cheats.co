@@ -6,7 +6,7 @@ import MotionReveal from '../components/react/MotionReveal';
 import { cheats } from '../data/cheats';
 import { products } from '../data/products';
 import { breadcrumbSchema } from '../lib/schema';
-import { SITE, ZADEYO_CHEATS_URL } from '../lib/site';
+import { SITE, GET_ACCESS_URL } from '../lib/site';
 
 const aboutSections = [
   {
@@ -24,7 +24,7 @@ const aboutSections = [
     title: 'What We Build',
     paragraphs: [
       'Our cheat stack covers three tiers — Xray for core ESP, Pro for combat tools, and Private for the full extraction suite. Each tier is documented with real feature lists so you know exactly what you are getting before you reach out.',
-      'Beyond cheats, we ship infrastructure and utility products: Cloud DMA for single-PC setup, UGC for account recovery workflows, and HWID Spoofer for hardware ID masking across major anti-cheats.',
+      'Beyond cheats, we ship infrastructure and utility products: Cloud DMA for single-PC setup, UGC for account recovery workflows, Skin Changer for cosmetics unlocks, and HWID Spoofer for hardware ID masking across major anti-cheats.',
     ],
   },
   {
@@ -76,6 +76,7 @@ const schema = [
 <BaseLayout
   title="About Arc Raiders Cheats — Who We Are"
   description="Arc Raiders cheats, ESP and aimbot tiers, and premium tools — built and maintained by players who actually raid in Season 1."
+  canonical={`${SITE.url}/about/`}
   schema={schema}
 >
   <section class="section listing-section listing-section--center about-page">
@@ -172,13 +173,13 @@ const schema = [
           <h2 class="about-contact-title">Find Your Setup</h2>
           <p class="about-contact-desc">
             Compare cheat tiers for ESP, aim tools, and extraction intel — or browse products for
-            Cloud DMA infrastructure, UGC account tools, and HWID Spoofer. Pick what fits your run,
-            then use Get Access for instant checkout when you are ready.
+            Cloud DMA infrastructure, UGC account tools, Skin Changer cosmetics, and HWID Spoofer.
+            Pick what fits your run, then use Get Access for instant checkout when you are ready.
           </p>
           <div class="about-contact-actions">
             <MotionButton
               client:visible
-              href={ZADEYO_CHEATS_URL}
+              href={GET_ACCESS_URL}
               className="btn-primary"
               hideUrlOnHover={true}
             >

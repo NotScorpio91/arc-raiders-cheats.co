@@ -5,8 +5,8 @@ import Icon from '../../components/Icon.astro';
 import MediaSwiper from '../../components/react/MediaSwiper';
 import MotionButton from '../../components/react/MotionButton';
 import { cheats, getCheatById, getCheatFeatures } from '../../data/cheats';
-import { articleSchema, breadcrumbSchema, softwareApplicationSchema } from '../../lib/schema';
-import { SITE, ZADEYO_CHEATS_URL } from '../../lib/site';
+import { breadcrumbSchema, softwareApplicationSchema } from '../../lib/schema';
+import { SITE, GET_ACCESS_URL } from '../../lib/site';
 import { resolveSocialImage } from '../../lib/social-images';
 
 export function getStaticPaths() {
@@ -23,15 +23,13 @@ if (!cheat) {
 }
 
 const cheatFeatures = getCheatFeatures(cheat.id);
-
 const url = `${SITE.url}/cheats/${cheat.id}/`;
 const socialImage = resolveSocialImage(`/cheats/${cheat.id}/`);
 
-
 const schema = [
   softwareApplicationSchema({
-    name: `${cheat.name} — Arc Raiders Cheats`,
-    description: cheat.description,
+    name: `${cheat.name} Arc Raiders Cheat — ${cheat.tier}`,
+    description: cheat.seoDescription,
     url,
     image: socialImage.src,
     imageAlt: socialImage.alt,
@@ -47,9 +45,13 @@ const schema = [
 ---
 
 <BaseLayout
-  title={`${cheat.name} Arc Raiders Cheats — ${cheat.tier} Tier 2026`}
-  description={`Arc Raiders Cheats – ${cheat.name} ${cheat.tier} tier: ${cheat.description}`}
+  title={cheat.seoTitle}
+  description={cheat.seoDescription}
   canonical={url}
+  ogType="website"
+  ogImage={socialImage.src}
+  ogImageAlt={socialImage.alt}
+  keywords={cheat.keywords}
   schema={schema}
 >
   <section class="section cheat-detail-section">
@@ -57,7 +59,7 @@ const schema = [
       <div class="cheat-detail-layout">
         <div class="cheat-detail-left">
           <div class="cheat-detail-left-head">
-            <h1>{cheat.name}</h1>
+            <h1>{cheat.name} Arc Raiders Cheat</h1>
             <div class="detail-head-badges">
               <span class="cheat-detail-tier">{cheat.tier}</span>
               {cheat.featured && <span class="cheat-card-badge">Popular</span>}
@@ -101,7 +103,7 @@ const schema = [
           <div class="cheat-detail-actions">
             <MotionButton
               client:visible
-              href={ZADEYO_CHEATS_URL}
+              href={GET_ACCESS_URL}
               className="btn-primary cheat-detail-btn"
               hideUrlOnHover={true}
             >

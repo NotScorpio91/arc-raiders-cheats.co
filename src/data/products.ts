@@ -6,8 +6,13 @@ export type Product = {
   tier: string;
   name: string;
   description: string;
+  details?: string;
   features: string[];
+  accessUrl: string;
   featured?: boolean;
+  seoTitle: string;
+  seoDescription: string;
+  keywords: string[];
 };
 
 export const products: Product[] = [
@@ -18,6 +23,17 @@ export const products: Product[] = [
     name: 'UGC',
     description:
       'Account recovery and unban tool builder — custom workflows, appeal automation, and profile rebuilds after restrictions.',
+    accessUrl: 'https://zadeyo.com/go/PRO?to=%2Fproducts%2Fugc',
+    seoTitle: 'UGC Account Recovery Tools — Unban & Profile Rebuild 2026',
+    seoDescription:
+      'Buy UGC account recovery tools — unban workflows, appeal automation, and profile rebuilds after restrictions. Instant access with setup guides.',
+    keywords: [
+      'ugc account recovery',
+      'account unban tool',
+      'ban appeal automation',
+      'profile recovery tools',
+      'multi-game account tools',
+    ],
     features: [
       'Account Unban Tool Builder',
       'Custom Workflow Configuration',
@@ -35,12 +51,61 @@ export const products: Product[] = [
     ],
   },
   {
+    id: 'skin-changer',
+    icon: 'loadout',
+    tier: 'Cosmetics',
+    name: 'Skin Changer',
+    description:
+      'Unlock every cosmetic and weapon skin instantly across your favorite games. Stop paying for digital items and customize your loadout exactly how you want it.',
+    details:
+      'Skin Changer is a simple, lightweight tool designed to give you complete control over your in-game cosmetics. Instead of spending hundreds of dollars on microtransactions, our tool unlocks the entire marketplace of premium weapon skins, character outfits, and rare knife variants across major titles and many games.',
+    accessUrl: 'https://zadeyo.com/go/PRO?to=%2Fproducts%2Fskin-changer',
+    featured: true,
+    seoTitle: 'Skin Changer — Unlock All Weapon Skins & Cosmetics 2026',
+    seoDescription:
+      'Buy Skin Changer to unlock weapon skins, character outfits, and rare knife variants across major games. Lightweight tool, instant cosmetic unlocks, no microtransactions.',
+    keywords: [
+      'skin changer',
+      'unlock weapon skins',
+      'game skin unlocker',
+      'cosmetic unlock tool',
+      'knife skin changer',
+      'character outfit unlock',
+    ],
+    features: [
+      'Unlock All Weapon Skins',
+      'Character Outfit Unlock',
+      'Rare Knife Variants',
+      'Premium Marketplace Cosmetics',
+      'Multi-Game Skin Support',
+      'Instant Cosmetic Apply',
+      'Lightweight Client',
+      'Custom Loadout Control',
+      'No Microtransaction Spend',
+      'Simple One-Click Unlock',
+      'Safe Profile Apply',
+      'Regular Skin Database Updates',
+      'Direct Support Channel',
+    ],
+  },
+  {
     id: 'cloud-dma',
     icon: 'cloud',
     tier: 'Infrastructure',
     name: 'Cloud DMA',
     description:
       'Single-PC cheat infrastructure via Hyper-V — no second machine, USB DMA bridge, or PCIe card required.',
+    accessUrl: 'https://zadeyo.com/go/PRO?to=%2Fproducts%2Fcloud-dma',
+    seoTitle: 'Cloud DMA — Single-PC Hyper-V Cheat Infrastructure 2026',
+    seoDescription:
+      'Buy Cloud DMA for Arc Raiders cheats — Hyper-V single-PC setup with no second machine, USB DMA bridge, or PCIe card. Instant activation and setup guides.',
+    keywords: [
+      'cloud dma',
+      'hyper-v dma',
+      'single pc dma',
+      'arc raiders cloud dma',
+      'dma without second pc',
+    ],
     features: [
       'Hyper-V Virtual Environment',
       'Single-PC Setup (No Second Machine)',
@@ -57,7 +122,6 @@ export const products: Product[] = [
       'Setup Guides Included',
       'Priority Infrastructure Support',
     ],
-    featured: true,
   },
   {
     id: 'hwid-spoofer',
@@ -66,6 +130,18 @@ export const products: Product[] = [
     name: 'HWID Spoofer',
     description:
       'Hardware ID spoofing for disk serials, MAC addresses, GPU IDs, and more — compatible with EAC, BattlEye, Vanguard, and major anti-cheats.',
+    accessUrl: 'https://zadeyo.com/go/PRO?to=%2Fproducts%2Fhwid-spoofer',
+    seoTitle: 'HWID Spoofer — EAC BattlEye Vanguard Compatible 2026',
+    seoDescription:
+      'Buy HWID Spoofer for disk, MAC, GPU, and SMBIOS spoofing. Compatible with EAC, BattlEye, Vanguard, and major anti-cheats. Instant access and verification tools.',
+    keywords: [
+      'hwid spoofer',
+      'eac hwid spoof',
+      'battleye spoofer',
+      'vanguard hwid spoofer',
+      'hardware id spoof',
+      'arc raiders hwid spoofer',
+    ],
     features: [
       'Disk Serial Spoofing',
       'MAC Address Spoofing',
@@ -90,25 +166,6 @@ export function getProductById(id: string): Product | undefined {
   return products.find((product) => product.id === id);
 }
 
-export function getProductComparisonFeatures(): string[] {
-  const seen = new Set<string>();
-  const ordered: string[] = [];
-  for (const product of [...products].reverse()) {
-    for (const feature of product.features) {
-      if (!seen.has(feature)) {
-        seen.add(feature);
-        ordered.push(feature);
-      }
-    }
-  }
-  return ordered;
-}
-
-export function productHasFeature(productId: string, feature: string): boolean {
-  const product = getProductById(productId);
-  return product?.features.includes(feature) ?? false;
-}
-
 export const homepageFaqs = [
   {
     question: 'Is this site updated after Arc Raiders patches?',
@@ -123,7 +180,7 @@ export const homepageFaqs = [
   {
     question: 'What products are available besides cheats?',
     answer:
-      'Cloud DMA runs our cheat stack on one PC via Hyper-V. UGC is an account recovery and unban tool builder. HWID Spoofer masks hardware IDs for EAC, BattlEye, Vanguard, and other anti-cheats.',
+      'Cloud DMA runs our cheat stack on one PC via Hyper-V. UGC is an account recovery and unban tool builder. Skin Changer unlocks weapon skins and cosmetics across supported games. HWID Spoofer masks hardware IDs for EAC, BattlEye, Vanguard, and other anti-cheats.',
   },
   {
     question: 'How do I get access after purchase?',
@@ -138,7 +195,7 @@ export const homepageFaqs = [
   {
     question: 'Can I use my license key on another computer?',
     answer:
-      'No. Your key locks to the first computer you activate it on. If you reinstall Windows or change hardware, open a Discord ticket and we will reset your HWID for you.',
+      'No. Your key locks to the first computer you activate it on. If you reinstall Windows or change hardware, contact support and we will reset your HWID for you.',
   },
   {
     question: 'What payment methods are available?',
@@ -148,6 +205,6 @@ export const homepageFaqs = [
   {
     question: 'I found a bug or have a suggestion — where do I report it?',
     answer:
-      'Post it in our Discord. There is a dedicated ARC Raiders channel for bug reports and suggestions, and that is where we track and fix issues.',
+      'Use the Contact button to reach support. There is a dedicated channel for bug reports and suggestions, and that is where we track and fix issues.',
   },
 ] as const;

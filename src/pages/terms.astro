@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { breadcrumbSchema } from '../lib/schema';
-import { SITE, ZADEYO_CHEATS_URL } from '../lib/site';
+import { SITE, CONTACT_URL } from '../lib/site';
 
 const schema = breadcrumbSchema([
   { name: 'Home', url: SITE.url },
@@ -12,6 +12,7 @@ const schema = breadcrumbSchema([
 <BaseLayout
   title="Terms of Use — Arc Raiders Cheats"
   description="Terms of use for ArcRaidersCheats.co — rules for using our Arc Raiders cheats, guides, and product pages."
+  canonical={`${SITE.url}/terms/`}
   schema={schema}
 >
   <section class="section listing-section">
@@ -49,8 +50,8 @@ const schema = breadcrumbSchema([
 
     <h2>Products</h2>
     <p>
-      Premium products (Cloud DMA, UGC, and HWID Spoofer) are software tools delivered through the
-      checkout flow. Each product includes setup documentation and access instructions.
+      Premium products (Cloud DMA, UGC, Skin Changer, and HWID Spoofer) are software tools delivered
+      through the checkout flow. Each product includes setup documentation and access instructions.
     </p>
 
     <h2>Disclaimer</h2>
@@ -81,10 +82,10 @@ const schema = breadcrumbSchema([
 
     <h2>Contact</h2>
     <p>
-      Questions about access or products can be started through the checkout button below.
+      Questions about access or products can be started through the contact button below.
     </p>
     <p>
-      <button type="button" class="btn-primary" data-go-url={ZADEYO_CHEATS_URL}>Get Access</button>
+      <button type="button" class="btn-primary" data-go-url={CONTACT_URL}>Contact</button>
     </p>
       </div>
     </div>

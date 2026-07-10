@@ -31,18 +31,3 @@ export type IconName =
   | 'newspaper'
   | 'arrow-left';
 
-export const categoryIcons: Record<string, IconName> = {
-  Loadouts: 'loadout',
-  Weapons: 'crosshair',
-  Extraction: 'extraction',
-  Enemies: 'enemy',
-  Movement: 'movement',
-  Loot: 'loot',
-  Settings: 'settings',
-  Beginner: 'guide',
-  Guide: 'guide',
-};
-
-export function getCategoryIcon(category: string): IconName {
-  return categoryIcons[category] ?? 'file-text';
-}

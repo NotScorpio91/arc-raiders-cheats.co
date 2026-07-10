@@ -5,7 +5,7 @@ import MotionButton from '../../components/react/MotionButton';
 import MotionReveal from '../../components/react/MotionReveal';
 import { products, getProductById } from '../../data/products';
 import { breadcrumbSchema, productSchema } from '../../lib/schema';
-import { SITE, ZADEYO_CHEATS_URL } from '../../lib/site';
+import { SITE } from '../../lib/site';
 import { resolveSocialImage } from '../../lib/social-images';
 
 export function getStaticPaths() {
@@ -23,14 +23,19 @@ if (!product) {
 
 const url = `${SITE.url}/products/${product.id}/`;
 const socialImage = resolveSocialImage(`/products/${product.id}/`);
+const accessUrl = product.accessUrl;
+const pageDescription = product.seoDescription;
+const pageTitle = product.seoTitle;
 
 const schema = [
   productSchema({
-    name: `${product.name} — Arc Raiders Cheats`,
-    description: product.description,
+    name: `${product.name} — ArcRaidersCheats`,
+    description: product.details ? `${product.description} ${product.details}` : product.description,
     url,
     image: socialImage.src,
     imageAlt: socialImage.alt,
+    category: product.tier,
+    sku: product.id,
   }),
   breadcrumbSchema([
     { name: 'Home', url: SITE.url },
@@ -41,9 +46,13 @@ const schema = [
 ---
 
 <BaseLayout
-  title={`${product.name} for Arc Raiders Cheats — ${product.tier}`}
-  description={`${product.name} for Arc Raiders cheats — ${product.description}`}
+  title={pageTitle}
+  description={pageDescription}
   canonical={url}
+  ogType="website"
+  ogImage={socialImage.src}
+  ogImageAlt={socialImage.alt}
+  keywords={product.keywords}
   schema={schema}
 >
   <section class="section product-detail-section">
@@ -63,6 +72,7 @@ const schema = [
             </div>
             <div class="s-tag">// Overview</div>
             <p class="product-detail-about-desc">{product.description}</p>
+            {product.details && <p class="product-detail-about-desc">{product.details}</p>}
             <div class="product-detail-meta">
               <span class="product-detail-meta-pill">{product.features.length} Features</span>
               <span class="product-detail-meta-pill">{product.tier}</span>
@@ -89,7 +99,7 @@ const schema = [
             <div class="product-detail-cta">
               <MotionButton
                 client:visible
-                href={ZADEYO_CHEATS_URL}
+                href={accessUrl}
                 className="btn-primary cheat-detail-btn"
                 hideUrlOnHover={true}
               >

@@ -4,7 +4,7 @@ import MotionFAQ from '../components/react/MotionFAQ';
 import MotionReveal from '../components/react/MotionReveal';
 import { homepageFaqs } from '../data/products';
 import { faqSchema, breadcrumbSchema } from '../lib/schema';
-import { SITE, ZADEYO_CHEATS_URL } from '../lib/site';
+import { SITE, GET_ACCESS_URL, CONTACT_URL } from '../lib/site';
 import { resolveSocialImage } from '../lib/social-images';
 
 const faqSocial = resolveSocialImage('/faq/');
@@ -19,12 +19,12 @@ const generalFaqs = [
   {
     question: 'Can I suggest a guide topic?',
     answer:
-      'Yes. Use the Get Access button to open the checkout and support flow. We prioritize topics that multiple players request.',
+      'Yes. Use the Contact button to reach support. We prioritize topics that multiple players request.',
   },
   {
     question: 'Do you accept guest contributions?',
     answer:
-      'We consider guest guides from experienced players with verifiable in-game experience. Use the Get Access flow if you want to discuss a writing sample or your area of expertise.',
+      'We consider guest guides from experienced players with verifiable in-game experience. Use Contact if you want to discuss a writing sample or your area of expertise.',
   },
 ];
 
@@ -40,6 +40,7 @@ const schema = [
 <BaseLayout
   title="Arc Raiders Cheats FAQ — Common Questions"
   description="FAQ about Arc Raiders cheats — Xray, Pro, and Private tiers, Cloud DMA, HWID spoofer, access, and Season 1 updates."
+  canonical={`${SITE.url}/faq/`}
   schema={schema}
 >
   <section class="section listing-section">
@@ -54,9 +55,12 @@ const schema = [
         </div>
         <MotionFAQ client:visible items={generalFaqs} />
         <div class="cta-banner" style="margin-top: 2rem;">
-          <h2>Need Access?</h2>
-          <p>Use the checkout flow for Arc Raiders cheats, products, and support.</p>
-          <button type="button" class="btn-primary" data-go-url={ZADEYO_CHEATS_URL}>Get Access</button>
+          <h2>Need Help?</h2>
+          <p>Contact support for Arc Raiders cheats, products, and setup questions — or get access when you are ready.</p>
+          <div class="hero-btns" style="justify-content: center; margin-top: 1rem;">
+            <button type="button" class="btn-primary" data-go-url={CONTACT_URL}>Contact</button>
+            <button type="button" class="btn-ghost" data-go-url={GET_ACCESS_URL}>Get Access</button>
+          </div>
         </div>
       </MotionReveal>
     </div>

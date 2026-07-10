@@ -8,7 +8,7 @@ function organizationLogo() {
     contentUrl: SITE_LOGO_URL,
     width: 256,
     height: 300,
-    caption: 'Zadeyo',
+    caption: SITE.name,
   };
 }
 
@@ -350,6 +350,8 @@ export function productSchema(props: {
   url: string;
   image?: string;
   imageAlt?: string;
+  category?: string;
+  sku?: string;
 }) {
   return {
     '@context': 'https://schema.org',
@@ -357,6 +359,8 @@ export function productSchema(props: {
     name: props.name,
     description: props.description,
     url: props.url,
+    ...(props.sku ? { sku: props.sku } : {}),
+    ...(props.category ? { category: props.category } : {}),
     ...(props.image
       ? { image: socialImageObject(props.image, props.imageAlt ?? props.name) }
       : {}),

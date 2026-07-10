@@ -1,7 +1,10 @@
 ---
+import { GET_ACCESS_URL } from '../lib/site';
+
 // Standalone redirect page — no layout, no visible content.
 // Fires the redirect in <head> before the body renders so users
 // never see a "buy page", they go straight to the checkout link.
+const redirectUrl = GET_ACCESS_URL;
 ---
 <!doctype html>
 <html lang="en">
@@ -9,12 +12,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex, nofollow" />
+    <meta http-equiv="refresh" content={`0;url=${redirectUrl}`} />
     <title>Redirecting…</title>
-    <script is:inline>
+    <script is:inline define:vars={{ redirectUrl }}>
       (function () {
-        var p = 'SPY';
-        var u = 'https://zadeyo.com/go/' + p;
-        try { window.location.replace(u); } catch (e) { window.location.href = u; }
+        try { window.location.replace(redirectUrl); } catch (e) { window.location.href = redirectUrl; }
       })();
     </script>
   </head>

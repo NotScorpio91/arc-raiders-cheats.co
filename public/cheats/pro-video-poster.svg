@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" fill="none">
-  <rect width="960" height="540" fill="#0a0818"/>
-  <circle cx="480" cy="270" r="64" fill="#4ade80" fill-opacity="0.85"/>
-  <polygon points="460,240 460,300 520,270" fill="#0f0f1c"/>
-  <text x="480" y="380" text-anchor="middle" fill="#f0eeff" font-family="Segoe UI, system-ui, sans-serif" font-size="22" font-weight="700">Pro Gameplay Demo</text>
-  <text x="480" y="412" text-anchor="middle" fill="#8b7fb3" font-family="Segoe UI, system-ui, sans-serif" font-size="14">Contact us for full video access</text>
-</svg>

@@ -8,7 +8,7 @@ export const SITE = {
   author: 'ArcRaidersCheats',
   twitter: '@arcraiderscheats',
   logo: '/logo.png',
-  logoAlt: 'ArcRaidersCheats',
+  logoAlt: 'Arc Raiders Cheats',
   themeColor: '#7c3aed',
   updated: '2026-06-29',
   rating: 'general',
@@ -39,6 +39,9 @@ export const SITE_KEYWORDS = [
   'arc raiders pro cheat',
   'arc raiders hwid spoofer',
   'arc raiders cloud dma',
+  'skin changer',
+  'unlock weapon skins',
+  'game skin unlocker',
   'arcraiderscheats',
   'arcraiderscheats.co',
   'buy arc raiders cheat',
@@ -54,8 +57,6 @@ export const SITE_KEYWORDS = [
   'arc raiders season 1 cheat',
 ] as const;
 
-export const VIDEO_ORIGIN = 'https://bryjchknhsrmjdunnfer.supabase.co';
-
 export const SITE_FONT = {
   family: 'Inter Variable',
   preload: '/fonts/inter-latin.woff2',
@@ -63,7 +64,11 @@ export const SITE_FONT = {
 
 export const SITE_LOGO_URL = `${SITE.url}${SITE.logo}`;
 
-export const ZADEYO_CHEATS_URL = 'https://zadeyo.com/go/PRO?to=/products/arc-raiders-cheats';
+/** Checkout / access affiliate link */
+export const GET_ACCESS_URL = 'https://zadeyo.com/go/PRO?to=/products/arc-raiders-cheats';
+
+/** Contact, support, Discord, and other external help links — same ref */
+export const CONTACT_URL = GET_ACCESS_URL;
 
 export const NAV_LINKS = [
   { href: '/cheats/', label: 'Cheats' },

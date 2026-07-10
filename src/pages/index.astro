@@ -4,14 +4,14 @@ import CheatTierCard from '../components/CheatTierCard.astro';
 import ProductCard from '../components/ProductCard.astro';
 import BlogCard from '../components/BlogCard.astro';
 import FAQAccordion from '../components/FAQAccordion.astro';
-import LazyVideo from '../components/LazyVideo.astro';
 import ShowcaseSlider from '../components/ShowcaseSlider.astro';
+import Icon from '../components/Icon.astro';
 import { getCollection } from 'astro:content';
 import { cheats, getCheatFeatures } from '../data/cheats';
-import { homepageShowcase, homepageHero, homepageHeroImage, homepageShowcaseVideo } from '../data/homepage';
+import { homepageShowcase, homepageHero, homepageHeroImage } from '../data/homepage';
 import { homepageGuideIntro, homepageGuideSections, homepageGuideTakeaways } from '../data/homepage-guide';
 import { homepageFaqs, products } from '../data/products';
-import { ZADEYO_CHEATS_URL, SITE_KEYWORDS } from '../lib/site';
+import { GET_ACCESS_URL, SITE_KEYWORDS, SITE } from '../lib/site';
 import { resolveSocialImage } from '../lib/social-images';
 import {
   websiteSchema,
@@ -44,6 +44,7 @@ const schema = [
 <BaseLayout
   title="Arc Raiders Cheats – Undetected ESP, Aimbot & Radar 2026"
   description="Arc Raiders Cheats – Dominate every raid with player ESP, loot ESP, bone-targeted aimbot, 2D radar hack, and extraction intel. Fully external, safe against EAC. Updated every patch."
+  canonical={`${SITE.url}/`}
   schema={schema}
   keywords={[...SITE_KEYWORDS]}
   lcpImage={homepageHeroImage.src}
@@ -74,88 +75,10 @@ const schema = [
         <h1>{homepageHero.title}</h1>
         <p class="hero-desc">{homepageHero.description}</p>
         <div class="hero-btns">
-          <button type="button" class="btn-primary" data-go-url={ZADEYO_CHEATS_URL}>Browse Cheats</button>
+          <button type="button" class="btn-primary" data-go-url={GET_ACCESS_URL}>Browse Cheats</button>
           <a href="/products/" class="btn-ghost">View Products</a>
         </div>
       </div>
-    </div>
-  </section>
-
-  <section class="section showcase-section alt-bg" id="showcase">
-    <div class="section-inner">
-      <div class="listing-intro">
-        <h2 class="listing-subtitle">See It In Action</h2>
-        <p class="listing-intro-desc">
-          Real cheat screenshots — ESP, aimbot, radar, and in-game overlays from our ARC Raiders
-          tools.
-        </p>
-      </div>
-
-      <div class="showcase-panel showcase-panel--single">
-        <LazyVideo
-          src={homepageShowcaseVideo.src}
-          poster={homepageShowcaseVideo.poster}
-          alt={homepageShowcaseVideo.alt}
-        />
-        <div class="showcase-media">
-          <ShowcaseSlider media={homepageShowcase} />
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section homepage-guide-section" id="guide">
-    <div class="section-inner">
-      <div class="listing-intro homepage-guide-intro">
-        <div class="s-tag">// Guide</div>
-        <h2 class="listing-subtitle">Arc Raiders Cheats Guide</h2>
-        <p class="listing-intro-desc">
-          What to look for when buying Arc Raiders cheats — features, safety, and support without
-          the sales pitch.
-        </p>
-      </div>
-
-      <article class="blog-article blog-article--prose content-main homepage-guide-panel">
-        <p class="homepage-guide-intro-text">{homepageGuideIntro}</p>
-
-        <div class="homepage-guide-takeaways">
-          <p class="homepage-guide-takeaways-label">Key takeaways</p>
-          <ul>
-            {homepageGuideTakeaways.map((item) => (
-              <li>{item}</li>
-            ))}
-          </ul>
-        </div>
-
-        {homepageGuideSections.map((section) => (
-          <section class="homepage-guide-block">
-            <h2>{section.title}</h2>
-            {section.lead && <p class="homepage-guide-lead">{section.lead}</p>}
-            {section.paragraphs.map((paragraph) => (
-              <p>
-                {paragraph.includes('Zadeyo') ? (
-                  <>
-                    {paragraph.split('Zadeyo')[0]}
-                    <button type="button" class="inline-link-button" data-go-url={ZADEYO_CHEATS_URL}>
-                      Zadeyo
-                    </button>
-                    {paragraph.split('Zadeyo')[1]}
-                  </>
-                ) : (
-                  paragraph
-                )}
-              </p>
-            ))}
-            {section.bullets && section.bullets.length > 0 && (
-              <ul class="homepage-guide-bullets">
-                {section.bullets.map((item) => (
-                  <li>{item}</li>
-                ))}
-              </ul>
-            )}
-          </section>
-        ))}
-      </article>
     </div>
   </section>
 
@@ -182,14 +105,38 @@ const schema = [
     </div>
   </section>
 
-  <section class="section alt-bg" id="products">
+  <section class="section showcase-section alt-bg" id="showcase" aria-labelledby="showcase-heading">
+    <div class="section-inner">
+      <div class="s-head showcase-head">
+        <div class="s-tag">// Screenshots</div>
+        <h2 class="s-title" id="showcase-heading">Arc Raiders Cheat Screenshots</h2>
+        <p class="s-sub">
+          Real in-game Arc Raiders cheat screenshots — player ESP, loot ESP, bone-targeted aimbot,
+          2D radar hack, and overlay menus from our Xray, Pro, and Private tiers.
+        </p>
+        <ul class="showcase-feature-pills" aria-label="Feature highlights">
+          <li>Player ESP</li>
+          <li>Loot ESP</li>
+          <li>Aimbot</li>
+          <li>2D Radar</li>
+          <li>Overlay Menu</li>
+        </ul>
+      </div>
+
+      <div class="showcase-panel showcase-panel--single">
+        <ShowcaseSlider media={homepageShowcase} />
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="products">
     <div class="section-inner">
       <div class="s-head">
         <div class="s-tag">// Products</div>
         <h2 class="s-title">Arc Raiders Cheats Products</h2>
-        <p class="s-sub">Cloud DMA, UGC account tools, and HWID Spoofer for a full Arc Raiders cheats stack.</p>
+        <p class="s-sub">Cloud DMA, UGC, Skin Changer, and HWID Spoofer for a full Arc Raiders cheats stack.</p>
       </div>
-      <div class="aff-grid aff-grid-three animate-grid">
+      <div class="aff-grid aff-grid-products animate-grid">
         {products.map((product) => (
           <ProductCard {...product} />
         ))}
@@ -197,21 +144,63 @@ const schema = [
     </div>
   </section>
 
-  <section class="section" id="faq">
+  <section class="section homepage-guide-section alt-bg" id="guide" aria-labelledby="guide-heading">
     <div class="section-inner">
-      <div class="s-head">
-        <div class="s-tag">// FAQ</div>
-        <h2 class="s-title">Frequently Asked</h2>
+      <div class="s-head homepage-guide-head">
+        <div class="s-tag">// Guide</div>
+        <h2 class="s-title" id="guide-heading">Arc Raiders Cheats Guide</h2>
+        <p class="s-sub">
+          What to look for when buying Arc Raiders cheats — features, safety, and support without
+          the sales pitch.
+        </p>
       </div>
-      <div class="faq-wrap">
-        {homepageFaqs.map((faq) => (
-          <FAQAccordion question={faq.question} answer={faq.answer} />
+
+      <p class="homepage-guide-intro-text">{homepageGuideIntro}</p>
+
+      <div class="homepage-guide-takeaways" aria-label="Key takeaways">
+        <p class="homepage-guide-takeaways-label">Key takeaways</p>
+        <ul>
+          {homepageGuideTakeaways.map((item) => (
+            <li>
+              <span class="homepage-guide-takeaway-ico" aria-hidden="true">
+                <Icon name={item.icon} size={16} />
+              </span>
+              <span>{item.text}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="homepage-guide-grid">
+        {homepageGuideSections.map((section, index) => (
+          <article class="homepage-guide-card" style={`--guide-delay: ${0.04 + index * 0.05}s`}>
+            <div class="homepage-guide-card-top">
+              <span class="homepage-guide-card-num" aria-hidden="true">
+                {String(index + 1).padStart(2, '0')}
+              </span>
+              <span class="homepage-guide-card-ico" aria-hidden="true">
+                <Icon name={section.icon} size={20} />
+              </span>
+            </div>
+            <h3 class="homepage-guide-card-title">{section.title}</h3>
+            {section.lead && <p class="homepage-guide-lead">{section.lead}</p>}
+            {section.paragraphs.map((paragraph) => (
+              <p>{paragraph}</p>
+            ))}
+            {section.bullets && section.bullets.length > 0 && (
+              <ul class="homepage-guide-bullets">
+                {section.bullets.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            )}
+          </article>
         ))}
       </div>
     </div>
   </section>
 
-  <section class="section alt-bg" id="blog">
+  <section class="section" id="blog">
     <div class="section-inner">
       <div class="s-head">
         <div class="s-tag">// Blog</div>
@@ -233,12 +222,26 @@ const schema = [
     </div>
   </section>
 
+  <section class="section alt-bg" id="faq">
+    <div class="section-inner">
+      <div class="s-head">
+        <div class="s-tag">// FAQ</div>
+        <h2 class="s-title">Frequently Asked</h2>
+      </div>
+      <div class="faq-wrap">
+        {homepageFaqs.map((faq) => (
+          <FAQAccordion question={faq.question} answer={faq.answer} />
+        ))}
+      </div>
+    </div>
+  </section>
+
   <section class="section">
     <div class="section-inner">
       <div class="cta-banner">
         <h2>Ready to Run Arc Raiders Cheats?</h2>
-        <p>Get Xray, Pro, or Private access — or add Cloud DMA, UGC, and HWID Spoofer to your setup.</p>
-        <button type="button" class="btn-primary" data-go-url={ZADEYO_CHEATS_URL}>Get Access Now</button>
+        <p>Get Xray, Pro, or Private access — or add Cloud DMA, UGC, Skin Changer, and HWID Spoofer to your setup.</p>
+        <button type="button" class="btn-primary" data-go-url={GET_ACCESS_URL}>Get Access Now</button>
       </div>
     </div>
   </section>

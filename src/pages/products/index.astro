@@ -22,6 +22,11 @@ const productFaqs = [
       'UGC is a tool builder for account recovery and unban workflows. It helps you configure custom tools, automate appeal steps, and rebuild profiles after account restrictions.',
   },
   {
+    question: 'What does Skin Changer do?',
+    answer:
+      'Skin Changer unlocks weapon skins, character outfits, and rare cosmetics across supported games so you can customize your loadout without buying every marketplace item.',
+  },
+  {
     question: 'Does HWID Spoofer work with major anti-cheats?',
     answer:
       'Yes. HWID Spoofer masks disk serials, MAC addresses, GPU IDs, and other hardware identifiers. It is built to work with EAC, BattlEye, Vanguard, and other major anti-cheat systems.',
@@ -29,14 +34,14 @@ const productFaqs = [
   {
     question: 'How do I get access after purchase?',
     answer:
-      'Click Get Access on any cheat or product page — you are taken straight to checkout for instant delivery. Setup steps and activation details follow immediately after purchase.',
+      'Click Get Access on any cheat or product page — you are taken straight to that product’s checkout for instant delivery. Setup steps and activation details follow immediately after purchase.',
   },
 ];
 
 const schema = [
   collectionPageSchema({
-    title: 'Arc Raiders Cheats Products — Cloud DMA, UGC & HWID Spoofer',
-    description: 'Cloud DMA, UGC, and HWID Spoofer for Arc Raiders cheats.',
+    title: 'Arc Raiders Cheats Products — Cloud DMA, UGC, Skin Changer & HWID Spoofer',
+    description: 'Cloud DMA, UGC, Skin Changer, and HWID Spoofer for Arc Raiders cheats.',
     url: `${SITE.url}/products/`,
     image: productsSocial.src,
     imageAlt: productsSocial.alt,
@@ -58,8 +63,18 @@ const schema = [
 ---
 
 <BaseLayout
-  title="Arc Raiders Cheats Products — Cloud DMA, UGC & HWID Spoofer"
-  description="Arc Raiders Cheats – Buy Cloud DMA, UGC, and HWID Spoofer. Full stack tools with instant access and Season 1 support."
+  title="Arc Raiders Cheats Products — Cloud DMA, UGC, Skin Changer & HWID Spoofer"
+  description="Arc Raiders Cheats – Buy Cloud DMA, UGC, Skin Changer, and HWID Spoofer. Full stack tools with instant access and Season 1 support."
+  canonical={`${SITE.url}/products/`}
+  ogImage={productsSocial.src}
+  ogImageAlt={productsSocial.alt}
+  keywords={[
+    'arc raiders products',
+    'cloud dma',
+    'ugc account recovery',
+    'skin changer',
+    'hwid spoofer',
+  ]}
   schema={schema}
 >
   <section class="section listing-section">
@@ -69,15 +84,15 @@ const schema = [
           <div class="s-tag">// Products</div>
           <h1>Arc Raiders Cheats Products</h1>
           <div class="detail-head-badges">
-            <span class="listing-meta-pill">Cloud DMA · UGC · HWID Spoofer</span>
+            <span class="listing-meta-pill">Cloud DMA · UGC · Skin Changer · HWID Spoofer</span>
           </div>
           <p class="listing-intro-desc">
-            Buy Cloud DMA, UGC, and HWID Spoofer for Arc Raiders cheats — single-PC infrastructure,
-            account recovery tools, and hardware spoofing for EAC, BattlEye, and Vanguard.
+            Buy Cloud DMA, UGC, Skin Changer, and HWID Spoofer — single-PC infrastructure, account
+            recovery tools, cosmetic unlocks, and hardware spoofing for EAC, BattlEye, and Vanguard.
           </p>
         </div>
 
-        <div class="aff-grid aff-grid-three animate-grid">
+        <div class="aff-grid aff-grid-products animate-grid">
           {products.map((product) => (
             <ProductCard {...product} />
           ))}
@@ -93,7 +108,8 @@ const schema = [
           <div class="s-tag">// FAQ</div>
           <h2 class="listing-subtitle">Product Questions</h2>
           <p class="listing-intro-desc">
-            Common questions about Cloud DMA, UGC, and HWID Spoofer setup and compatibility.
+            Common questions about Cloud DMA, UGC, Skin Changer, and HWID Spoofer setup and
+            compatibility.
           </p>
         </div>
         <MotionFAQ client:visible items={productFaqs} />

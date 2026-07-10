@@ -29,6 +29,7 @@ export function absoluteUrl(path: string): string {
 }
 
 export function buildCanonical(path: string): string {
-  const normalized = path.endsWith('/') && path !== '/' ? path : path.replace(/\/$/, '') || '/';
-  return absoluteUrl(normalized === '' ? '/' : normalized.endsWith('/') ? normalized : `${normalized}/`);
+  if (!path || path === '/') return absoluteUrl('/');
+  const withSlash = path.endsWith('/') ? path : `${path}/`;
+  return absoluteUrl(withSlash.startsWith('/') ? withSlash : `/${withSlash}`);
 }

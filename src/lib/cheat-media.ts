@@ -10,34 +10,30 @@ const cheatScreenshotLabels = [
   'In-Game',
 ] as const;
 
+const cheatScreenshotAlts = [
+  'Arc Raiders player ESP overlay showing enemy positions through walls',
+  'Arc Raiders aimbot targeting preview with bone-lock aim assist',
+  'Arc Raiders 2D radar hack displaying nearby players and extractions routes',
+  'Arc Raiders player ESP highlighting raiders, distance, and health info',
+  'Arc Raiders loot ESP marking high-value items and containers',
+  'Arc Raiders cheat menu UI with ESP, aimbot, and radar toggles',
+  'Arc Raiders in-game cheat overlay during an active raid',
+] as const;
+
 const cheatScreenshotFiles = ['ss1', 'ss2', 'ss3', 'ss4', 'ss5', 'ss6', 'ss7'] as const;
 
 export const cheatScreenshotMedia: MediaItem[] = cheatScreenshotFiles.map((file, index) => ({
   type: 'image',
   src: `/images/cheats/${file}.webp`,
-  alt: `ARC Raiders cheat screenshot — ${cheatScreenshotLabels[index] ?? 'preview'}`,
-  label: cheatScreenshotLabels[index] ?? 'ARC Raiders',
+  alt: cheatScreenshotAlts[index] ?? `Arc Raiders cheat screenshot — ${cheatScreenshotLabels[index] ?? 'preview'}`,
+  label: cheatScreenshotLabels[index] ?? 'Arc Raiders',
 }));
 
-export const cheatShowcaseVideo = {
-  src: 'https://bryjchknhsrmjdunnfer.supabase.co/storage/v1/object/public/575/0510(3).mp4',
-  poster: '/images/cheats/video-poster.webp',
-  alt: 'ARC Raiders gameplay preview',
-};
-
-const cheatVideoMedia: MediaItem = {
-  type: 'video',
-  src: cheatShowcaseVideo.src,
-  poster: cheatShowcaseVideo.poster,
-  alt: cheatShowcaseVideo.alt,
-  label: 'Gameplay Demo',
-};
-
 /** Homepage + products — full gallery. */
-export const cheatTierMedia: MediaItem[] = [cheatVideoMedia, ...cheatScreenshotMedia];
+export const cheatTierMedia: MediaItem[] = [...cheatScreenshotMedia];
 
 function buildCheatTierMedia(startIndex: number, count: number): MediaItem[] {
-  return [cheatVideoMedia, ...cheatScreenshotMedia.slice(startIndex, startIndex + count)];
+  return cheatScreenshotMedia.slice(startIndex, startIndex + count);
 }
 
 /** Per-tier screenshots: Xray 2 · Pro 3 · Private 2 (7 total, no overlap). */

@@ -5,6 +5,5 @@ import { buildSitemapXml } from '../src/lib/build-sitemap.mjs';
 const sitemap = buildSitemapXml();
 
 writeFileSync(join(process.cwd(), 'public/sitemap-index.xml'), sitemap);
-writeFileSync(join(process.cwd(), 'public/sitemap.xml'), sitemap);
 
-console.log('Generated static sitemap-index.xml and sitemap.xml');
+console.log('Generated static sitemap-index.xml');

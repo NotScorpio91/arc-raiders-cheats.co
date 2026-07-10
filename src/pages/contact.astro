@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { contactPageSchema, breadcrumbSchema } from '../lib/schema';
-import { SITE, ZADEYO_CHEATS_URL } from '../lib/site';
+import { SITE, CONTACT_URL } from '../lib/site';
 import { resolveSocialImage } from '../lib/social-images';
 
 const contactSocial = resolveSocialImage('/contact/');
@@ -16,23 +16,24 @@ const schema = [
 ---
 
 <BaseLayout
-  title="Contact Arc Raiders Cheats — Get Access"
-  description="Get instant access to Arc Raiders cheats, Cloud DMA, UGC, and HWID Spoofer. Xray, Pro, and Private tiers available."
+  title="Contact Arc Raiders Cheats — Support"
+  description="Contact ArcRaidersCheats for support on Arc Raiders cheats, Cloud DMA, UGC, and HWID Spoofer. Get help with setup, access, and product questions."
+  canonical={`${SITE.url}/contact/`}
   schema={schema}
 >
   <section class="section listing-section">
     <div class="section-inner">
       <div class="listing-intro">
         <div class="s-tag">// Contact</div>
-        <h1>Get Access</h1>
+        <h1>Contact</h1>
         <p class="listing-intro-desc">
-          Ready for Arc Raiders cheats or products? Click below for instant checkout — Xray, Pro,
-          Private, Cloud DMA, UGC, and HWID Spoofer.
+          Need help with Arc Raiders cheats, Cloud DMA, UGC, or HWID Spoofer? Reach support through
+          the button below for setup help, access questions, and product guidance.
         </p>
       </div>
 
       <div class="form-page form-page--inline">
-        <button type="button" class="btn-primary" data-go-url={ZADEYO_CHEATS_URL}>Get Access</button>
+        <button type="button" class="btn-primary" data-go-url={CONTACT_URL}>Contact</button>
       </div>
     </div>
   </section>

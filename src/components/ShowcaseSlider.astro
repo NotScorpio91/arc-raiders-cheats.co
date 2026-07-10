@@ -8,97 +8,449 @@ interface Props {
 const { media } = Astro.props;
 const images = media.filter((item) => item.type === 'image');
 const slideCount = images.length;
-const duration = slideCount * 4;
-const step = 100 / slideCount;
-const hold = step * 0.88;
-
-const keyframeSteps: string[] = [];
-for (let i = 0; i < slideCount; i++) {
-  const start = (i * step).toFixed(2);
-  const end = Math.min((i * step + hold).toFixed(2), (100 - step * 0.05).toFixed(2));
-  const offset = slideCount > 1 ? `calc(-100% * ${i} / ${slideCount})` : '0';
-  keyframeSteps.push(`${start}%, ${end}% { transform: translateX(${offset}); }`);
-}
-if (slideCount > 1) {
-  keyframeSteps.push(`100% { transform: translateX(calc(-100% * ${slideCount - 1} / ${slideCount})); }`);
-}
-const keyframesCss = `@keyframes showcase-autoplay { ${keyframeSteps.join(' ')} }`;
 ---
 
-<div
-  class="showcase-scroll-wrap"
-  style={`--slide-count: ${slideCount}; --duration: ${duration}s`}
->
-  <div class="showcase-track" aria-label="Cheat screenshot gallery">
-    {images.map((item) => (
-      <figure class="showcase-slide">
-        {item.label && <span class="cheat-slide-label">{item.label}</span>}
-        <img
-          src={item.src}
-          srcset={`${item.src.replace('.webp', '-640.webp')} 640w, ${item.src} 960w`}
-          alt={item.alt}
-          class="cheat-slide-media"
-          width={960}
-          height={540}
-          loading="lazy"
-          decoding="async"
-          sizes="(max-width: 900px) 100vw, 960px"
-        />
-      </figure>
-    ))}
+<div class="showcase-slider" data-showcase-slider>
+  <div class="showcase-slider-frame">
+    <div class="showcase-slider-glow" aria-hidden="true"></div>
+
+    <div
+      class="showcase-slider-viewport"
+      data-showcase-viewport
+      tabindex="0"
+      role="region"
+      aria-roledescription="carousel"
+      aria-label="Arc Raiders cheat screenshot gallery"
+    >
+      <div class="showcase-slider-track" data-showcase-track>
+        {images.map((item, index) => (
+          <figure
+            class:list={['showcase-slide', { 'is-active': index === 0 }]}
+            data-showcase-slide
+            aria-hidden={index === 0 ? 'false' : 'true'}
+          >
+            {item.label && <span class="showcase-slide-label">{item.label}</span>}
+            <img
+              src={item.src}
+              srcset={`${item.src.replace('.webp', '-640.webp')} 640w, ${item.src} 960w`}
+              alt={item.alt}
+              class="showcase-slide-media"
+              width={960}
+              height={540}
+              loading={index === 0 ? 'eager' : 'lazy'}
+              decoding="async"
+              sizes="(max-width: 900px) 100vw, 920px"
+              draggable="false"
+            />
+          </figure>
+        ))}
+      </div>
+    </div>
+
+    {slideCount > 1 && (
+      <>
+        <button type="button" class="showcase-nav showcase-nav--prev" data-showcase-prev aria-label="Previous screenshot">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M15 6L9 12L15 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+        <button type="button" class="showcase-nav showcase-nav--next" data-showcase-next aria-label="Next screenshot">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M9 6L15 12L9 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+      </>
+    )}
   </div>
+
+  {slideCount > 1 && (
+    <div class="showcase-slider-footer">
+      <div class="showcase-progress" aria-hidden="true">
+        <span class="showcase-progress-bar" data-showcase-progress></span>
+      </div>
+      <div class="showcase-dots" role="tablist" aria-label="Screenshot slides">
+        {images.map((item, index) => (
+          <button
+            type="button"
+            class:list={['showcase-dot', { 'is-active': index === 0 }]}
+            role="tab"
+            aria-selected={index === 0 ? 'true' : 'false'}
+            aria-label={`Show ${item.label ?? `screenshot ${index + 1}`}`}
+            data-showcase-dot={String(index)}
+          ></button>
+        ))}
+      </div>
+      <p class="showcase-counter">
+        <span data-showcase-current>1</span>
+        <span class="showcase-counter-sep">/</span>
+        <span>{slideCount}</span>
+      </p>
+    </div>
+  )}
 </div>
 
-<style is:global set:html={keyframesCss}></style>
+<script is:inline>
+  (function () {
+    function initShowcaseSliders() {
+      document.querySelectorAll('[data-showcase-slider]').forEach(function (root) {
+        if (root.getAttribute('data-ready') === 'true') return;
+        root.setAttribute('data-ready', 'true');
+
+        var track = root.querySelector('[data-showcase-track]');
+        var viewport = root.querySelector('[data-showcase-viewport]');
+        var slides = Array.prototype.slice.call(root.querySelectorAll('[data-showcase-slide]'));
+        var dots = Array.prototype.slice.call(root.querySelectorAll('[data-showcase-dot]'));
+        var prev = root.querySelector('[data-showcase-prev]');
+        var next = root.querySelector('[data-showcase-next]');
+        var progress = root.querySelector('[data-showcase-progress]');
+        var currentLabel = root.querySelector('[data-showcase-current]');
+        var count = slides.length;
+        if (!track || !viewport || count < 2) return;
+
+        var index = 0;
+        var timer = null;
+        var delay = 4500;
+        var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        function slideWidth() {
+          return viewport.clientWidth || root.clientWidth;
+        }
+
+        function render() {
+          var offset = slideWidth() * index;
+          track.style.transform = 'translate3d(-' + offset + 'px, 0, 0)';
+
+          slides.forEach(function (slide, i) {
+            var active = i === index;
+            slide.classList.toggle('is-active', active);
+            slide.setAttribute('aria-hidden', active ? 'false' : 'true');
+          });
+
+          dots.forEach(function (dot, i) {
+            var active = i === index;
+            dot.classList.toggle('is-active', active);
+            dot.setAttribute('aria-selected', active ? 'true' : 'false');
+          });
+
+          if (currentLabel) currentLabel.textContent = String(index + 1);
+
+          if (progress) {
+            progress.style.transition = 'none';
+            progress.style.width = '0%';
+            if (!reduceMotion) {
+              window.requestAnimationFrame(function () {
+                window.requestAnimationFrame(function () {
+                  progress.style.transition = 'width ' + delay + 'ms linear';
+                  progress.style.width = '100%';
+                });
+              });
+            } else {
+              progress.style.width = '100%';
+            }
+          }
+        }
+
+        function goTo(nextIndex) {
+          index = (nextIndex + count) % count;
+          render();
+          restart();
+        }
+
+        function stop() {
+          if (timer) {
+            window.clearInterval(timer);
+            timer = null;
+          }
+        }
+
+        function restart() {
+          stop();
+          if (reduceMotion) return;
+          timer = window.setInterval(function () {
+            goTo(index + 1);
+          }, delay);
+        }
+
+        if (prev) prev.addEventListener('click', function () { goTo(index - 1); });
+        if (next) next.addEventListener('click', function () { goTo(index + 1); });
+
+        dots.forEach(function (dot) {
+          dot.addEventListener('click', function () {
+            goTo(Number(dot.getAttribute('data-showcase-dot') || '0'));
+          });
+        });
+
+        viewport.addEventListener('keydown', function (event) {
+          if (event.key === 'ArrowLeft') {
+            event.preventDefault();
+            goTo(index - 1);
+          }
+          if (event.key === 'ArrowRight') {
+            event.preventDefault();
+            goTo(index + 1);
+          }
+        });
+
+        root.addEventListener('mouseenter', stop);
+        root.addEventListener('mouseleave', restart);
+        root.addEventListener('focusin', stop);
+        root.addEventListener('focusout', restart);
+        window.addEventListener('resize', render);
+
+        render();
+        restart();
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initShowcaseSliders);
+    } else {
+      initShowcaseSliders();
+    }
+  })();
+</script>
 
 <style>
-  .showcase-scroll-wrap {
+  .showcase-slider {
+    --showcase-radius-cut: 14px;
+    width: 100%;
+  }
+
+  .showcase-slider-frame {
+    position: relative;
     background: var(--bg2);
     border: 1px solid var(--border);
+    border-left: 3px solid var(--accent2);
     overflow: hidden;
-    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%);
+    clip-path: polygon(
+      0 0,
+      100% 0,
+      100% calc(100% - var(--showcase-radius-cut)),
+      calc(100% - var(--showcase-radius-cut)) 100%,
+      0 100%
+    );
+    box-shadow: 0 20px 50px color-mix(in srgb, var(--accent) 14%, transparent);
+    transition: border-color 0.3s ease, box-shadow 0.35s ease;
   }
 
-  .showcase-track {
+  .showcase-slider:hover .showcase-slider-frame {
+    border-color: color-mix(in srgb, var(--accent2) 45%, var(--border));
+    box-shadow: 0 24px 60px color-mix(in srgb, var(--accent) 22%, transparent);
+  }
+
+  .showcase-slider-glow {
+    pointer-events: none;
+    position: absolute;
+    inset: auto -20% -40% auto;
+    width: 55%;
+    height: 55%;
+    background: radial-gradient(circle, color-mix(in srgb, var(--accent) 28%, transparent), transparent 70%);
+    opacity: 0.55;
+    z-index: 0;
+  }
+
+  .showcase-slider-viewport {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    overflow: hidden;
+    outline: none;
+  }
+
+  .showcase-slider-viewport:focus-visible {
+    box-shadow: inset 0 0 0 2px var(--accent2);
+  }
+
+  .showcase-slider-track {
     display: flex;
-    width: calc(var(--slide-count) * 100%);
-    animation: showcase-autoplay var(--duration) ease-in-out infinite;
-  }
-
-  .showcase-scroll-wrap:hover .showcase-track {
-    animation-play-state: paused;
+    flex-wrap: nowrap;
+    width: 100%;
+    transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
   }
 
   .showcase-slide {
     position: relative;
-    flex: 0 0 calc(100% / var(--slide-count));
-    aspect-ratio: 16 / 9;
+    flex: 0 0 100%;
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
     margin: 0;
+    aspect-ratio: 16 / 9;
+    background: var(--bg3);
+    overflow: hidden;
+    box-sizing: border-box;
   }
 
-  .showcase-slide .cheat-slide-media {
+  .showcase-slide-media {
     display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transform: scale(1.02);
+    transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1), filter 0.4s ease;
+    filter: saturate(0.92) brightness(0.94);
+    user-select: none;
+  }
+
+  .showcase-slide.is-active .showcase-slide-media {
+    transform: scale(1);
+    filter: none;
+  }
+
+  .showcase-slide-label {
+    position: absolute;
+    top: 0.9rem;
+    left: 0.9rem;
+    z-index: 2;
+    font-size: 0.62rem;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #fff;
+    background: color-mix(in srgb, var(--accent) 88%, transparent);
+    padding: 0.35rem 0.7rem;
+    clip-path: polygon(4px 0%, 100% 0%, calc(100% - 4px) 100%, 0% 100%);
+    opacity: 0;
+    transform: translateY(-6px);
+    transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .showcase-slide.is-active .showcase-slide-label {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .showcase-nav {
+    position: absolute;
+    top: 50%;
+    z-index: 3;
+    transform: translateY(-50%);
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    color: #fff;
+    background: color-mix(in srgb, var(--bg) 72%, transparent);
+    border: 1px solid color-mix(in srgb, var(--accent2) 40%, var(--border));
+    clip-path: polygon(6px 0, 100% 0, calc(100% - 6px) 100%, 0 100%);
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.25s ease, background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+  }
+
+  .showcase-slider:hover .showcase-nav,
+  .showcase-slider:focus-within .showcase-nav {
+    opacity: 1;
+  }
+
+  .showcase-nav:hover {
+    background: color-mix(in srgb, var(--accent) 85%, transparent);
+    border-color: var(--accent2);
+  }
+
+  .showcase-nav:active {
+    transform: translateY(-50%) scale(0.96);
+  }
+
+  .showcase-nav--prev {
+    left: 0.85rem;
+  }
+
+  .showcase-nav--next {
+    right: 0.85rem;
+  }
+
+  .showcase-slider-footer {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 0.95rem;
+  }
+
+  .showcase-progress {
+    height: 2px;
+    background: var(--border);
+    overflow: hidden;
+    clip-path: polygon(2px 0, 100% 0, calc(100% - 2px) 100%, 0 100%);
+  }
+
+  .showcase-progress-bar {
+    display: block;
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+  }
+
+  .showcase-dots {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .showcase-dot {
+    width: 8px;
+    height: 8px;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: var(--border);
+    clip-path: polygon(2px 0, 100% 0, calc(100% - 2px) 100%, 0 100%);
+    cursor: pointer;
+    transition: background 0.25s ease, width 0.25s ease;
+  }
+
+  .showcase-dot.is-active {
+    width: 22px;
+    background: var(--accent2);
+  }
+
+  .showcase-dot:hover {
+    background: color-mix(in srgb, var(--accent2) 70%, var(--border));
+  }
+
+  .showcase-counter {
+    margin: 0;
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .showcase-counter-sep {
+    margin: 0 0.2rem;
+    opacity: 0.55;
+  }
+
+  @media (max-width: 720px) {
+    .showcase-nav {
+      opacity: 1;
+      width: 36px;
+      height: 36px;
+    }
+
+    .showcase-slider-footer {
+      grid-template-columns: 1fr auto;
+      gap: 0.75rem;
+    }
+
+    .showcase-progress {
+      grid-column: 1 / -1;
+      order: -1;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .showcase-track {
-      animation: none;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      scrollbar-width: none;
-      width: 100%;
-    }
-
-    .showcase-track::-webkit-scrollbar {
-      display: none;
-    }
-
-    .showcase-slide {
-      flex: 0 0 100%;
-      scroll-snap-align: start;
+    .showcase-slider-track,
+    .showcase-slide-media,
+    .showcase-slide-label,
+    .showcase-nav,
+    .showcase-dot,
+    .showcase-progress-bar {
+      transition: none !important;
     }
   }
 </style>

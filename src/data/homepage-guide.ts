@@ -1,14 +1,26 @@
+import type { IconName } from '../lib/icons';
+
 export type HomepageGuideSection = {
   title: string;
   lead?: string;
   paragraphs: string[];
   bullets?: string[];
+  icon: IconName;
 };
 
 export const homepageGuideTakeaways = [
-  'Stability, safety, and support matter more than feature count',
-  'ESP and controlled aim settings deliver the most day-to-day value',
-  'Choose providers with fast updates, clear status, and real support',
+  {
+    icon: 'shield' as const,
+    text: 'Stability, safety, and support matter more than feature count',
+  },
+  {
+    icon: 'crosshair' as const,
+    text: 'ESP and controlled aim settings deliver the most day-to-day value',
+  },
+  {
+    icon: 'status' as const,
+    text: 'Choose providers with fast updates, clear status, and real support',
+  },
 ];
 
 export const homepageGuideIntro =
@@ -16,6 +28,7 @@ export const homepageGuideIntro =
 
 export const homepageGuideSections: HomepageGuideSection[] = [
   {
+    icon: 'target',
     title: 'What players want from Arc Raiders cheats',
     lead: 'Better awareness, cleaner fights, and fewer wasted runs.',
     paragraphs: [
@@ -30,6 +43,7 @@ export const homepageGuideSections: HomepageGuideSection[] = [
     ],
   },
   {
+    icon: 'scan',
     title: 'Not all Arc Raiders cheats are built the same',
     lead: 'The difference is maintenance, not marketing copy.',
     paragraphs: [
@@ -39,12 +53,13 @@ export const homepageGuideSections: HomepageGuideSection[] = [
     ],
   },
   {
+    icon: 'chart',
     title: 'Features that usually give the best value',
     lead: 'Focus on what you will use every session.',
     paragraphs: [
       'ESP tends to deliver the highest return because it improves decisions without forcing obvious behavior. Look for customizable, readable overlays — not visual clutter.',
       'Aimbot is worthwhile only when it includes real control: smoothing, bone selection, recoil handling, trigger conditions, and visibility checks. Without those, the feature is often too crude for regular play.',
-      'Some users also need spoofing support after prior hardware flags. A cheat and a spoofer may both exist on the same platform, but that does not mean they are optimized to work together — compare categories and ask support before buying the wrong combo.',
+      'Some users also need spoofing support after prior hardware flags. A cheat and a spoofer may both exist in the same catalog, but that does not mean they are optimized to work together — compare categories and ask support before buying the wrong combo.',
     ],
     bullets: [
       'ESP — customizable, readable, low-noise overlays',
@@ -53,6 +68,7 @@ export const homepageGuideSections: HomepageGuideSection[] = [
     ],
   },
   {
+    icon: 'shield',
     title: 'How to choose a safer provider',
     lead: 'Price is a factor — it should not be the only one.',
     paragraphs: [
@@ -68,15 +84,17 @@ export const homepageGuideSections: HomepageGuideSection[] = [
     ],
   },
   {
+    icon: 'settings',
     title: 'Smart use matters as much as the software',
     lead: 'Even strong tools become risky when settings are careless.',
     paragraphs: [
       'Obvious aim behavior, overloaded ESP, or jumping from weak gameplay to perfect tracking overnight draws attention. The same goes for ignoring update notices or launching during flagged status windows.',
       'Players who stay low-profile keep visuals clean, avoid extreme aim settings, and use only what fits their playstyle. The goal is better information and consistency — not cartoon-level domination.',
-      'That is why support matters more than many first-time buyers expect. Fast answers on setup, status, and compatibility prevent expensive mistakes early. Platforms like Zadeyo work best when they pair premium products with a clear buying flow and responsive help — software that works, and support that shows up when it counts.',
+      'That is why support matters more than many first-time buyers expect. Fast answers on setup, status, and compatibility prevent expensive mistakes early. ArcRaidersCheats pairs premium products with a clear buying flow and responsive help — software that works, and support that shows up when it counts.',
     ],
   },
   {
+    icon: 'check',
     title: 'Final word on Arc Raiders cheats',
     paragraphs: [
       'The best choice is rarely the loudest listing. Look for stable features, active maintenance, realistic safety practices, and support you can reach. In this space, consistency beats hype every time.',

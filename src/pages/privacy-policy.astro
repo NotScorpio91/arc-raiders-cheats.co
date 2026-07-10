@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { breadcrumbSchema } from '../lib/schema';
-import { SITE, ZADEYO_CHEATS_URL } from '../lib/site';
+import { SITE, CONTACT_URL } from '../lib/site';
 
 const schema = breadcrumbSchema([
   { name: 'Home', url: SITE.url },
@@ -12,6 +12,7 @@ const schema = breadcrumbSchema([
 <BaseLayout
   title="Privacy Policy — Arc Raiders Cheats"
   description="Privacy policy for ArcRaidersCheats.co — what data we collect when you contact us and how we handle it. No third-party analytics."
+  canonical={`${SITE.url}/privacy-policy/`}
   schema={schema}
 >
   <section class="section listing-section">
@@ -80,7 +81,7 @@ const schema = breadcrumbSchema([
       Privacy questions or access requests can be started through the button below.
     </p>
     <p>
-      <button type="button" class="btn-primary" data-go-url={ZADEYO_CHEATS_URL}>Get Access</button>
+      <button type="button" class="btn-primary" data-go-url={CONTACT_URL}>Contact</button>
     </p>
       </div>
     </div>

@@ -1,5 +1,5 @@
 ---
-import { NAV_LINKS, ZADEYO_CHEATS_URL } from '../lib/site';
+import { NAV_LINKS, GET_ACCESS_URL } from '../lib/site';
 import Logo from './Logo.astro';
 import Icon from './Icon.astro';
 import ThemeToggle from './ThemeToggle.astro';
@@ -22,7 +22,7 @@ const currentPath = Astro.url.pathname;
     </ul>
     <div class="nav-actions">
       <ThemeToggle />
-      <button type="button" class="nav-cta" data-go-url={ZADEYO_CHEATS_URL}>Get Access</button>
+      <button type="button" class="nav-cta" data-go-url={GET_ACCESS_URL}>Get Access</button>
       <label for="nav-open" class="nav-toggle" aria-label="Toggle menu">
         <Icon name="menu" size={20} />
       </label>

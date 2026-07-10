@@ -14,38 +14,16 @@ function MediaSlideContent({ item }: { item: MediaItem }) {
   return (
     <>
       {item.label && <span className="cheat-slide-label">{item.label}</span>}
-      {item.type === 'image' ? (
-                <img
-                  src={item.src}
-                  alt={item.alt}
-                  className="cheat-slide-media"
-                  loading="lazy"
-                  decoding="async"
-                  width={1280}
-                  height={720}
-                  sizes="(max-width: 900px) 100vw, 960px"
-                />
-      ) : item.src ? (
-        <video
-          className="cheat-slide-media"
-          controls
-          playsInline
-          preload="none"
-          poster={item.poster}
-        >
-          <source src={item.src} type="video/mp4" />
-        </video>
-      ) : (
-        <div className="cheat-slide-video-fallback">
-          <img src={item.poster} alt={item.alt} className="cheat-slide-media" loading="lazy" decoding="async" />
-          <div className="cheat-slide-play" aria-hidden="true">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
-              <polygon points="8,5 8,19 19,12" />
-            </svg>
-          </div>
-          <p className="cheat-slide-video-note">Full demo available on request</p>
-        </div>
-      )}
+      <img
+        src={item.src}
+        alt={item.alt}
+        className="cheat-slide-media"
+        loading="lazy"
+        decoding="async"
+        width={1280}
+        height={720}
+        sizes="(max-width: 900px) 100vw, 960px"
+      />
     </>
   );
 }
@@ -83,7 +61,7 @@ export default function MediaSwiper({ media }: Props) {
         className="cheat-swiper"
       >
         {media.map((item, index) => (
-          <SwiperSlide key={`${item.type}-${item.src ?? item.poster}-${index}`}>
+          <SwiperSlide key={`${item.src}-${index}`}>
             <div className="cheat-slide">
               <MediaSlideContent item={item} />
             </div>
