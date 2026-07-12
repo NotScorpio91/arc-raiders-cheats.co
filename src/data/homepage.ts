@@ -6,7 +6,7 @@ export const homepageHero = {
   badge: 'ESP · Aimbot · Radar',
   title: 'Arc Raiders Cheats',
   description:
-    'Arc Raiders Cheats – Dominate every raid with player ESP, loot ESP, bone-targeted aimbot, 2D radar hack, and extraction intel. Pick Xray, Pro, or Private and get access today — Cloud DMA, Skin Changer, and HWID spoofer on the products page if you want the full setup.',
+    'Arc Raiders Cheats – Player ESP, loot ESP, aim tools, and extraction intel. Pick Xray, Pro, or Private — add Cloud DMA, Skin Changer, or HWID Spoofer from the products page when you need the full stack.',
 };
 
 export const homepageHeroImage = {

@@ -1,6 +1,12 @@
 import type { IconName } from '../lib/icons';
 import type { MediaItem } from '../lib/media';
 import { getCheatTierMedia } from '../lib/cheat-media';
+import { CHEAT_PRICING, type PricingPlan } from '../lib/pricing';
+
+export type CheatFaq = {
+  question: string;
+  answer: string;
+};
 
 export type CheatTier = {
   id: string;
@@ -8,6 +14,11 @@ export type CheatTier = {
   tier: string;
   name: string;
   description: string;
+  overview?: string[];
+  setupSteps?: string[];
+  limitations?: string[];
+  lastUpdated: string;
+  pricingPlans: PricingPlan[];
   features: string[];
   media: MediaItem[];
   systemRequirements?: string[];
@@ -15,6 +26,8 @@ export type CheatTier = {
   seoTitle: string;
   seoDescription: string;
   keywords: string[];
+  faqs?: CheatFaq[];
+  relatedProductSlugs?: string[];
 };
 
 export const cheats: CheatTier[] = [
@@ -25,9 +38,26 @@ export const cheats: CheatTier[] = [
     name: 'Xray',
     description:
       'Entry-level Arc Raiders overlay with core ESP and smooth targeting — clean visuals without the full toolkit.',
-    seoTitle: 'Xray Arc Raiders Cheat — ESP & Smooth Targeting 2026',
+    overview: [
+      'Xray is the starting tier for players who want readable ESP, loot visibility, and smooth targeting without the full combat automation stack. It keeps the overlay lightweight so you can focus on positioning and extractions.',
+      'Use Xray when you mainly need awareness — seeing raiders, loot value, and weak points — and plan to upgrade later if you want deeper aim or trigger tooling.',
+    ],
+    setupSteps: [
+      'Select monthly ($35) or lifetime ($150) access at checkout for instant delivery.',
+      'Download the loader, disable conflicting overlays, and run as administrator if prompted.',
+      'Enable ESP categories you actually use — player boxes, loot filters, and FOV limits first.',
+      'Save a low-noise config and test in a private session before stacking high-value extractions.',
+    ],
+    limitations: [
+      'Xray does not include full aimbot, trigger automation, or Private-tier radar tooling.',
+      'All cheat use violates Arc Raiders terms and carries ban risk despite external delivery.',
+      'Feature availability can change after Embark patches — check status notes before launching.',
+    ],
+    lastUpdated: '2026-07-12',
+    pricingPlans: CHEAT_PRICING,
+    seoTitle: 'Xray Arc Raiders Cheat — ESP 2026',
     seoDescription:
-      'Buy Xray Arc Raiders cheat — player ESP, health bars, skeleton ESP, loot ESP, and smooth targeting. Entry-tier overlay updated for Season 1.',
+      'Buy Xray Arc Raiders cheat — player ESP, loot ESP, skeleton markers, and smooth targeting. Entry tier from $35/month with Season 1 support.',
     keywords: [
       'xray arc raiders cheat',
       'arc raiders esp',
@@ -35,6 +65,14 @@ export const cheats: CheatTier[] = [
       'arc raiders loot esp',
       'arc raiders skeleton esp',
     ],
+    faqs: [
+      {
+        question: 'Is Xray enough for solo extractions?',
+        answer:
+          'For many players, yes. ESP and loot visibility cover most decision-making. Upgrade to Pro if you want aim assist and trigger tools in fights.',
+      },
+    ],
+    relatedProductSlugs: ['cloud-dma', 'hwid-spoofer'],
     media: getCheatTierMedia('xray'),
     features: [
       'Raider Visibility Check',
@@ -62,9 +100,27 @@ export const cheats: CheatTier[] = [
     name: 'Pro',
     description:
       'Mid-tier combat suite — aim assist, trigger tools, and deep ESP. More than Xray, without the full Private stack.',
-    seoTitle: 'Pro Arc Raiders Cheat — Aim Assist, Trigger & ESP 2026',
+    overview: [
+      'Pro adds combat automation on top of Xray-style ESP — aim assist, trigger assist, weapon ESP, and richer filters for active raids.',
+      'It suits players who want cleaner gunfights without paying for the full Private extraction and radar suite. Settings stay configurable so you can keep behavior subtle.',
+    ],
+    setupSteps: [
+      'Choose monthly or lifetime pricing and complete checkout for instant access.',
+      'Install the Pro build and import a conservative aim profile (wide FOV, smoothing on).',
+      'Bind aim and trigger keys separately so you can disable automation during loot phases.',
+      'Compare features with Xray and Private on our tier table before committing long term.',
+    ],
+    limitations: [
+      'Pro lacks Private-only tools such as full radar styles, drone aimbot, and complete extraction intel.',
+      'Aggressive aim or trigger settings increase report and ban risk even on external builds.',
+      'Steam-only support applies to the Private documentation path — confirm launcher compatibility at checkout.',
+    ],
+    lastUpdated: '2026-07-12',
+    pricingPlans: CHEAT_PRICING,
+    featured: true,
+    seoTitle: 'Pro Arc Raiders Cheat — Aim & ESP',
     seoDescription:
-      'Buy Pro Arc Raiders cheat — aim assist, trigger tools, deep ESP, weapon ESP, and combat filters. Mid-tier suite for Season 1 raids.',
+      'Buy Pro Arc Raiders cheat — aim assist, trigger tools, weapon ESP, and deep overlays. Mid tier from $35/month for Season 1 combat raids.',
     keywords: [
       'pro arc raiders cheat',
       'arc raiders aim assist',
@@ -72,6 +128,14 @@ export const cheats: CheatTier[] = [
       'arc raiders combat cheat',
       'arc raiders weapon esp',
     ],
+    faqs: [
+      {
+        question: 'How is Pro different from Private?',
+        answer:
+          'Pro focuses on combat automation plus strong ESP. Private adds the full Viper stack — radar, drone tools, extraction intel, and the largest feature set.',
+      },
+    ],
+    relatedProductSlugs: ['cloud-dma', 'skin-changer'],
     media: getCheatTierMedia('pro'),
     features: [
       'Enable Aim Assist',
@@ -102,7 +166,6 @@ export const cheats: CheatTier[] = [
       'Save Configs',
       'Cloud-Sync Option',
     ],
-    featured: true,
   },
   {
     id: 'private',
@@ -111,9 +174,26 @@ export const cheats: CheatTier[] = [
     name: 'Private',
     description:
       'Our in-house Viper private build — full aimbot, ESP, 2D radar, and extraction intel. Not resold, only available directly from us with long-term safety in mind.',
-    seoTitle: 'Private Arc Raiders Cheat — Aimbot, ESP & 2D Radar 2026',
+    overview: [
+      'Private is the complete Arc Raiders stack — aimbot with bone selection, drone tools, 2D radar, extraction zone ESP, and the broadest ESP package we ship.',
+      'It is our in-house Viper build, maintained directly by our team with patch-aware updates. Pair it with Cloud DMA or HWID Spoofer only if your setup requires that infrastructure.',
+    ],
+    setupSteps: [
+      'Pick monthly ($35) or lifetime ($150) and finish checkout for instant delivery.',
+      'Verify BIOS virtualization settings and Steam launcher requirements before installing.',
+      'Configure radar, ESP, and aim profiles separately — start with visibility tools first.',
+      'Read our cheats guide and spoofer guide if you are returning from a prior hardware flag.',
+    ],
+    limitations: [
+      'Steam version only — Epic Games launcher is not supported for this build.',
+      'No cheat eliminates anti-cheat risk; Embark uses EAC plus behavioral systems.',
+      'Private includes the largest feature surface — more settings means more ways to misconfigure.',
+    ],
+    lastUpdated: '2026-07-12',
+    pricingPlans: CHEAT_PRICING,
+    seoTitle: 'Private Arc Raiders Cheat — Viper',
     seoDescription:
-      'Buy Private Arc Raiders cheat (Viper) — full aimbot, player ESP, loot ESP, 2D radar hack, and extraction intel. In-house private build for Season 1.',
+      'Buy Private Arc Raiders cheat (Viper) — full aimbot, ESP, 2D radar, and extraction intel. In-house tier from $35/month with documented setup.',
     keywords: [
       'private arc raiders cheat',
       'viper arc raiders',
@@ -122,6 +202,14 @@ export const cheats: CheatTier[] = [
       'arc raiders extraction esp',
       'arc raiders private cheat',
     ],
+    faqs: [
+      {
+        question: 'Does Private require Cloud DMA?',
+        answer:
+          'Not for every user. Cloud DMA is optional infrastructure for specific single-PC workflows. Read the Cloud DMA page for AWS and GREENWARD prerequisites.',
+      },
+    ],
+    relatedProductSlugs: ['cloud-dma', 'hwid-spoofer'],
     systemRequirements: [
       'Steam version only (not Epic Games)',
       'Windows 10: 22H2, 21H2, 21H1, 20H2, 2004, 1909',
@@ -198,4 +286,15 @@ export function cheatHasFeature(cheatId: string, feature: string): boolean {
   if (cheatId === 'private') return true;
   const cheat = getCheatById(cheatId);
   return cheat?.features.includes(feature) ?? false;
+}
+
+export function getRelatedProductsForCheat(cheat: CheatTier) {
+  return cheat.relatedProductSlugs ?? [];
+}
+
+export function getRelatedCheatsForProduct(productSlug: string) {
+  if (productSlug === 'cloud-dma' || productSlug === 'hwid-spoofer') {
+    return cheats.map((cheat) => cheat.id);
+  }
+  return ['private'];
 }

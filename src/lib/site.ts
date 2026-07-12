@@ -2,7 +2,7 @@ export const SITE = {
   name: 'ArcRaidersCheats',
   title: 'Arc Raiders Cheats – Undetected ESP, Aimbot & Radar 2026 | ArcRaidersCheats.co',
   description:
-    'Arc Raiders Cheats – Dominate every raid with player ESP, loot ESP, bone-targeted aimbot, 2D radar hack, and extraction intel. Fully external, safe against EAC. Updated every patch.',
+    'Arc Raiders Cheats – Player ESP, loot ESP, aim tools, 2D radar, and extraction intel. External overlay tiers updated after major patches.',
   url: 'https://arcraiderscheats.co',
   locale: 'en_US',
   author: 'ArcRaidersCheats',

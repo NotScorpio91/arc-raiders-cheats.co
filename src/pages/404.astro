@@ -1,0 +1,50 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import { SITE } from '../lib/site';
+
+Astro.response.status = 404;
+---
+
+<BaseLayout
+  title="Page Not Found — Arc Raiders Cheats"
+  description="This page does not exist on ArcRaidersCheats.co. Browse cheats, products, guides, and FAQ to find Arc Raiders ESP, aimbot, and setup help."
+  canonical={`${SITE.url}/404/`}
+  noindex={true}
+>
+  <section class="section listing-section">
+    <div class="section-inner">
+      <Breadcrumb
+        items={[
+          { name: 'Home', href: '/' },
+          { name: 'Page not found' },
+        ]}
+      />
+      <div class="listing-intro">
+        <div class="s-tag">// 404</div>
+        <h1>Page Not Found</h1>
+        <p class="listing-intro-desc">
+          The URL you opened is not on ArcRaidersCheats.co. Use the links below to browse cheat tiers,
+          products, guides, and support.
+        </p>
+      </div>
+      <nav class="error-nav" aria-label="Helpful links">
+        <a href="/" class="btn-ghost">Home</a>
+        <a href="/cheats/" class="btn-ghost">Arc Raiders Cheats</a>
+        <a href="/products/" class="btn-ghost">Products</a>
+        <a href="/blog/" class="btn-ghost">Guides &amp; Blog</a>
+        <a href="/faq/" class="btn-ghost">FAQ</a>
+        <a href="/contact/" class="btn-ghost">Contact</a>
+      </nav>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .error-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    margin-top: 1.5rem;
+  }
+</style>

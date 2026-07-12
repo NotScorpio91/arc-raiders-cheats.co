@@ -7,13 +7,13 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "node scripts/optimize-images.mjs && node scripts/copy-fonts.mjs && node scripts/generate-sitemap.mjs && astro build",
+    "build": "node scripts/optimize-images.mjs && node scripts/copy-fonts.mjs && node scripts/generate-sitemap.mjs && astro build && node scripts/verify-seo.mjs",
     "preview": "npm run build && wrangler dev --assets=dist",
     "optimize:images": "node scripts/optimize-images.mjs",
     "postinstall": "node scripts/copy-fonts.mjs",
     "astro": "astro",
     "generate-types": "wrangler types",
-    "deploy": "npm run build && wrangler deploy --assets=dist"
+    "deploy": "npm run build && wrangler deploy"
   },
   "dependencies": {
     "@astrojs/mdx": "^7.0.0",

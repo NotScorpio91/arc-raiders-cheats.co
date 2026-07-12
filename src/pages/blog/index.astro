@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
 import BlogCard from '../../components/BlogCard.astro';
 import Icon from '../../components/Icon.astro';
 import MotionReveal from '../../components/react/MotionReveal';
@@ -23,22 +24,29 @@ const schema = [
     imageAlt: blogSocial.alt,
   }),
   breadcrumbSchema([
-    { name: 'Home', url: SITE.url },
+    { name: 'Home', url: `${SITE.url}/` },
     { name: 'Blog', url: `${SITE.url}/blog/` },
   ]),
 ];
 ---
 
 <BaseLayout
-  title="Arc Raiders Cheats Blog — Guides & Meta"
-  description="Arc Raiders cheats guides, HWID spoofer breakdowns, Season 1 meta analysis, and patch updates from our team."
+  title="Arc Raiders Cheats Blog — Guides"
+  description="Arc Raiders cheats guides, HWID spoofer breakdowns, Season 1 meta notes, and patch-aware tips from the ArcRaidersCheats team."
   canonical={`${SITE.url}/blog/`}
   ogImage={blogSocial.src}
   ogImageAlt={blogSocial.alt}
   schema={schema}
+  keywords={['arc raiders blog', 'arc raiders cheats guide', 'arc raiders meta']}
 >
   <section class="section listing-section listing-section--center">
     <div class="section-inner">
+      <Breadcrumb
+        items={[
+          { name: 'Home', href: '/' },
+          { name: 'Blog' },
+        ]}
+      />
       <MotionReveal client:visible>
         <div class="listing-intro">
           <div class="s-tag">// Blog</div>
@@ -67,6 +75,7 @@ const schema = [
               href={`/blog/${post.id}/`}
               icon={post.data.icon}
               readTime={post.data.readTime}
+              ctaLabel={`Read ${post.data.title.split('—')[0].trim()}`}
             />
           ))}
         </div>

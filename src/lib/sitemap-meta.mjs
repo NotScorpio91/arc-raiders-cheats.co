@@ -2,6 +2,9 @@ import { readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 export const SITE_URL = 'https://arcraiderscheats.co';
 
+/** Stable lastmod for static pages (update when page copy materially changes). */
+export const STATIC_CONTENT_LASTMOD = '2026-07-12T00:00:00.000Z';
+
 /** @type {Record<string, string>} */
 export const LEGACY_BLOG_REDIRECTS = {
   '/blog/competitive-settings-guide/': '/blog/arc-raiders-cheats-guide/',

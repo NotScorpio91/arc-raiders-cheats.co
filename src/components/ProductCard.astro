@@ -10,9 +10,11 @@ interface Props {
   features: string[];
   tier?: string;
   featured?: boolean;
+  ctaLabel?: string;
 }
 
-const { id, icon, name, description, features, tier, featured = false } = Astro.props;
+const { id, icon, name, description, features, tier, featured = false, ctaLabel } = Astro.props;
+const buttonLabel = ctaLabel ?? `View ${name} details`;
 
 const previewFeatures = features.slice(0, 5);
 const hiddenCount = Math.max(0, features.length - previewFeatures.length);
@@ -45,7 +47,7 @@ const hiddenCount = Math.max(0, features.length - previewFeatures.length);
   {hiddenCount > 0 && <p class="cheat-card-more">+ {hiddenCount} more features</p>}
 
   <a href={`/products/${id}/`} class="cheat-card-btn">
-    Show More
+    {buttonLabel}
     <Icon name="chevron-right" size={14} />
   </a>
 </article>

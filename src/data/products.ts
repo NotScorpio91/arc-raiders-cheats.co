@@ -1,4 +1,10 @@
 import type { IconName } from '../lib/icons';
+import { PRODUCT_PRICING, type PricingPlan } from '../lib/pricing';
+
+export type ProductFaq = {
+  question: string;
+  answer: string;
+};
 
 export type Product = {
   id: string;
@@ -7,12 +13,20 @@ export type Product = {
   name: string;
   description: string;
   details?: string;
+  overview?: string[];
+  setupSteps?: string[];
+  limitations?: string[];
+  lastUpdated: string;
+  pricingPlans: PricingPlan[];
+  checkoutNote?: string;
   features: string[];
   accessUrl: string;
   featured?: boolean;
   seoTitle: string;
   seoDescription: string;
   keywords: string[];
+  faqs?: ProductFaq[];
+  relatedSlugs?: string[];
 };
 
 export const products: Product[] = [
@@ -23,10 +37,27 @@ export const products: Product[] = [
     name: 'UGC',
     description:
       'Account recovery and unban tool builder — custom workflows, appeal automation, and profile rebuilds after restrictions.',
+    overview: [
+      'UGC (Unban & Governance Control) is built for players who need structured account recovery after platform restrictions. Instead of guessing appeal wording, you configure repeatable workflows for common ban and lockout scenarios.',
+      'The tool focuses on documentation, template management, and step-by-step recovery paths — not instant guaranteed unbans. Results depend on platform policy, violation type, and how the account was flagged.',
+    ],
+    setupSteps: [
+      'Choose monthly or lifetime access at checkout and complete instant delivery.',
+      'Open the UGC workspace and select the platform or account type you need to recover.',
+      'Configure appeal templates, attach supporting details, and export the workflow for your case.',
+      'Track status updates and adjust the workflow if the platform requests additional information.',
+    ],
+    limitations: [
+      'UGC does not guarantee account reinstatement — it automates and organizes recovery work.',
+      'Some platforms reject appeals regardless of tooling; always read current policy before purchasing.',
+      'Works best when combined with clean hardware sessions if HWID restrictions were involved.',
+    ],
+    lastUpdated: '2026-07-12',
+    pricingPlans: PRODUCT_PRICING.ugc,
     accessUrl: 'https://zadeyo.com/go/PRO?to=%2Fproducts%2Fugc',
-    seoTitle: 'UGC Account Recovery Tools — Unban & Profile Rebuild 2026',
+    seoTitle: 'UGC Account Recovery — Unban Tools',
     seoDescription:
-      'Buy UGC account recovery tools — unban workflows, appeal automation, and profile rebuilds after restrictions. Instant access with setup guides.',
+      'Buy UGC account recovery tools for Arc Raiders and multi-game accounts. Custom unban workflows, appeal automation, and profile rebuilds from $35/month.',
     keywords: [
       'ugc account recovery',
       'account unban tool',
@@ -34,6 +65,19 @@ export const products: Product[] = [
       'profile recovery tools',
       'multi-game account tools',
     ],
+    faqs: [
+      {
+        question: 'Does UGC guarantee my account will be unbanned?',
+        answer:
+          'No. UGC helps you build and automate appeal workflows. Final decisions are made by each platform’s trust and safety team.',
+      },
+      {
+        question: 'Can I use UGC with Arc Raiders cheats?',
+        answer:
+          'UGC is an account recovery tool, not a cheat overlay. Pair it with our HWID Spoofer only if you understand the risks and compatibility requirements for your setup.',
+      },
+    ],
+    relatedSlugs: ['hwid-spoofer', 'cloud-dma'],
     features: [
       'Account Unban Tool Builder',
       'Custom Workflow Configuration',
@@ -58,12 +102,29 @@ export const products: Product[] = [
     description:
       'Unlock every cosmetic and weapon skin instantly across your favorite games. Stop paying for digital items and customize your loadout exactly how you want it.',
     details:
-      'Skin Changer is a simple, lightweight tool designed to give you complete control over your in-game cosmetics. Instead of spending hundreds of dollars on microtransactions, our tool unlocks the entire marketplace of premium weapon skins, character outfits, and rare knife variants across major titles and many games.',
+      'Skin Changer is a lightweight client for cosmetic unlocks across supported titles. It applies visual loadout changes locally without marketplace purchases.',
+    overview: [
+      'Skin Changer targets players who want full cosmetic control without buying every battle pass tier or marketplace bundle. Supported weapon skins, outfits, and knife variants load through a simple client.',
+      'Cosmetic tools carry their own detection and ToS risks on every platform. Use conservative settings, keep the client updated, and understand that visual unlocks do not change server-side ownership records.',
+    ],
+    setupSteps: [
+      'Purchase monthly or lifetime access and download the client from the delivery page.',
+      'Launch Skin Changer, pick your game profile, and sync the latest skin database.',
+      'Select weapon skins, outfits, or knife variants and apply them to your loadout preview.',
+      'Launch the supported game and verify visuals in a private session before going live.',
+    ],
+    limitations: [
+      'Unlocks are visual only — marketplace ownership and trade history are unchanged.',
+      'Not every seasonal skin appears instantly; database updates follow publisher releases.',
+      'Using cosmetic tools may violate game terms of service and can lead to account action.',
+    ],
+    lastUpdated: '2026-07-12',
+    pricingPlans: PRODUCT_PRICING['skin-changer'],
     accessUrl: 'https://zadeyo.com/go/PRO?to=%2Fproducts%2Fskin-changer',
     featured: true,
-    seoTitle: 'Skin Changer — Unlock All Weapon Skins & Cosmetics 2026',
+    seoTitle: 'Skin Changer — Unlock Weapon Skins',
     seoDescription:
-      'Buy Skin Changer to unlock weapon skins, character outfits, and rare knife variants across major games. Lightweight tool, instant cosmetic unlocks, no microtransactions.',
+      'Buy Skin Changer to unlock weapon skins, outfits, and knife variants across supported games. Lightweight cosmetic client from $35/month with instant delivery.',
     keywords: [
       'skin changer',
       'unlock weapon skins',
@@ -72,6 +133,19 @@ export const products: Product[] = [
       'knife skin changer',
       'character outfit unlock',
     ],
+    faqs: [
+      {
+        question: 'Does Skin Changer work with Arc Raiders?',
+        answer:
+          'Skin Changer supports multiple titles. Check the current compatibility list in checkout and support docs before buying for a specific game.',
+      },
+      {
+        question: 'Will other players always see my skins?',
+        answer:
+          'Visibility depends on the game and how cosmetics are rendered. Treat unlocks as local visual changes unless support confirms otherwise for your title.',
+      },
+    ],
+    relatedSlugs: ['ugc', 'hwid-spoofer'],
     features: [
       'Unlock All Weapon Skins',
       'Character Outfit Unlock',
@@ -95,10 +169,29 @@ export const products: Product[] = [
     name: 'Cloud DMA',
     description:
       'Single-PC cheat infrastructure via Hyper-V — no second machine, USB DMA bridge, or PCIe card required.',
+    overview: [
+      'Cloud DMA is the infrastructure layer that runs supported cheat workflows on one Windows PC through a Hyper-V virtual environment. This checkout covers the Cloud DMA license, installer, activation, and support — not the full external stack by itself.',
+      'AWS and GREENWARD are separate purchases required for the supported workflow described at checkout. Budget for those prerequisites in addition to the $50 lifetime Cloud DMA license shown on this page.',
+    ],
+    setupSteps: [
+      'Confirm you have Windows 10/11 Pro or Enterprise, virtualization enabled, and stable internet.',
+      'Purchase AWS and GREENWARD access separately if you do not already have them.',
+      'Buy the Cloud DMA lifetime license here and run the guided Hyper-V installer on your PC.',
+      'Complete encrypted activation, then attach your cheat tier (Xray, Pro, or Private) through support docs.',
+    ],
+    limitations: [
+      'AWS and GREENWARD are not included in this $50 checkout.',
+      'Requires Hyper-V-capable hardware and administrator access during setup.',
+      'No external DMA box means performance depends on your CPU, RAM, and host tuning.',
+    ],
+    lastUpdated: '2026-07-12',
+    pricingPlans: PRODUCT_PRICING['cloud-dma'],
+    checkoutNote:
+      'Cloud DMA is $50 lifetime on this page. AWS and GREENWARD are separate purchases required for the supported setup workflow.',
     accessUrl: 'https://zadeyo.com/go/PRO?to=%2Fproducts%2Fcloud-dma',
-    seoTitle: 'Cloud DMA — Single-PC Hyper-V Cheat Infrastructure 2026',
+    seoTitle: 'Cloud DMA — Single-PC Hyper-V Setup',
     seoDescription:
-      'Buy Cloud DMA for Arc Raiders cheats — Hyper-V single-PC setup with no second machine, USB DMA bridge, or PCIe card. Instant activation and setup guides.',
+      'Buy Cloud DMA for single-PC Hyper-V cheat infrastructure. $50 lifetime license with guided setup — AWS and GREENWARD sold separately as required.',
     keywords: [
       'cloud dma',
       'hyper-v dma',
@@ -106,6 +199,19 @@ export const products: Product[] = [
       'arc raiders cloud dma',
       'dma without second pc',
     ],
+    faqs: [
+      {
+        question: 'Is AWS included in the $50 Cloud DMA price?',
+        answer:
+          'No. AWS billing and access are separate. This page covers the Cloud DMA license and activation layer only.',
+      },
+      {
+        question: 'Do I still need Arc Raiders cheat tiers?',
+        answer:
+          'Yes. Cloud DMA is infrastructure. Choose Xray, Pro, or Private on our cheats page for the actual Arc Raiders overlay features.',
+      },
+    ],
+    relatedSlugs: ['hwid-spoofer', 'ugc'],
     features: [
       'Hyper-V Virtual Environment',
       'Single-PC Setup (No Second Machine)',
@@ -130,10 +236,27 @@ export const products: Product[] = [
     name: 'HWID Spoofer',
     description:
       'Hardware ID spoofing for disk serials, MAC addresses, GPU IDs, and more — compatible with EAC, BattlEye, Vanguard, and major anti-cheats.',
+    overview: [
+      'HWID Spoofer resets or masks hardware identifiers after prior flags — disk serials, MAC addresses, GPU IDs, motherboard UUIDs, and related registry traces.',
+      'Spoofing reduces repeat hardware bans when used correctly, but it is not a permanent bypass. Pair conservative cheat settings with clean sessions and read our spoofer guide before buying.',
+    ],
+    setupSteps: [
+      'Pick monthly ($50) or lifetime ($150) access and finish instant checkout.',
+      'Run the spoofer as administrator and select the profile that matches your anti-cheat target.',
+      'Apply disk, MAC, GPU, and SMBIOS masks, then verify identifiers with the built-in checker.',
+      'Reboot if required, launch Arc Raiders, and avoid reusing flagged accounts on the same profile.',
+    ],
+    limitations: [
+      'Does not remove existing account bans — only helps with hardware-level restrictions.',
+      'Cloud DMA may be required for full functionality on some stacks; confirm in support docs.',
+      'Anti-cheat updates can break spoof profiles until the vendor ships an update.',
+    ],
+    lastUpdated: '2026-07-12',
+    pricingPlans: PRODUCT_PRICING['hwid-spoofer'],
     accessUrl: 'https://zadeyo.com/go/PRO?to=%2Fproducts%2Fhwid-spoofer',
-    seoTitle: 'HWID Spoofer — EAC BattlEye Vanguard Compatible 2026',
+    seoTitle: 'HWID Spoofer — EAC & BattlEye Ready',
     seoDescription:
-      'Buy HWID Spoofer for disk, MAC, GPU, and SMBIOS spoofing. Compatible with EAC, BattlEye, Vanguard, and major anti-cheats. Instant access and verification tools.',
+      'Buy HWID Spoofer for disk, MAC, GPU, and SMBIOS masking. Compatible with EAC, BattlEye, and Vanguard from $50/month with verification tools included.',
     keywords: [
       'hwid spoofer',
       'eac hwid spoof',
@@ -142,6 +265,19 @@ export const products: Product[] = [
       'hardware id spoof',
       'arc raiders hwid spoofer',
     ],
+    faqs: [
+      {
+        question: 'Will HWID Spoofer unban my Arc Raiders account?',
+        answer:
+          'No. It addresses hardware identifiers. Account-level bans still require appeals or new accounts following platform rules.',
+      },
+      {
+        question: 'Should I spoof before or after reinstalling Windows?',
+        answer:
+          'See our HWID spoofer guide for the clean-session workflow. Most players spoof after a fresh install or major hardware change.',
+      },
+    ],
+    relatedSlugs: ['cloud-dma', 'ugc'],
     features: [
       'Disk Serial Spoofing',
       'MAC Address Spoofing',
@@ -186,25 +322,5 @@ export const homepageFaqs = [
     question: 'How do I get access after purchase?',
     answer:
       'Click Get Access on any cheat or product page — you are taken straight to checkout for instant delivery. Setup steps and activation details follow immediately after purchase.',
-  },
-  {
-    question: 'Which OS does the Private cheat support?',
-    answer:
-      'Windows 10 (22H2, 21H2, 21H1, 20H2, 2004, 1909) and Windows 11 (23H2, 24H2, 25H2). Compatible with all CPUs and GPUs. Intel Virtualization (VT-D) or AMD SVM must be enabled in BIOS. Steam version only — does not work with the Epic Games launcher.',
-  },
-  {
-    question: 'Can I use my license key on another computer?',
-    answer:
-      'No. Your key locks to the first computer you activate it on. If you reinstall Windows or change hardware, contact support and we will reset your HWID for you.',
-  },
-  {
-    question: 'What payment methods are available?',
-    answer:
-      'We accept credit/debit cards, Apple Pay, and Google Pay with instant delivery. For Russian users we also provide a separate FunPay store that supports local card payments. If you prefer Alipay or WeChat, we offer a separate shop for those payment methods as well.',
-  },
-  {
-    question: 'I found a bug or have a suggestion — where do I report it?',
-    answer:
-      'Use the Contact button to reach support. There is a dedicated channel for bug reports and suggestions, and that is where we track and fix issues.',
   },
 ] as const;

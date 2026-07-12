@@ -9,12 +9,13 @@ interface Props {
   href: string;
   icon?: IconName;
   readTime?: string;
+  ctaLabel?: string;
 }
 
-const { title, description, date, href, icon = 'file-text', readTime } = Astro.props;
+const { title, description, date, href, icon = 'file-text', readTime, ctaLabel = 'Read guide' } = Astro.props;
 ---
 
-<a href={href} class="blog-card">
+  <a href={href} class="blog-card">
   <div class="blog-card-accent" aria-hidden="true"></div>
   <div class="blog-card-head">
     <div class="blog-card-icon">
@@ -45,7 +46,7 @@ const { title, description, date, href, icon = 'file-text', readTime } = Astro.p
   </div>
 
   <span class="blog-card-btn">
-    Read Article
+    {ctaLabel}
     <Icon name="chevron-right" size={14} />
   </span>
 </a>

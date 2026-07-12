@@ -1,22 +1,30 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
 import { breadcrumbSchema } from '../lib/schema';
 import { SITE, CONTACT_URL } from '../lib/site';
 
 const schema = breadcrumbSchema([
-  { name: 'Home', url: SITE.url },
+  { name: 'Home', url: `${SITE.url}/` },
   { name: 'Terms of Use', url: `${SITE.url}/terms/` },
 ]);
 ---
 
 <BaseLayout
   title="Terms of Use — Arc Raiders Cheats"
-  description="Terms of use for ArcRaidersCheats.co — rules for using our Arc Raiders cheats, guides, and product pages."
+  description="Terms of use for ArcRaidersCheats.co — rules for Arc Raiders cheat tiers, product pages, guides, checkout links, and acceptable use of this site."
   canonical={`${SITE.url}/terms/`}
   schema={schema}
+  keywords={['arc raiders cheats terms', 'arcraiderscheats terms of use']}
 >
   <section class="section listing-section">
     <div class="section-inner">
+      <Breadcrumb
+        items={[
+          { name: 'Home', href: '/' },
+          { name: 'Terms of Use' },
+        ]}
+      />
       <div class="listing-intro">
         <div class="s-tag">// Legal</div>
         <h1>Terms of Use</h1>

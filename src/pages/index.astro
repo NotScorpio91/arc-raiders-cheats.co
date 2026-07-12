@@ -11,14 +11,13 @@ import { cheats, getCheatFeatures } from '../data/cheats';
 import { homepageShowcase, homepageHero, homepageHeroImage } from '../data/homepage';
 import { homepageGuideIntro, homepageGuideSections, homepageGuideTakeaways } from '../data/homepage-guide';
 import { homepageFaqs, products } from '../data/products';
-import { GET_ACCESS_URL, SITE_KEYWORDS, SITE } from '../lib/site';
+import { GET_ACCESS_URL, SITE } from '../lib/site';
+import { CHEAT_PRICING } from '../lib/pricing';
 import { resolveSocialImage } from '../lib/social-images';
 import {
   websiteSchema,
   faqSchema,
-  organizationSchema,
   homepageSoftwareApplicationSchema,
-  breadcrumbSchema,
 } from '../lib/schema';
 
 const homeSocial = resolveSocialImage('/');
@@ -28,32 +27,25 @@ const blogPosts = (await getCollection('blog'))
   .slice(0, 3);
 
 const schema = [
-  homepageSoftwareApplicationSchema(homeSocial.src),
+  homepageSoftwareApplicationSchema(homeSocial.src, CHEAT_PRICING),
   websiteSchema(),
-  organizationSchema(),
   faqSchema([...homepageFaqs], homeSocial.src),
-  breadcrumbSchema([
-    { name: 'Home', url: 'https://arcraiderscheats.co/' },
-    { name: 'Cheats', url: 'https://arcraiderscheats.co/cheats/' },
-    { name: 'Products', url: 'https://arcraiderscheats.co/products/' },
-    { name: 'Blog', url: 'https://arcraiderscheats.co/blog/' },
-  ]),
 ];
 ---
 
 <BaseLayout
-  title="Arc Raiders Cheats – Undetected ESP, Aimbot & Radar 2026"
-  description="Arc Raiders Cheats – Dominate every raid with player ESP, loot ESP, bone-targeted aimbot, 2D radar hack, and extraction intel. Fully external, safe against EAC. Updated every patch."
+  title="Arc Raiders Cheats"
+  description="Arc Raiders Cheats with player ESP, loot ESP, aim tools, and 2D radar. Choose Xray, Pro, or Private tiers — updated after major Season 1 patches."
   canonical={`${SITE.url}/`}
   schema={schema}
-  keywords={[...SITE_KEYWORDS]}
+  keywords={['arc raiders cheats', 'arc raiders esp', 'arc raiders aimbot', 'arc raiders hack']}
   lcpImage={homepageHeroImage.src}
 >
   <section class="hero">
     <div class="hero-bg-photo" aria-hidden="true">
       <img
         src={homepageHeroImage.src}
-        alt=""
+        alt={homepageHeroImage.alt}
         width="960"
         height="540"
         loading="eager"
@@ -72,7 +64,7 @@ const schema = [
     <div class="section-inner hero-inner">
       <div class="hero-content hero-animate">
         <div class="hero-badge">{homepageHero.badge}</div>
-        <h1>{homepageHero.title}</h1>
+        <h1>Arc Raiders Cheats &amp; Tools</h1>
         <p class="hero-desc">{homepageHero.description}</p>
         <div class="hero-btns">
           <button type="button" class="btn-primary" data-go-url={GET_ACCESS_URL}>Browse Cheats</button>
@@ -86,7 +78,7 @@ const schema = [
     <div class="section-inner">
       <div class="s-head">
         <div class="s-tag">// Cheats</div>
-        <h2 class="s-title">Arc Raiders Cheats</h2>
+        <h2 class="s-title">Choose Your Cheat Tier</h2>
         <p class="s-sub">Buy Xray, Pro, or Private — ESP, aimbot, and extraction tools for every raid.</p>
       </div>
       <div class="aff-grid aff-grid-three cheat-grid animate-grid">
@@ -99,6 +91,7 @@ const schema = [
             tier={cheat.tier}
             featured={cheat.featured}
             href={`/cheats/${cheat.id}/`}
+            ctaLabel={`View ${cheat.name} features`}
           />
         ))}
       </div>
@@ -133,12 +126,12 @@ const schema = [
     <div class="section-inner">
       <div class="s-head">
         <div class="s-tag">// Products</div>
-        <h2 class="s-title">Arc Raiders Cheats Products</h2>
+        <h2 class="s-title">Arc Raiders Products &amp; Tools</h2>
         <p class="s-sub">Cloud DMA, UGC, Skin Changer, and HWID Spoofer for a full Arc Raiders cheats stack.</p>
       </div>
       <div class="aff-grid aff-grid-products animate-grid">
         {products.map((product) => (
-          <ProductCard {...product} />
+          <ProductCard {...product} ctaLabel={`Explore ${product.name}`} />
         ))}
       </div>
     </div>
@@ -216,6 +209,7 @@ const schema = [
             href={`/blog/${post.id}/`}
             icon={post.data.icon}
             readTime={post.data.readTime}
+            ctaLabel={`Read ${post.data.title.split('—')[0].trim()}`}
           />
         ))}
       </div>
@@ -226,13 +220,16 @@ const schema = [
     <div class="section-inner">
       <div class="s-head">
         <div class="s-tag">// FAQ</div>
-        <h2 class="s-title">Frequently Asked</h2>
+        <h2 class="s-title">Quick Answers</h2>
       </div>
       <div class="faq-wrap">
         {homepageFaqs.map((faq) => (
           <FAQAccordion question={faq.question} answer={faq.answer} />
         ))}
       </div>
+      <p class="faq-more-link">
+        <a href="/faq/">See the full Arc Raiders Cheats FAQ →</a>
+      </p>
     </div>
   </section>
 
@@ -246,3 +243,21 @@ const schema = [
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .faq-more-link {
+    margin-top: 1.25rem;
+    text-align: center;
+    font-size: 0.92rem;
+  }
+
+  .faq-more-link a {
+    color: var(--accent2);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .faq-more-link a:hover {
+    text-decoration: underline;
+  }
+</style>

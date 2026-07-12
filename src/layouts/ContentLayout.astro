@@ -1,5 +1,6 @@
 ---
 import BaseLayout from './BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
 import Icon from '../components/Icon.astro';
 import type { IconName } from '../lib/icons';
 import MotionReveal from '../components/react/MotionReveal';
@@ -21,6 +22,7 @@ interface Props {
   ogImageAlt?: string;
   articlePublished?: string;
   articleModified?: string;
+  breadcrumbItems?: { name: string; href?: string }[];
 }
 
 const {
@@ -40,6 +42,7 @@ const {
   ogImageAlt,
   articlePublished,
   articleModified,
+  breadcrumbItems = [{ name: 'Home', href: '/' }, { name: 'Blog', href: '/blog/' }],
 } = Astro.props;
 
 const updatedLabel = updated?.toLocaleDateString('en-US', {
@@ -64,6 +67,7 @@ const updatedLabel = updated?.toLocaleDateString('en-US', {
   <section class="section listing-section listing-section--center blog-post-page">
     <div class="section-inner">
       <MotionReveal client:visible>
+        <Breadcrumb items={[...breadcrumbItems, { name: title }]} />
         <a href="/blog/" class="blog-back-link">
           <Icon name="arrow-left" size={14} class="blog-back-icon" />
           All Blog Posts

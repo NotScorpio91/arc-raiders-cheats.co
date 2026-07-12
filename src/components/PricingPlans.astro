@@ -1,0 +1,106 @@
+---
+import type { PricingPlan } from '../lib/pricing';
+import { formatUsd } from '../lib/pricing';
+
+interface Props {
+  plans: PricingPlan[];
+  checkoutNote?: string;
+}
+
+const { plans, checkoutNote } = Astro.props;
+---
+
+<div class="pricing-block">
+  <h2 class="pricing-block-title">Pricing</h2>
+  <ul class="pricing-plans">
+    {plans.map((plan) => (
+      <li class:list={['pricing-plan', { 'pricing-plan--featured': plan.featured }]}>
+        <div class="pricing-plan-head">
+          <span class="pricing-plan-label">{plan.label}</span>
+          {plan.featured && <span class="pricing-plan-badge">Popular</span>}
+        </div>
+        <p class="pricing-plan-duration">{plan.duration}</p>
+        <p class="pricing-plan-price">{formatUsd(plan.price)}</p>
+      </li>
+    ))}
+  </ul>
+  {checkoutNote && <p class="pricing-note">{checkoutNote}</p>}
+</div>
+
+<style>
+  .pricing-block {
+    margin: 1.5rem 0;
+    padding: 1.25rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius2);
+    background: var(--bg2);
+  }
+
+  .pricing-block-title {
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 0 0 1rem;
+  }
+
+  .pricing-plans {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.75rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .pricing-plan {
+    padding: 0.85rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--bg3);
+  }
+
+  .pricing-plan--featured {
+    border-color: rgba(124, 58, 237, 0.45);
+    box-shadow: 0 0 0 1px rgba(124, 58, 237, 0.15);
+  }
+
+  .pricing-plan-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .pricing-plan-label {
+    font-weight: 700;
+    font-size: 0.92rem;
+  }
+
+  .pricing-plan-badge {
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--accent2);
+  }
+
+  .pricing-plan-duration {
+    margin: 0 0 0.5rem;
+    font-size: 0.78rem;
+    color: var(--text2);
+  }
+
+  .pricing-plan-price {
+    margin: 0;
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--accent2);
+  }
+
+  .pricing-note {
+    margin: 1rem 0 0;
+    font-size: 0.82rem;
+    color: var(--text2);
+    line-height: 1.55;
+  }
+</style>

@@ -1,9 +1,13 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
 import Icon from '../../components/Icon.astro';
+import PricingPlans from '../../components/PricingPlans.astro';
+import RelatedLinks from '../../components/RelatedLinks.astro';
 import MotionButton from '../../components/react/MotionButton';
 import MotionReveal from '../../components/react/MotionReveal';
 import { products, getProductById } from '../../data/products';
+import { getRelatedCheatsForProduct } from '../../data/cheats';
 import { breadcrumbSchema, productSchema } from '../../lib/schema';
 import { SITE } from '../../lib/site';
 import { resolveSocialImage } from '../../lib/social-images';
@@ -26,19 +30,32 @@ const socialImage = resolveSocialImage(`/products/${product.id}/`);
 const accessUrl = product.accessUrl;
 const pageDescription = product.seoDescription;
 const pageTitle = product.seoTitle;
+const fullDescription = product.details
+  ? `${product.description} ${product.details}`
+  : product.description;
+
+const relatedProducts = (product.relatedSlugs ?? [])
+  .map((id) => getProductById(id))
+  .filter(Boolean);
+
+const relatedCheats = getRelatedCheatsForProduct(product.id).map((id) => ({
+  href: `/cheats/${id}/`,
+  label: `${id.charAt(0).toUpperCase()}${id.slice(1)} Arc Raiders Cheat`,
+}));
 
 const schema = [
   productSchema({
-    name: `${product.name} — ArcRaidersCheats`,
-    description: product.details ? `${product.description} ${product.details}` : product.description,
+    name: `${product.name} — Arc Raiders Cheats`,
+    description: fullDescription,
     url,
     image: socialImage.src,
     imageAlt: socialImage.alt,
     category: product.tier,
     sku: product.id,
+    pricingPlans: product.pricingPlans,
   }),
   breadcrumbSchema([
-    { name: 'Home', url: SITE.url },
+    { name: 'Home', url: `${SITE.url}/` },
     { name: 'Products', url: `${SITE.url}/products/` },
     { name: product.name, url },
   ]),
@@ -57,6 +74,13 @@ const schema = [
 >
   <section class="section product-detail-section">
     <div class="section-inner">
+      <Breadcrumb
+        items={[
+          { name: 'Home', href: '/' },
+          { name: 'Products', href: '/products/' },
+          { name: product.name },
+        ]}
+      />
       <MotionReveal client:visible>
         <div class="product-detail-layout">
           <div class="product-detail-about">
@@ -65,21 +89,40 @@ const schema = [
               <Icon name={product.icon} size={36} />
             </div>
             <div class="product-detail-about-head">
-              <h1>{product.name}</h1>
+              <h1>{product.name} — Arc Raiders Product</h1>
               <div class="detail-head-badges">
                 <span class="cheat-detail-tier">{product.tier}</span>
+                <span class="listing-meta-pill">Updated {product.lastUpdated}</span>
               </div>
             </div>
             <div class="s-tag">// Overview</div>
             <p class="product-detail-about-desc">{product.description}</p>
             {product.details && <p class="product-detail-about-desc">{product.details}</p>}
+            {product.overview?.map((paragraph) => (
+              <p class="product-detail-about-desc">{paragraph}</p>
+            ))}
             <div class="product-detail-meta">
               <span class="product-detail-meta-pill">{product.features.length} Features</span>
               <span class="product-detail-meta-pill">{product.tier}</span>
             </div>
+            <PricingPlans plans={product.pricingPlans} checkoutNote={product.checkoutNote} />
           </div>
 
           <div class="product-detail-main">
+            {product.setupSteps && product.setupSteps.length > 0 && (
+              <div class="detail-block">
+                <h2 class="cheat-detail-section-title">
+                  <span class="s-tag">// Setup</span>
+                  How to Get Started
+                </h2>
+                <ol class="detail-steps">
+                  {product.setupSteps.map((step) => (
+                    <li>{step}</li>
+                  ))}
+                </ol>
+              </div>
+            )}
+
             <div class="product-detail-features-head">
               <h2 class="cheat-detail-section-title">
                 <span class="s-tag">// Features</span>
@@ -96,6 +139,31 @@ const schema = [
               ))}
             </ul>
 
+            {product.limitations && product.limitations.length > 0 && (
+              <div class="detail-block detail-block--warn">
+                <h2 class="cheat-detail-section-title">Limitations &amp; Risk Notes</h2>
+                <ul class="detail-bullets">
+                  {product.limitations.map((item) => (
+                    <li>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {product.faqs && product.faqs.length > 0 && (
+              <div class="detail-block">
+                <h2 class="cheat-detail-section-title">Product FAQ</h2>
+                <dl class="detail-faq">
+                  {product.faqs.map((faq) => (
+                    <>
+                      <dt>{faq.question}</dt>
+                      <dd>{faq.answer}</dd>
+                    </>
+                  ))}
+                </dl>
+              </div>
+            )}
+
             <div class="product-detail-cta">
               <MotionButton
                 client:visible
@@ -106,9 +174,66 @@ const schema = [
                 Get {product.name} Access
               </MotionButton>
             </div>
+
+            <RelatedLinks
+              title="Related products"
+              links={relatedProducts.map((item) => ({
+                href: `/products/${item!.id}/`,
+                label: item!.name,
+                description: item!.description,
+              }))}
+            />
+
+            {relatedCheats.length > 0 && (
+              <RelatedLinks
+                title="Related cheat tiers"
+                links={relatedCheats}
+              />
+            )}
           </div>
         </div>
       </MotionReveal>
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .detail-block {
+    margin-bottom: 1.5rem;
+  }
+
+  .detail-block--warn {
+    padding: 1rem 1.1rem;
+    border: 1px solid rgba(234, 179, 8, 0.25);
+    border-radius: var(--radius);
+    background: rgba(234, 179, 8, 0.06);
+  }
+
+  .detail-steps,
+  .detail-bullets {
+    margin: 0;
+    padding-left: 1.2rem;
+    color: var(--text2);
+    line-height: 1.6;
+  }
+
+  .detail-steps li + li,
+  .detail-bullets li + li {
+    margin-top: 0.45rem;
+  }
+
+  .detail-faq {
+    margin: 0;
+  }
+
+  .detail-faq dt {
+    font-weight: 700;
+    margin-top: 0.85rem;
+  }
+
+  .detail-faq dd {
+    margin: 0.35rem 0 0;
+    color: var(--text2);
+    line-height: 1.55;
+  }
+</style>

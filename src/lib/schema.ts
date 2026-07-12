@@ -1,5 +1,7 @@
 import { SITE, SITE_LOGO_URL } from './site';
 import { ORGANIZATION_SOCIAL_IMAGE } from './social-images';
+import type { PricingPlan } from './pricing';
+import { highestPrice, lowestPrice } from './pricing';
 
 function organizationLogo() {
   return {
@@ -20,6 +22,40 @@ function socialImageObject(src: string, alt: string, width?: number, height?: nu
     ...(alt ? { caption: alt, name: alt } : {}),
     ...(width ? { width } : {}),
     ...(height ? { height } : {}),
+  };
+}
+
+function brandObject() {
+  return {
+    '@type': 'Brand',
+    name: SITE.name,
+  };
+}
+
+function offerFromPlan(plan: PricingPlan, url: string) {
+  return {
+    '@type': 'Offer',
+    url,
+    price: plan.price.toFixed(2),
+    priceCurrency: plan.currency,
+    availability: 'https://schema.org/InStock',
+    seller: publisherOrganization(),
+    name: plan.label,
+  };
+}
+
+function offersFromPlans(plans: PricingPlan[], url: string) {
+  if (plans.length === 1) {
+    return offerFromPlan(plans[0], url);
+  }
+
+  return {
+    '@type': 'AggregateOffer',
+    lowPrice: lowestPrice(plans).toFixed(2),
+    highPrice: highestPrice(plans).toFixed(2),
+    priceCurrency: plans[0].currency,
+    offerCount: plans.length,
+    offers: plans.map((plan) => offerFromPlan(plan, url)),
   };
 }
 
@@ -48,14 +84,6 @@ export function websiteSchema() {
       ORGANIZATION_SOCIAL_IMAGE.height,
     ),
     publisher: publisherOrganization(),
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: {
-        '@type': 'EntryPoint',
-        urlTemplate: `${SITE.url}/blog?q={search_term_string}`,
-      },
-      'query-input': 'required name=search_term_string',
-    },
   };
 }
 
@@ -272,6 +300,7 @@ export function softwareApplicationSchema(props: {
   category?: string;
   operatingSystem?: string;
   featureList?: string[];
+  pricingPlans?: PricingPlan[];
 }) {
   return {
     '@context': 'https://schema.org',
@@ -286,25 +315,15 @@ export function softwareApplicationSchema(props: {
       ? { image: socialImageObject(props.image, props.imageAlt ?? props.name) }
       : {}),
     ...(props.featureList?.length ? { featureList: props.featureList.join(', ') } : {}),
-    offers: {
-      '@type': 'Offer',
-      url: props.url,
-      availability: 'https://schema.org/InStock',
-      seller: publisherOrganization(),
-    },
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.9',
-      reviewCount: '1284',
-      bestRating: '5',
-      worstRating: '1',
-    },
+    ...(props.pricingPlans?.length
+      ? { offers: offersFromPlans(props.pricingPlans, props.url) }
+      : {}),
     provider: publisherOrganization(),
   };
 }
 
 /** Homepage aggregate SoftwareApplication representing the full Arc Raiders Cheats stack. */
-export function homepageSoftwareApplicationSchema(image?: string) {
+export function homepageSoftwareApplicationSchema(image?: string, pricingPlans?: PricingPlan[]) {
   return {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
@@ -322,23 +341,13 @@ export function homepageSoftwareApplicationSchema(image?: string) {
     operatingSystem: 'Windows 10, Windows 11',
     softwareVersion: '2026',
     releaseNotes:
-      'Updated for the latest Arc Raiders patch. Fully external — safe against EAC. Includes Player ESP, Loot ESP, Drone ESP, Aimbot with bone targeting, 2D Radar Hack, Extraction Zone ESP, and HWID Spoofer.',
+      'Updated for recent Arc Raiders patches. External overlay stack with Player ESP, Loot ESP, aim tools, 2D radar, and extraction intel.',
     ...(image ? { image: socialImageObject(image, 'Arc Raiders Cheats — ESP, Aimbot and Radar 2026') } : {}),
-    offers: {
-      '@type': 'Offer',
-      availability: 'https://schema.org/InStock',
-      url: `${SITE.url}/buy/`,
-      seller: publisherOrganization(),
-    },
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.9',
-      reviewCount: '1284',
-      bestRating: '5',
-      worstRating: '1',
-    },
+    ...(pricingPlans?.length
+      ? { offers: offersFromPlans(pricingPlans, `${SITE.url}/cheats/`) }
+      : {}),
     description:
-      'The leading undetected external cheat for Arc Raiders. Player ESP, Loot ESP, and Drone ESP to see enemies and items through walls, bone-targeted Aimbot, 2D Radar Hack, Extraction Zone ESP, and HWID Spoofer. Fully external — no kernel injection — safe against Easy Anti-Cheat. Updated within hours of every game patch.',
+      'Arc Raiders cheat tiers with player ESP, loot ESP, aim tools, 2D radar, and extraction intel. Xray, Pro, and Private packages with documented setup and patch-aware support.',
     featureList:
       'Player ESP, Loot ESP, Drone ESP, Skeleton ESP, Health & Armor Bars, Distance Readout, Aimbot, Bone Targeting, Aim Smoothing, Custom FOV, 2D Radar Hack, Extraction Zone ESP, ARC Patrol ESP, Stream-Safe Mode, HWID Spoofer',
   };
@@ -352,6 +361,7 @@ export function productSchema(props: {
   imageAlt?: string;
   category?: string;
   sku?: string;
+  pricingPlans?: PricingPlan[];
 }) {
   return {
     '@context': 'https://schema.org',
@@ -364,12 +374,9 @@ export function productSchema(props: {
     ...(props.image
       ? { image: socialImageObject(props.image, props.imageAlt ?? props.name) }
       : {}),
-    brand: publisherOrganization(),
-    offers: {
-      '@type': 'Offer',
-      url: props.url,
-      availability: 'https://schema.org/InStock',
-      seller: publisherOrganization(),
-    },
+    brand: brandObject(),
+    ...(props.pricingPlans?.length
+      ? { offers: offersFromPlans(props.pricingPlans, props.url) }
+      : {}),
   };
 }

@@ -1,10 +1,14 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
 import CheatCompareTable from '../../components/CheatCompareTable.astro';
 import Icon from '../../components/Icon.astro';
+import PricingPlans from '../../components/PricingPlans.astro';
+import RelatedLinks from '../../components/RelatedLinks.astro';
 import MediaSwiper from '../../components/react/MediaSwiper';
 import MotionButton from '../../components/react/MotionButton';
 import { cheats, getCheatById, getCheatFeatures } from '../../data/cheats';
+import { getProductById } from '../../data/products';
 import { breadcrumbSchema, softwareApplicationSchema } from '../../lib/schema';
 import { SITE, GET_ACCESS_URL } from '../../lib/site';
 import { resolveSocialImage } from '../../lib/social-images';
@@ -26,6 +30,10 @@ const cheatFeatures = getCheatFeatures(cheat.id);
 const url = `${SITE.url}/cheats/${cheat.id}/`;
 const socialImage = resolveSocialImage(`/cheats/${cheat.id}/`);
 
+const relatedProducts = (cheat.relatedProductSlugs ?? [])
+  .map((id) => getProductById(id))
+  .filter(Boolean);
+
 const schema = [
   softwareApplicationSchema({
     name: `${cheat.name} Arc Raiders Cheat — ${cheat.tier}`,
@@ -35,9 +43,10 @@ const schema = [
     imageAlt: socialImage.alt,
     category: 'GameApplication',
     featureList: cheatFeatures,
+    pricingPlans: cheat.pricingPlans,
   }),
   breadcrumbSchema([
-    { name: 'Home', url: SITE.url },
+    { name: 'Home', url: `${SITE.url}/` },
     { name: 'Cheats', url: `${SITE.url}/cheats/` },
     { name: cheat.name, url },
   ]),
@@ -56,6 +65,13 @@ const schema = [
 >
   <section class="section cheat-detail-section">
     <div class="section-inner">
+      <Breadcrumb
+        items={[
+          { name: 'Home', href: '/' },
+          { name: 'Cheats', href: '/cheats/' },
+          { name: cheat.name },
+        ]}
+      />
       <div class="cheat-detail-layout">
         <div class="cheat-detail-left">
           <div class="cheat-detail-left-head">
@@ -63,15 +79,34 @@ const schema = [
             <div class="detail-head-badges">
               <span class="cheat-detail-tier">{cheat.tier}</span>
               {cheat.featured && <span class="cheat-card-badge">Popular</span>}
+              <span class="listing-meta-pill">Updated {cheat.lastUpdated}</span>
             </div>
           </div>
           <div class="cheat-detail-media">
             <MediaSwiper client:visible media={cheat.media} />
           </div>
           <p class="cheat-detail-desc">{cheat.description}</p>
+          {cheat.overview?.map((paragraph) => (
+            <p class="cheat-detail-desc">{paragraph}</p>
+          ))}
+          <PricingPlans plans={cheat.pricingPlans} />
         </div>
 
         <div class="cheat-detail-features">
+          {cheat.setupSteps && cheat.setupSteps.length > 0 && (
+            <div class="detail-block">
+              <h2 class="cheat-detail-section-title">
+                <span class="s-tag">// Setup</span>
+                How to Get Started
+              </h2>
+              <ol class="detail-steps">
+                {cheat.setupSteps.map((step) => (
+                  <li>{step}</li>
+                ))}
+              </ol>
+            </div>
+          )}
+
           <h2 class="cheat-detail-section-title">
             <span class="s-tag">// Features</span>
             What&apos;s Included
@@ -100,6 +135,32 @@ const schema = [
               </ul>
             </div>
           )}
+
+          {cheat.limitations && cheat.limitations.length > 0 && (
+            <div class="detail-block detail-block--warn">
+              <h2 class="cheat-detail-section-title">Limitations &amp; Risk Notes</h2>
+              <ul class="detail-bullets">
+                {cheat.limitations.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {cheat.faqs && cheat.faqs.length > 0 && (
+            <div class="detail-block">
+              <h2 class="cheat-detail-section-title">Tier FAQ</h2>
+              <dl class="detail-faq">
+                {cheat.faqs.map((faq) => (
+                  <>
+                    <dt>{faq.question}</dt>
+                    <dd>{faq.answer}</dd>
+                  </>
+                ))}
+              </dl>
+            </div>
+          )}
+
           <div class="cheat-detail-actions">
             <MotionButton
               client:visible
@@ -113,6 +174,17 @@ const schema = [
               All Cheats
             </MotionButton>
           </div>
+
+          {relatedProducts.length > 0 && (
+            <RelatedLinks
+              title="Related products"
+              links={relatedProducts.map((product) => ({
+                href: `/products/${product!.id}/`,
+                label: product!.name,
+                description: product!.description,
+              }))}
+            />
+          )}
         </div>
       </div>
     </div>
@@ -122,10 +194,51 @@ const schema = [
     <div class="section-inner">
       <div class="cheat-compare-head">
         <div class="s-tag">// Tiers</div>
-        <h2 class="cheat-detail-section-title">All Arc Raiders Cheat Tiers</h2>
+        <h2 class="cheat-detail-section-title">Compare Arc Raiders Cheat Tiers</h2>
         <p class="cheat-compare-sub">Xray, Pro, and Private — full feature breakdown.</p>
       </div>
       <CheatCompareTable activeId={cheat.id} />
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .detail-block {
+    margin-bottom: 1.25rem;
+  }
+
+  .detail-block--warn {
+    padding: 1rem 1.1rem;
+    border: 1px solid rgba(234, 179, 8, 0.25);
+    border-radius: var(--radius);
+    background: rgba(234, 179, 8, 0.06);
+  }
+
+  .detail-steps,
+  .detail-bullets {
+    margin: 0;
+    padding-left: 1.2rem;
+    color: var(--text2);
+    line-height: 1.6;
+  }
+
+  .detail-steps li + li,
+  .detail-bullets li + li {
+    margin-top: 0.45rem;
+  }
+
+  .detail-faq {
+    margin: 0;
+  }
+
+  .detail-faq dt {
+    font-weight: 700;
+    margin-top: 0.85rem;
+  }
+
+  .detail-faq dd {
+    margin: 0.35rem 0 0;
+    color: var(--text2);
+    line-height: 1.55;
+  }
+</style>

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
 import { contactPageSchema, breadcrumbSchema } from '../lib/schema';
 import { SITE, CONTACT_URL } from '../lib/site';
 import { resolveSocialImage } from '../lib/social-images';
@@ -9,32 +10,82 @@ const contactSocial = resolveSocialImage('/contact/');
 const schema = [
   contactPageSchema(contactSocial.src),
   breadcrumbSchema([
-    { name: 'Home', url: SITE.url },
+    { name: 'Home', url: `${SITE.url}/` },
     { name: 'Contact', url: `${SITE.url}/contact/` },
   ]),
 ];
 ---
 
 <BaseLayout
-  title="Contact Arc Raiders Cheats — Support"
-  description="Contact ArcRaidersCheats for support on Arc Raiders cheats, Cloud DMA, UGC, and HWID Spoofer. Get help with setup, access, and product questions."
+  title="Contact Arc Raiders Cheats Support"
+  description="Contact ArcRaidersCheats for Arc Raiders cheat setup, Cloud DMA questions, UGC workflows, and HWID spoofer help. Support via the checkout support channel."
   canonical={`${SITE.url}/contact/`}
   schema={schema}
+  keywords={['contact arc raiders cheats', 'arc raiders cheat support', 'cloud dma support']}
 >
   <section class="section listing-section">
     <div class="section-inner">
+      <Breadcrumb
+        items={[
+          { name: 'Home', href: '/' },
+          { name: 'Contact' },
+        ]}
+      />
       <div class="listing-intro">
         <div class="s-tag">// Contact</div>
-        <h1>Contact</h1>
+        <h1>Contact Arc Raiders Cheats Support</h1>
         <p class="listing-intro-desc">
-          Need help with Arc Raiders cheats, Cloud DMA, UGC, or HWID Spoofer? Reach support through
-          the button below for setup help, access questions, and product guidance.
+          Need help with Arc Raiders cheats, Cloud DMA, UGC, Skin Changer, or HWID Spoofer? Use the
+          button below to reach support for setup, access, billing, and product compatibility
+          questions.
         </p>
       </div>
 
-      <div class="form-page form-page--inline">
-        <button type="button" class="btn-primary" data-go-url={CONTACT_URL}>Contact</button>
+      <div class="contact-body">
+        <p>
+          Before contacting support, check the <a href="/faq/">FAQ</a>, our
+          <a href="/blog/arc-raiders-cheats-guide/">cheats guide</a>, and the relevant product or
+          cheat detail page for pricing and prerequisites — especially for Cloud DMA.
+        </p>
+        <p>
+          Include your order email, product name, and Windows version when asking about activation
+          or loader issues. That helps the team respond faster on weekdays.
+        </p>
+        <div class="form-page form-page--inline">
+          <button type="button" class="btn-primary" data-go-url={CONTACT_URL}>Open Support</button>
+          <a href="/cheats/" class="btn-ghost">Browse Cheats</a>
+          <a href="/products/" class="btn-ghost">View Products</a>
+        </div>
       </div>
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .contact-body {
+    max-width: 42rem;
+    color: var(--text2);
+    line-height: 1.65;
+  }
+
+  .contact-body p + p {
+    margin-top: 0.85rem;
+  }
+
+  .contact-body a {
+    color: var(--accent2);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .contact-body a:hover {
+    text-decoration: underline;
+  }
+
+  .form-page--inline {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    margin-top: 1.25rem;
+  }
+</style>

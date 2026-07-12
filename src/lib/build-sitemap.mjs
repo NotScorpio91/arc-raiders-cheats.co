@@ -7,6 +7,7 @@ import {
   LEGACY_BLOG_REDIRECTS,
   LEGACY_CHEAT_REDIRECTS,
   SITE_URL,
+  STATIC_CONTENT_LASTMOD,
 } from './sitemap-meta.mjs';
 import { CHEAT_DETAIL_PATHS, PRODUCT_DETAIL_PATHS } from './page-catalog.mjs';
 
@@ -61,7 +62,7 @@ function getLastmod(pathname, blogMeta, buildTime) {
 
   if (blogEntry) return blogEntry.lastmod;
   if (path === '/blog/' && BLOG_INDEX_LASTMOD) return BLOG_INDEX_LASTMOD;
-  return buildTime;
+  return STATIC_CONTENT_LASTMOD;
 }
 
 /** @param {string} [buildTime] */

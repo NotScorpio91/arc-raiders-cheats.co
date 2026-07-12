@@ -1,26 +1,34 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
 import { breadcrumbSchema } from '../lib/schema';
 import { SITE, CONTACT_URL } from '../lib/site';
 
 const schema = breadcrumbSchema([
-  { name: 'Home', url: SITE.url },
+  { name: 'Home', url: `${SITE.url}/` },
   { name: 'Privacy Policy', url: `${SITE.url}/privacy-policy/` },
 ]);
 ---
 
 <BaseLayout
   title="Privacy Policy — Arc Raiders Cheats"
-  description="Privacy policy for ArcRaidersCheats.co — what data we collect when you contact us and how we handle it. No third-party analytics."
+  description="Privacy policy for ArcRaidersCheats.co — checkout data handling, local theme storage, and how we use contact information. No third-party analytics."
   canonical={`${SITE.url}/privacy-policy/`}
   schema={schema}
+  keywords={['arc raiders cheats privacy', 'arcraiderscheats privacy policy']}
 >
   <section class="section listing-section">
     <div class="section-inner">
+      <Breadcrumb
+        items={[
+          { name: 'Home', href: '/' },
+          { name: 'Privacy Policy' },
+        ]}
+      />
       <div class="listing-intro">
         <div class="s-tag">// Legal</div>
         <h1>Privacy Policy</h1>
-        <p class="listing-intro-desc">Last updated: June 28, 2026</p>
+        <p class="listing-intro-desc">Last updated: July 12, 2026</p>
       </div>
 
       <div class="legal-content legal-content--inline">

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
 import Icon from '../components/Icon.astro';
 import MotionButton from '../components/react/MotionButton';
 import MotionReveal from '../components/react/MotionReveal';
@@ -67,24 +68,31 @@ const aboutSections = [
 
 const schema = [
   breadcrumbSchema([
-    { name: 'Home', url: SITE.url },
+    { name: 'Home', url: `${SITE.url}/` },
     { name: 'About', url: `${SITE.url}/about/` },
   ]),
 ];
 ---
 
 <BaseLayout
-  title="About Arc Raiders Cheats — Who We Are"
-  description="Arc Raiders cheats, ESP and aimbot tiers, and premium tools — built and maintained by players who actually raid in Season 1."
+  title="About Arc Raiders Cheats"
+  description="About ArcRaidersCheats — independent Arc Raiders cheat tiers, ESP and aim tools, Cloud DMA, UGC, and HWID products maintained by active players."
   canonical={`${SITE.url}/about/`}
   schema={schema}
+  keywords={['about arc raiders cheats', 'arc raiders cheat provider', 'arcraiderscheats team']}
 >
   <section class="section listing-section listing-section--center about-page">
     <div class="section-inner">
+      <Breadcrumb
+        items={[
+          { name: 'Home', href: '/' },
+          { name: 'About' },
+        ]}
+      />
       <MotionReveal client:visible>
         <div class="listing-intro">
           <div class="s-tag">// About</div>
-          <h1>About Us</h1>
+          <h1>About Arc Raiders Cheats</h1>
           <div class="detail-head-badges">
             <span class="listing-meta-pill">Independent Team</span>
             <span class="listing-meta-pill">Player-Built · Patch-Tested</span>
@@ -143,7 +151,9 @@ const schema = [
             <ul class="about-offer-list">
               {cheats.map((cheat) => (
                 <li>
-                  <strong>{cheat.name}</strong>
+                  <a href={`/cheats/${cheat.id}/`}>
+                    <strong>{cheat.name}</strong>
+                  </a>
                   <span>{cheat.tier}</span>
                   <p>{cheat.description}</p>
                 </li>
@@ -158,7 +168,9 @@ const schema = [
             <ul class="about-offer-list">
               {products.map((product) => (
                 <li>
-                  <strong>{product.name}</strong>
+                  <a href={`/products/${product.id}/`}>
+                    <strong>{product.name}</strong>
+                  </a>
                   <span>{product.tier}</span>
                   <p>{product.description}</p>
                 </li>
@@ -197,3 +209,14 @@ const schema = [
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .about-offer-list a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .about-offer-list a:hover strong {
+    color: var(--accent2);
+  }
+</style>

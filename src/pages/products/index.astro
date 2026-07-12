@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
 import ProductCard from '../../components/ProductCard.astro';
 import MotionReveal from '../../components/react/MotionReveal';
 import MotionFAQ from '../../components/react/MotionFAQ';
@@ -14,7 +15,7 @@ const productFaqs = [
   {
     question: 'What is Cloud DMA?',
     answer:
-      'Cloud DMA is the infrastructure layer that powers our cheat stack on one gaming PC. Our installer sets up a Hyper-V virtual environment and completes activation over an encrypted service link. You do not need a second computer, USB DMA bridge, or PCIe card.',
+      'Cloud DMA is the $50 lifetime infrastructure license that provisions a Hyper-V environment on one PC. AWS and GREENWARD are separate purchases required for the supported workflow described at checkout.',
   },
   {
     question: 'What is UGC used for?',
@@ -55,7 +56,7 @@ const schema = [
     'Product',
   ),
   breadcrumbSchema([
-    { name: 'Home', url: SITE.url },
+    { name: 'Home', url: `${SITE.url}/` },
     { name: 'Products', url: `${SITE.url}/products/` },
   ]),
   faqSchema(productFaqs, productsSocial.src),
@@ -63,8 +64,8 @@ const schema = [
 ---
 
 <BaseLayout
-  title="Arc Raiders Cheats Products — Cloud DMA, UGC, Skin Changer & HWID Spoofer"
-  description="Arc Raiders Cheats – Buy Cloud DMA, UGC, Skin Changer, and HWID Spoofer. Full stack tools with instant access and Season 1 support."
+  title="Arc Raiders Products — DMA, UGC, Spoofer"
+  description="Buy Cloud DMA, UGC, Skin Changer, and HWID Spoofer for Arc Raiders. Infrastructure, account tools, cosmetics, and hardware spoofing with visible pricing."
   canonical={`${SITE.url}/products/`}
   ogImage={productsSocial.src}
   ogImageAlt={productsSocial.alt}
@@ -79,6 +80,12 @@ const schema = [
 >
   <section class="section listing-section">
     <div class="section-inner">
+      <Breadcrumb
+        items={[
+          { name: 'Home', href: '/' },
+          { name: 'Products' },
+        ]}
+      />
       <MotionReveal client:visible>
         <div class="listing-intro">
           <div class="s-tag">// Products</div>
@@ -94,7 +101,7 @@ const schema = [
 
         <div class="aff-grid aff-grid-products animate-grid">
           {products.map((product) => (
-            <ProductCard {...product} />
+            <ProductCard {...product} ctaLabel={`Explore ${product.name}`} />
           ))}
         </div>
       </MotionReveal>

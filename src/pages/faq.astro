@@ -1,8 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
 import MotionFAQ from '../components/react/MotionFAQ';
 import MotionReveal from '../components/react/MotionReveal';
-import { homepageFaqs } from '../data/products';
 import { faqSchema, breadcrumbSchema } from '../lib/schema';
 import { SITE, GET_ACCESS_URL, CONTACT_URL } from '../lib/site';
 import { resolveSocialImage } from '../lib/social-images';
@@ -10,11 +10,20 @@ import { resolveSocialImage } from '../lib/social-images';
 const faqSocial = resolveSocialImage('/faq/');
 
 const generalFaqs = [
-  ...homepageFaqs,
   {
     question: 'How often is content updated?',
     answer:
-      'We review all cheat sheets within 48 hours of major Arc Raiders patches. Blog posts and meta analysis are updated when the meta shifts significantly — usually within a week of balance changes.',
+      'We review cheat tiers, product pages, and blog posts within 48 hours of major Arc Raiders patches. Weapon balance, loot tables, and extraction routes are checked first.',
+  },
+  {
+    question: 'Which cheat tier should I start with?',
+    answer:
+      'Start with Xray if you mainly need ESP and loot visibility. Choose Pro for combat automation, or Private for the full radar and extraction intel stack.',
+  },
+  {
+    question: 'Does Cloud DMA include AWS or GREENWARD?',
+    answer:
+      'No. The $50 Cloud DMA license on our site covers the Hyper-V infrastructure layer only. AWS and GREENWARD are separate purchases required for the supported workflow.',
   },
   {
     question: 'Can I suggest a guide topic?',
@@ -26,31 +35,49 @@ const generalFaqs = [
     answer:
       'We consider guest guides from experienced players with verifiable in-game experience. Use Contact if you want to discuss a writing sample or your area of expertise.',
   },
+  {
+    question: 'What payment methods are available?',
+    answer:
+      'Checkout supports cards, Apple Pay, and Google Pay with instant delivery. Regional payment options are listed on the checkout page when available.',
+  },
+  {
+    question: 'How do I get access after purchase?',
+    answer:
+      'Click Get Access on any cheat or product page — you are taken straight to checkout for instant delivery. Setup steps and activation details follow immediately after purchase.',
+  },
 ];
 
 const schema = [
   faqSchema(generalFaqs, faqSocial.src),
   breadcrumbSchema([
-    { name: 'Home', url: SITE.url },
+    { name: 'Home', url: `${SITE.url}/` },
     { name: 'FAQ', url: `${SITE.url}/faq/` },
   ]),
 ];
 ---
 
 <BaseLayout
-  title="Arc Raiders Cheats FAQ — Common Questions"
-  description="FAQ about Arc Raiders cheats — Xray, Pro, and Private tiers, Cloud DMA, HWID spoofer, access, and Season 1 updates."
+  title="Arc Raiders Cheats FAQ 2026"
+  description="Arc Raiders cheats FAQ — Xray, Pro, and Private tiers, Cloud DMA prerequisites, HWID spoofer basics, pricing, and setup questions answered."
   canonical={`${SITE.url}/faq/`}
   schema={schema}
+  keywords={['arc raiders cheats faq', 'arc raiders esp help', 'cloud dma faq', 'hwid spoofer faq']}
 >
   <section class="section listing-section">
     <div class="section-inner">
+      <Breadcrumb
+        items={[
+          { name: 'Home', href: '/' },
+          { name: 'FAQ' },
+        ]}
+      />
       <MotionReveal client:visible>
         <div class="listing-intro">
           <div class="s-tag">// FAQ</div>
-          <h1>Frequently Asked Questions</h1>
+          <h1>Arc Raiders Cheats FAQ</h1>
           <p class="listing-intro-desc">
-            Everything you need to know about our cheat sheets, guides, and premium products.
+            Answers about cheat tiers, products, pricing, Cloud DMA prerequisites, and support —
+            beyond the quick FAQ on our homepage.
           </p>
         </div>
         <MotionFAQ client:visible items={generalFaqs} />
