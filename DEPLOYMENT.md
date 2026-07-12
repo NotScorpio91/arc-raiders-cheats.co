@@ -12,4 +12,25 @@
 npm run deploy
 ```
 
+Or push to `main` to trigger the GitHub Actions workflow (requires `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` secrets).
+
 The Worker in `src/worker.ts` issues **301** redirects for HTTP and `www` before serving static assets from `dist/`. Path redirects and security headers live in `public/_redirects` and `public/_headers`.
+
+## Post-deploy verification
+
+Run these checks after deployment:
+
+```bash
+curl -I http://arcraiderscheats.co/          # expect 301 → https://arcraiderscheats.co/
+curl -I https://arcraiderscheats.co/sitemap.xml
+curl -I https://arcraiderscheats.co/sitemap-index.xml  # expect 301 → /sitemap.xml
+```
+
+Confirm product pages expose visible pricing and JSON-LD `Offer` objects with `price` and `priceCurrency` (e.g. Cloud DMA `$50.00` USD).
+
+## Search Console follow-up
+
+1. Submit **`https://arcraiderscheats.co/sitemap.xml`** (replace the old sitemap-index URL).
+2. **URL Inspection** — request indexing for priority URLs in small batches (home, `/cheats/`, `/products/cloud-dma/`, top blog posts).
+3. **Product snippets / Merchant listings** — open the failed validation report and click **Validate fix** after live pages show priced offers.
+4. Re-check indexing status in 1–2 weeks; “Discovered — currently not indexed” pages need recrawl time and authority beyond technical fixes.
