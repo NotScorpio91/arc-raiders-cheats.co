@@ -10,7 +10,9 @@ export default defineConfig({
   prefetch: false,
 
   integrations: [
-    mdx(),
+    mdx({
+      rehypePlugins: ['rehype-slug'],
+    }),
     react(),
   ],
 

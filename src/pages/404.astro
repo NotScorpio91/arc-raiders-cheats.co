@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Breadcrumb from '../components/Breadcrumb.astro';
+import Icon from '../components/Icon.astro';
+import IconLabel from '../components/IconLabel.astro';
+import MotionReveal from '../components/react/MotionReveal';
 import { SITE } from '../lib/site';
 
 Astro.response.status = 404;
@@ -14,28 +16,24 @@ Astro.response.status = 404;
 >
   <section class="section listing-section">
     <div class="section-inner">
-      <Breadcrumb
-        items={[
-          { name: 'Home', href: '/' },
-          { name: 'Page not found' },
-        ]}
-      />
-      <div class="listing-intro">
-        <div class="s-tag">// 404</div>
-        <h1>Page Not Found</h1>
-        <p class="listing-intro-desc">
-          The URL you opened is not on ArcRaidersCheats.co. Use the links below to browse cheat tiers,
-          products, guides, and support.
-        </p>
-      </div>
-      <nav class="error-nav" aria-label="Helpful links">
-        <a href="/" class="btn-ghost">Home</a>
-        <a href="/cheats/" class="btn-ghost">Arc Raiders Cheats</a>
-        <a href="/products/" class="btn-ghost">Products</a>
-        <a href="/blog/" class="btn-ghost">Guides &amp; Blog</a>
-        <a href="/faq/" class="btn-ghost">FAQ</a>
-        <a href="/contact/" class="btn-ghost">Contact</a>
-      </nav>
+      <MotionReveal client:visible>
+        <div class="listing-intro">
+          <IconLabel icon="alert" label="404" />
+          <h1>Page Not Found</h1>
+          <p class="listing-intro-desc">
+            The URL you opened is not on ArcRaidersCheats.co. Use the links below to browse cheat tiers,
+            products, guides, and support.
+          </p>
+        </div>
+        <nav class="error-nav" aria-label="Helpful links">
+          <a href="/" class="btn-ghost"><Icon name="home" size={14} /> Home</a>
+          <a href="/cheats/" class="btn-ghost"><Icon name="crosshair" size={14} /> Arc Raiders Cheats</a>
+          <a href="/products/" class="btn-ghost"><Icon name="cloud" size={14} /> Products</a>
+          <a href="/blog/" class="btn-ghost"><Icon name="newspaper" size={14} /> Guides &amp; Blog</a>
+          <a href="/faq/" class="btn-ghost"><Icon name="info" size={14} /> FAQ</a>
+          <a href="/contact/" class="btn-ghost"><Icon name="mail" size={14} /> Contact</a>
+        </nav>
+      </MotionReveal>
     </div>
   </section>
 </BaseLayout>
@@ -46,5 +44,11 @@ Astro.response.status = 404;
     flex-wrap: wrap;
     gap: 0.65rem;
     margin-top: 1.5rem;
+  }
+
+  .error-nav .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
   }
 </style>

@@ -1,5 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
-  <rect width="32" height="32" rx="8" fill="#6D28D9"/>
-  <path d="M8 24L16 6L24 24H20.2L16 14.5L11.8 24H8Z" fill="#ffffff"/>
-  <path d="M12.4 20H19.6L16 12.2L12.4 20Z" fill="#c4b5fd"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" role="img" aria-label="Arc Raiders Cheats">
+  <defs>
+    <linearGradient id="bg" x1="4" y1="4" x2="28" y2="28" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0f766e"/>
+      <stop offset="1" stop-color="#14b8a6"/>
+    </linearGradient>
+    <linearGradient id="cut" x1="16" y1="8" x2="16" y2="24" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#22d3ee"/>
+      <stop offset="1" stop-color="#5eead4"/>
+    </linearGradient>
+  </defs>
+  <rect width="32" height="32" rx="7" fill="url(#bg)"/>
+  <path d="M6 26L16 5L26 26H21.5L16 14.2L10.5 26H6Z" fill="#e8edf4"/>
+  <path d="M11.5 21.5H20.5L16 12.5L11.5 21.5Z" fill="url(#cut)"/>
+  <path d="M6 26H26" stroke="#22d3ee" stroke-width="0.75" opacity="0.45"/>
 </svg>

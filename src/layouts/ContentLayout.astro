@@ -1,9 +1,21 @@
 ---
 import BaseLayout from './BaseLayout.astro';
-import Breadcrumb from '../components/Breadcrumb.astro';
 import Icon from '../components/Icon.astro';
+import IconLabel from '../components/IconLabel.astro';
+import IconList from '../components/IconList.astro';
+import RelatedPosts from '../components/RelatedPosts.astro';
+import ReadingProgress from '../components/react/ReadingProgress';
+import BlogToc from '../components/BlogToc.astro';
 import type { IconName } from '../lib/icons';
-import MotionReveal from '../components/react/MotionReveal';
+import type { BlogCategory } from '../lib/blog';
+import { BLOG_CATEGORY_ICONS, BLOG_CATEGORY_LABELS } from '../lib/blog';
+import type { BlogCardData } from '../lib/blog';
+
+interface TocHeading {
+  depth: number;
+  slug: string;
+  text: string;
+}
 
 interface Props {
   title: string;
@@ -22,7 +34,10 @@ interface Props {
   ogImageAlt?: string;
   articlePublished?: string;
   articleModified?: string;
-  breadcrumbItems?: { name: string; href?: string }[];
+  category?: BlogCategory;
+  takeaways?: string[];
+  headings?: TocHeading[];
+  relatedPosts?: BlogCardData[];
 }
 
 const {
@@ -42,7 +57,10 @@ const {
   ogImageAlt,
   articlePublished,
   articleModified,
-  breadcrumbItems = [{ name: 'Home', href: '/' }, { name: 'Blog', href: '/blog/' }],
+  category,
+  takeaways,
+  headings = [],
+  relatedPosts = [],
 } = Astro.props;
 
 const updatedLabel = updated?.toLocaleDateString('en-US', {
@@ -50,6 +68,12 @@ const updatedLabel = updated?.toLocaleDateString('en-US', {
   day: 'numeric',
   year: 'numeric',
 });
+
+const categoryIcon = category ? BLOG_CATEGORY_ICONS[category] : icon;
+const categoryLabel = category ? BLOG_CATEGORY_LABELS[category] : 'Guide';
+const shareUrl = canonical ?? '';
+const tocItems = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
+const hasToc = tocItems.length > 0;
 ---
 
 <BaseLayout
@@ -64,80 +88,137 @@ const updatedLabel = updated?.toLocaleDateString('en-US', {
   articlePublished={articlePublished}
   articleModified={articleModified}
 >
-  <section class="section listing-section listing-section--center blog-post-page">
-    <div class="section-inner">
-      <MotionReveal client:visible>
-        <Breadcrumb items={[...breadcrumbItems, { name: title }]} />
-        <a href="/blog/" class="blog-back-link">
-          <Icon name="arrow-left" size={14} class="blog-back-icon" />
-          All Blog Posts
-        </a>
+  <ReadingProgress client:load />
+  <article class="blog-post-page">
+    <div class="blog-post-inner">
+      <a href="/blog/" class="blog-back-link">
+        <Icon name="arrow-left" size={14} class="blog-back-icon" />
+        All Blog Posts
+      </a>
 
-        {coverImage && (
-          <div class="blog-post-banner">
-            <img
-              src={coverImage}
-              alt={coverImageAlt ?? title}
-              width="1280"
-              height="720"
-              loading="lazy"
-              decoding="async"
-              sizes="(max-width: 900px) 100vw, 960px"
-            />
-          </div>
-        )}
-
-        <header class="blog-post-hero">
-          <div class="blog-post-hero-glow" aria-hidden="true"></div>
-          <div class="blog-post-hero-icon">
-            <Icon name={icon} size={30} />
-          </div>
-          <div class="s-tag">// Blog</div>
-          <h1>{title}</h1>
-          <ul class="blog-post-meta">
-            {updated && (
-              <li>
-                <Icon name="calendar" size={14} />
-                Updated {updatedLabel}
-              </li>
-            )}
-            {readTime && (
-              <li>
-                <Icon name="clock" size={14} />
-                {readTime} read
-              </li>
-            )}
+      <header class="blog-post-hero">
+        <div class="blog-post-hero-glow" aria-hidden="true"></div>
+        <div class="blog-post-hero-icon">
+          <Icon name={categoryIcon} size={30} />
+        </div>
+        <IconLabel icon={categoryIcon} label={categoryLabel} />
+        <h1>{title}</h1>
+        <ul class="blog-post-meta">
+          {updated && (
             <li>
-              <Icon name="user" size={14} />
-              {author}
+              <Icon name="calendar" size={14} />
+              Updated {updatedLabel}
             </li>
-          </ul>
-          <p class="blog-post-lead">{description}</p>
-        </header>
+          )}
+          {readTime && (
+            <li>
+              <Icon name="clock" size={14} />
+              {readTime} read
+            </li>
+          )}
+          <li>
+            <Icon name="user" size={14} />
+            {author}
+          </li>
+        </ul>
+        <p class="blog-post-lead">{description}</p>
+        <div class="blog-share-row">
+          <button type="button" class="blog-share-btn micro-press" data-copy-url={shareUrl} data-copy-label="Copy link">
+            <Icon name="link" size={14} />
+            <span class="blog-share-btn-text">Copy link</span>
+          </button>
+          <a
+            class="blog-share-btn micro-press"
+            href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(title)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Icon name="share" size={14} />
+            Share
+          </a>
+        </div>
+      </header>
 
-        <article class="blog-article content-main blog-article--prose">
-          <slot />
-        </article>
+      {coverImage && (
+        <div class="blog-post-banner">
+          <img
+            src={coverImage}
+            alt={coverImageAlt ?? title}
+            width="1280"
+            height="720"
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+            sizes="(max-width: 768px) 100vw, 1120px"
+          />
+        </div>
+      )}
 
-        <footer class="blog-post-footer">
-          <div class="s-tag">// Continue</div>
-          <h2 class="blog-post-footer-title">Explore More</h2>
-          <div class="blog-post-footer-links">
-            <a href="/blog/" class="blog-post-footer-link">
-              <Icon name="newspaper" size={16} />
-              All Posts
-            </a>
-            <a href="/cheats/" class="blog-post-footer-link">
-              <Icon name="crosshair" size={16} />
-              Browse Cheats
-            </a>
-            <a href="/products/" class="blog-post-footer-link">
-              <Icon name="cloud" size={16} />
-              View Products
-            </a>
+      <div class:list={['blog-post-body', { 'blog-post-body--with-toc': hasToc }]}>
+        <div class="blog-post-main">
+          {takeaways && takeaways.length > 0 && (
+            <div class="blog-takeaways">
+              <h2 class="blog-takeaways-title">
+                <Icon name="bookmark" size={16} />
+                Key takeaways
+              </h2>
+              <IconList items={takeaways} icon="chevron-right" />
+            </div>
+          )}
+
+          <div class="blog-article content-main blog-article--prose">
+            <slot />
           </div>
-        </footer>
-      </MotionReveal>
+
+          <RelatedPosts posts={relatedPosts} />
+
+          <footer class="blog-post-footer">
+            <IconLabel icon="chevron-right" label="Continue" />
+            <h2 class="blog-post-footer-title">Explore More</h2>
+            <div class="blog-post-footer-links">
+              <a href="/blog/" class="blog-post-footer-link micro-lift">
+                <Icon name="newspaper" size={16} />
+                All Posts
+              </a>
+              <a href="/cheats/" class="blog-post-footer-link micro-lift">
+                <Icon name="crosshair" size={16} />
+                Browse Cheats
+              </a>
+              <a href="/products/" class="blog-post-footer-link micro-lift">
+                <Icon name="cloud" size={16} />
+                View Products
+              </a>
+            </div>
+          </footer>
+        </div>
+
+        {hasToc && (
+          <aside class="blog-post-sidebar" aria-label="Table of contents">
+            <BlogToc headings={headings} />
+          </aside>
+        )}
+      </div>
     </div>
-  </section>
+  </article>
 </BaseLayout>
+
+<script>
+  document.querySelectorAll('[data-copy-url]').forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      const url = btn.getAttribute('data-copy-url');
+      const label = btn.querySelector('.blog-share-btn-text');
+      const defaultLabel = btn.getAttribute('data-copy-label') ?? 'Copy link';
+      if (!url) return;
+      try {
+        await navigator.clipboard.writeText(url);
+        if (label) label.textContent = 'Copied!';
+        else btn.textContent = 'Copied!';
+        setTimeout(() => {
+          if (label) label.textContent = defaultLabel;
+        }, 2000);
+      } catch {
+        /* ignore */
+      }
+    });
+  });
+</script>

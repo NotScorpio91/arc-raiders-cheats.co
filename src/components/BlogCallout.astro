@@ -1,0 +1,79 @@
+---
+import type { IconName } from '../lib/icons';
+import Icon from './Icon.astro';
+
+interface Props {
+  variant?: 'tip' | 'warning' | 'info';
+  title?: string;
+}
+
+const { variant = 'info', title } = Astro.props;
+
+const iconMap: Record<string, IconName> = {
+  tip: 'zap',
+  warning: 'alert',
+  info: 'info',
+};
+---
+
+<aside class:list={['blog-callout', `blog-callout--${variant}`]}>
+  <div class="blog-callout-icon" aria-hidden="true">
+    <Icon name={iconMap[variant]} size={18} />
+  </div>
+  <div class="blog-callout-body">
+    {title && <p class="blog-callout-title">{title}</p>}
+    <div class="blog-callout-content">
+      <slot />
+    </div>
+  </div>
+</aside>
+
+<style>
+  .blog-callout {
+    display: flex;
+    gap: 0.85rem;
+    margin: 1.5rem 0;
+    padding: 1rem 1.1rem;
+    border-radius: var(--radius2, 8px);
+    border: 1px solid var(--border);
+    background: var(--bg3);
+  }
+
+  .blog-callout--tip {
+    border-color: color-mix(in srgb, var(--green) 35%, var(--border));
+    background: color-mix(in srgb, var(--green) 8%, var(--bg3));
+  }
+
+  .blog-callout--warning {
+    border-color: color-mix(in srgb, #eab308 40%, var(--border));
+    background: color-mix(in srgb, #eab308 8%, var(--bg3));
+  }
+
+  .blog-callout--info {
+    border-color: color-mix(in srgb, var(--accent2) 35%, var(--border));
+    background: color-mix(in srgb, var(--accent) 8%, var(--bg3));
+  }
+
+  .blog-callout-icon {
+    flex-shrink: 0;
+    color: var(--accent2);
+    margin-top: 0.1rem;
+  }
+
+  .blog-callout-title {
+    font-weight: 700;
+    margin: 0 0 0.35rem;
+    font-size: 0.92rem;
+  }
+
+  .blog-callout-content :global(p:last-child) {
+    margin-bottom: 0;
+  }
+
+  .blog-callout-content :global(p) {
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.65;
+    margin: 0 0 0.5rem;
+  }
+</style>

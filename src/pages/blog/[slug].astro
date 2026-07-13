@@ -1,25 +1,27 @@
 ---
-import { getCollection, render } from 'astro:content';
 import ContentLayout from '../../layouts/ContentLayout.astro';
+import { getCollection, render } from 'astro:content';
 import { blogPostingSchema, breadcrumbSchema } from '../../lib/schema';
 import { SITE } from '../../lib/site';
 import { resolveSocialImage } from '../../lib/social-images';
+import { resolveRelatedPosts } from '../../lib/blog-posts';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
   return posts.map((post) => ({
     params: { slug: post.id },
-    props: { post },
+    props: { post, allPosts: posts },
   }));
 }
 
-const { post } = Astro.props;
-const { Content } = await render(post);
+const { post, allPosts } = Astro.props;
+const { Content, headings } = await render(post);
 const url = `${SITE.url}/blog/${post.id}/`;
 const modified = post.data.updated ?? post.data.pubDate;
 const fallbackSocial = resolveSocialImage(`/blog/${post.id}/`);
 const ogImage = post.data.coverImage ?? fallbackSocial.src;
 const ogImageAlt = post.data.coverImageAlt ?? fallbackSocial.alt;
+const related = resolveRelatedPosts(allPosts, post.id, post.data.relatedSlugs, post.data.category);
 
 const schema = [
   blogPostingSchema({
@@ -57,7 +59,10 @@ const schema = [
   articlePublished={post.data.pubDate.toISOString()}
   articleModified={modified.toISOString()}
   schema={schema}
-  breadcrumbItems={[{ name: 'Home', href: '/' }, { name: 'Blog', href: '/blog/' }]}
+  category={post.data.category}
+  takeaways={post.data.takeaways}
+  headings={headings}
+  relatedPosts={related}
 >
   <Content />
 </ContentLayout>

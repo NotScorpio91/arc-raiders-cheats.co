@@ -1,0 +1,206 @@
+---
+title: Arc Raiders Skeleton ESP — Head Marks
+description: >-
+  Arc Raiders skeleton ESP guide — bone markers, head weakpoints, readability at range, and pairing
+  skeleton overlays with Xray for cleaner PvP and ARC drone kills.
+pubDate: 2026-07-10
+updated: 2026-07-10
+readTime: 10 min
+author: Arc Raiders Cheats Team
+icon: enemy
+category: esp
+tags:
+  - skeleton esp
+  - head markers
+  - weakpoints
+  - arc drones
+  - pvp
+featured: false
+takeaways:
+  - Skeleton ESP helps weakpoint reads — not substitute for player box discipline
+  - Head markers win duels only when line of sight and recoil control already align
+  - Separate human skeleton styling from ARC drone weakpoint overlays
+  - Thinner bone lines and distance gates keep skeleton ESP readable at range
+relatedSlugs:
+  - arc-raiders-esp-guide
+  - arc-raiders-arc-enemy-esp
+  - arc-raiders-xray-tier-review
+keywords:
+  - arc raiders skeleton esp
+  - arc raiders bone esp
+  - arc raiders head marker
+  - arc raiders weakpoint esp
+  - arc raiders headshot esp
+  - arc raiders drone weakpoint
+  - arc raiders xray skeleton
+  - arc raiders esp bones
+coverImage: /images/blog/arc-raiders-skeleton-esp/cover.webp
+coverImageAlt: Skeleton bone lines and head marker on dark humanoid silhouette grid
+---
+
+import BlogImage from '../../components/BlogImage.astro';
+import BlogCallout from '../../components/BlogCallout.astro';
+
+Skeleton ESP is the feature players enable when they want **precision** — head weakpoints through partial cover, limb tracking during strafe duels, and faster ARC drone core hits during PvE chains. It is also the feature players disable two raids later because every firefight looks like a wireframe arcade mode and they cannot see muzzle flash or door angles anymore.
+
+Used well, skeleton markers and head ESP turn readable [player boxes](/blog/arc-raiders-esp-guide/) into **commit decisions**: "I have line on head — peek now." Used poorly, skeleton ESP becomes visual static that slows extractions and encourages shots you cannot land even with [aim assist](/blog/arc-raiders-aimbot-guide/). This guide focuses on bone line styling, head weakpoint markers, human versus ARC drone separation, and how [Xray](/cheats/xray/) delivers skeleton tooling without forcing you into the full combat automation stack.
+
+<BlogImage
+  src="/images/blog/arc-raiders-skeleton-esp/inline-1.webp"
+  alt="Skeleton bone lines with highlighted head weakpoint marker"
+  caption="Head markers should highlight commit windows — not cover your entire view with wireframe noise."
+/>
+
+## What Skeleton ESP Adds Beyond Boxes
+
+Boxes communicate **presence** and rough hit volume. Skeleton ESP communicates **orientation** — which way a raider faces, whether head is exposed above parapet, whether a drone weakpoint faces you or rotates away.
+
+High-value skeleton moments in Arc Raiders:
+
+- **Partial cover duels** — head marker visible, chest box occluded
+- **Vertical fights** — bone angle shows if target is leaning off ledge
+- **Drone core windows** — ARC weakpoint markers during machine bursts
+- **Finish decisions** — low HP targets with clear head line justify push over disengage
+
+Skeleton ESP does not improve loot economy directly. It improves **fight efficiency** — fewer bullets per kill, faster return to loot phase. That matters in extraction shooters where every second in combat is a second not extracting.
+
+## Bone Line Styling — Thin, Dim, Distance-Gated
+
+Default skeleton presets often ship too bright. Wireframe aesthetics look cool in screenshots and ruin contrast in live play.
+
+Recommended styling:
+
+- **Line thickness** — minimum readable; increase only on 1440p+ if lines vanish
+- **Opacity** — 60–75% for bones, 85–95% for head marker only
+- **Color** — distinct from box outlines; soft yellow or cyan bones with red or white head dot
+- **Max distance** — shorter than player boxes; skeleton precision matters most inside 80–120m
+
+<BlogCallout variant="tip" title="Distance gate skeleton harder than boxes">
+  Cap skeleton ESP at 100m for general play. Beyond that, boxes and [2D radar](/blog/arc-raiders-2d-radar-guide/)
+  carry awareness — bone lines at 200m are decorative noise.
+</BlogCallout>
+
+If two players overlap in CQB, thick skeletons merge into neon spaghetti. Thin lines preserve separation. Test in bunker stairwells — the worst-case readability scenario on most maps.
+
+## Head Markers and Weakpoint Logic
+
+Head markers exist because TTK compression in Arc Raiders rewards accurate first burst — when latency and recoil cooperate. A head dot is not an order to fire; it is a **permission check** after audio, radar, and box ESP already said threat.
+
+Head marker discipline:
+
+1. Confirm line of sight — not just marker visibility through geometry illusions
+2. Confirm fight worthiness — loadout value, third-party risk, extract timer
+3. Commit with controlled burst — pair with conservative [triggerbot](/blog/arc-raiders-triggerbot-tips/) delay if used
+4. Disengage if marker disappears behind hard cover — do not pre-fire trace walls
+
+For ARC drones, weakpoint markers differ anatomically from human head dots. Use the [ARC enemy ESP guide](/blog/arc-raiders-arc-enemy-esp/) color scheme so your muscle memory separates "machine core" from "raider skull" without conscious thought.
+
+<BlogImage
+  src="/images/blog/arc-raiders-skeleton-esp/inline-2.webp"
+  alt="Human skeleton ESP beside ARC drone weakpoint marker comparison"
+  caption="Human head markers and ARC weakpoint markers should use separate colors — mixed styling causes mis-aim under pressure."
+/>
+
+## Human PvP vs ARC PvE Profiles
+
+Skeleton ESP priorities shift by phase — same lesson as loot filters and radar zoom.
+
+**PvP profile:**
+
+- Human skeleton ON, drone skeleton OFF
+- Head marker ON inside 80m
+- Boxes remain primary; bones secondary
+
+**PvE farm profile:**
+
+- Drone weakpoint skeleton ON
+- Human skeleton optional at low opacity — third parties still exist on farm routes
+- Head markers OFF unless rotating through contested surface
+
+**Extract hold profile:**
+
+- Human skeleton ON, minimal drone clutter
+- Pair with player radar bearing from [2D radar guide](/blog/arc-raiders-2d-radar-guide/)
+
+Toggle skeleton categories with the same key philosophy as combat automation — phase discipline beats one always-on wireframe carnival.
+
+## Pairing Skeleton ESP With Xray
+
+[Xray](/cheats/xray/) lists skeleton ESP, head marker ESP, and ARC weakpoint selection in its core feature set — meaning entry-tier users can experiment with precision overlays before upgrading to [Pro](/cheats/pro/) for heavier aim and trigger stacks.
+
+Sensible Xray skeleton path:
+
+1. Master corner boxes and distance first
+2. Add head markers only — no full bones yet
+3. Add thin bones after two raids with head-only feel manageable
+4. Introduce drone weakpoints on dedicated PvE paths
+
+The [Xray tier review](/blog/arc-raiders-xray-tier-review/) contextualizes how skeleton tooling fits the broader minimal package after recent patch cycles — useful if you are deciding whether skeleton alone justifies staying on Xray versus upgrading for combat automation.
+
+<BlogCallout variant="warning" title="Skeleton is not aimbot">
+  Visible head marker does not mean guaranteed hit. Recoil, peek timing, and third parties still decide
+  outcomes. Skeleton ESP informs shots — it does not replace crosshair skill or positioning.
+</BlogCallout>
+
+## Aim and Trigger Integration
+
+Skeleton head markers interact with aim bone priority. If ESP highlights head but aim assist targets chest, your visual and mechanical layers fight each other. Align bone selection across:
+
+- Skeleton display
+- Aim assist priority
+- Trigger visibility gates
+
+Misalignment causes the classic "I had head dot but hit body" frustration that is actually a **config conflict**, not bad luck.
+
+[Pro](/cheats/pro/) and [Private](/cheats/private/) users should tune aim before adding trigger on head-heavy profiles. [Private](/cheats/private/) squads coordinating head peeks need comms — skeleton ESP is not a substitute for calling "holding left stair."
+
+## Readability Interactions With Loot and Extract Overlays
+
+Skeleton lines compete with [loot ESP](/blog/arc-raiders-loot-esp-guide/) markers and extract pings. During loot phases, disable skeleton entirely — you do not need weakpoint precision on containers. During extract, keep human skeleton only.
+
+Color stack example:
+
+- Boxes — white corners
+- Bones — cyan thin
+- Head — red dot
+- Loot — gold text/value
+- Extract — purple thin icon
+
+Five layers sounds like a lot. Distance gating ensures only two layers matter at any moment.
+
+## Patch Awareness and Model Changes
+
+Season updates occasionally adjust player model hitboxes, drone weakpoint exposure, and animation rigs. Skeleton ESP may feel "off" after patches even when software updates ship same week.
+
+Post-patch habit:
+
+- Run one private duel test — friend or low-stakes route
+- Verify head marker alignment on standing, crouch, and lean animations
+- Re-check drone weakpoint markers on common farm machines
+- Read [season patch survival](/blog/arc-raiders-season-patch-survival/) for broader reset habits
+
+If alignment drifts, reduce skeleton reliance temporarily and lean on boxes until provider notes confirm model sync.
+
+## Setup Hygiene
+
+Skeleton ESP does not exempt you from hardware and loader discipline. Rebuilding after restrictions still requires coherent [HWID spoofer](/products/hwid-spoofer/) workflow per [spoofer guide](/blog/arc-raiders-spoofer-guide/) — precision overlays do not fix flagged sessions.
+
+[Cloud DMA](/products/cloud-dma/) users process input separately but still render skeleton client-side. Visual clutter rules apply identically.
+
+## Common Skeleton ESP Mistakes
+
+**Full bones at max distance.** Wireframe soup across the map.
+
+**Head markers without visibility discipline.** Encourages wall pre-fire.
+
+**Same style for humans and drones.** Mis-aim under PvE pressure.
+
+**Enabled during loot.** Attention theft during economy phases.
+
+**Added before boxes readable.** Precision layer on broken foundation.
+
+## Tonight's Skeleton Test
+
+Run three engagements with head markers only — no bone lines. If head dots help without clutter, add thin bones for one PvP-heavy night. If dots distract, fix box colors and distance before revisiting skeleton.
+
+Skeleton ESP should answer one question fast: **where is the weakpoint I can hit right now?** If it cannot answer that in a glance, simplify until it can. Arc Raiders rewards extraction discipline — and skeleton tooling is only worth carrying when it shortens fights enough to get you back to extracting.

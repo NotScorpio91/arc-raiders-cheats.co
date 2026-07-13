@@ -6,13 +6,14 @@ import BlogCard from '../components/BlogCard.astro';
 import FAQAccordion from '../components/FAQAccordion.astro';
 import ShowcaseSlider from '../components/ShowcaseSlider.astro';
 import Icon from '../components/Icon.astro';
+import IconLabel from '../components/IconLabel.astro';
+import MotionReveal from '../components/react/MotionReveal';
 import { getCollection } from 'astro:content';
 import { cheats, getCheatFeatures } from '../data/cheats';
-import { homepageShowcase, homepageHero, homepageHeroImage } from '../data/homepage';
+import { homepageShowcase, homepageHero } from '../data/homepage';
 import { homepageGuideIntro, homepageGuideSections, homepageGuideTakeaways } from '../data/homepage-guide';
 import { homepageFaqs, products } from '../data/products';
 import { GET_ACCESS_URL, SITE } from '../lib/site';
-import { CHEAT_PRICING } from '../lib/pricing';
 import { resolveSocialImage } from '../lib/social-images';
 import {
   websiteSchema,
@@ -24,10 +25,10 @@ const homeSocial = resolveSocialImage('/');
 
 const blogPosts = (await getCollection('blog'))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-  .slice(0, 3);
+  .slice(0, 6);
 
 const schema = [
-  homepageSoftwareApplicationSchema(homeSocial.src, CHEAT_PRICING),
+  homepageSoftwareApplicationSchema(homeSocial.src),
   websiteSchema(),
   faqSchema([...homepageFaqs], homeSocial.src),
 ];
@@ -39,24 +40,9 @@ const schema = [
   canonical={`${SITE.url}/`}
   schema={schema}
   keywords={['arc raiders cheats', 'arc raiders esp', 'arc raiders aimbot', 'arc raiders hack']}
-  lcpImage={homepageHeroImage.src}
 >
   <section class="hero">
-    <div class="hero-bg-photo" aria-hidden="true">
-      <img
-        src={homepageHeroImage.src}
-        alt={homepageHeroImage.alt}
-        width="960"
-        height="540"
-        loading="eager"
-        fetchpriority="high"
-        decoding="async"
-        sizes="100vw"
-      />
-    </div>
     <div class="hero-bg"></div>
-    <div class="hero-glow hero-glow-left"></div>
-    <div class="hero-glow hero-glow-right"></div>
     <div class="hero-slash hero-slash-left"></div>
     <div class="hero-slash2 hero-slash2-left"></div>
     <div class="hero-slash hero-slash-right"></div>
@@ -74,10 +60,11 @@ const schema = [
     </div>
   </section>
 
-  <section class="section" id="cheats">
+  <section class="section section--below-fold" id="cheats">
     <div class="section-inner">
+      <MotionReveal client:visible>
       <div class="s-head">
-        <div class="s-tag">// Cheats</div>
+        <IconLabel icon="crosshair" label="Cheats" />
         <h2 class="s-title">Choose Your Cheat Tier</h2>
         <p class="s-sub">Buy Xray, Pro, or Private — ESP, aimbot, and extraction tools for every raid.</p>
       </div>
@@ -95,26 +82,29 @@ const schema = [
           />
         ))}
       </div>
+      </MotionReveal>
     </div>
   </section>
 
-  <section class="section showcase-section alt-bg" id="showcase" aria-labelledby="showcase-heading">
+  <section class="section section--below-fold showcase-section alt-bg" id="showcase" aria-labelledby="showcase-heading">
     <div class="section-inner">
-      <div class="s-head showcase-head">
-        <div class="s-tag">// Screenshots</div>
-        <h2 class="s-title" id="showcase-heading">Arc Raiders Cheat Screenshots</h2>
-        <p class="s-sub">
-          Real in-game Arc Raiders cheat screenshots — player ESP, loot ESP, bone-targeted aimbot,
-          2D radar hack, and overlay menus from our Xray, Pro, and Private tiers.
-        </p>
-        <ul class="showcase-feature-pills" aria-label="Feature highlights">
-          <li>Player ESP</li>
-          <li>Loot ESP</li>
-          <li>Aimbot</li>
-          <li>2D Radar</li>
-          <li>Overlay Menu</li>
-        </ul>
-      </div>
+      <MotionReveal client:visible>
+        <div class="s-head showcase-head">
+          <IconLabel icon="scan" label="Screenshots" />
+          <h2 class="s-title" id="showcase-heading">Arc Raiders Cheat Screenshots</h2>
+          <p class="s-sub">
+            Real in-game Arc Raiders cheat screenshots — player ESP, loot ESP, bone-targeted aimbot,
+            2D radar hack, and overlay menus from our Xray, Pro, and Private tiers.
+          </p>
+          <ul class="showcase-feature-pills" aria-label="Feature highlights">
+            <li><Icon name="eye" size={12} /> Player ESP</li>
+            <li><Icon name="loot" size={12} /> Loot ESP</li>
+            <li><Icon name="crosshair" size={12} /> Aimbot</li>
+            <li><Icon name="radar" size={12} /> 2D Radar</li>
+            <li><Icon name="layers" size={12} /> Overlay Menu</li>
+          </ul>
+        </div>
+      </MotionReveal>
 
       <div class="showcase-panel showcase-panel--single">
         <ShowcaseSlider media={homepageShowcase} />
@@ -122,10 +112,11 @@ const schema = [
     </div>
   </section>
 
-  <section class="section" id="products">
+  <section class="section section--below-fold" id="products">
     <div class="section-inner">
+      <MotionReveal client:visible>
       <div class="s-head">
-        <div class="s-tag">// Products</div>
+        <IconLabel icon="cloud" label="Products" />
         <h2 class="s-title">Arc Raiders Products &amp; Tools</h2>
         <p class="s-sub">Cloud DMA, UGC, Skin Changer, and HWID Spoofer for a full Arc Raiders cheats stack.</p>
       </div>
@@ -134,13 +125,15 @@ const schema = [
           <ProductCard {...product} ctaLabel={`Explore ${product.name}`} />
         ))}
       </div>
+      </MotionReveal>
     </div>
   </section>
 
-  <section class="section homepage-guide-section alt-bg" id="guide" aria-labelledby="guide-heading">
+  <section class="section section--below-fold homepage-guide-section alt-bg" id="guide" aria-labelledby="guide-heading">
     <div class="section-inner">
+      <MotionReveal client:visible>
       <div class="s-head homepage-guide-head">
-        <div class="s-tag">// Guide</div>
+        <IconLabel icon="guide" label="Guide" />
         <h2 class="s-title" id="guide-heading">Arc Raiders Cheats Guide</h2>
         <p class="s-sub">
           What to look for when buying Arc Raiders cheats — features, safety, and support without
@@ -190,18 +183,20 @@ const schema = [
           </article>
         ))}
       </div>
+      </MotionReveal>
     </div>
   </section>
 
-  <section class="section" id="blog">
+  <section class="section section--below-fold" id="blog">
     <div class="section-inner">
+      <MotionReveal client:visible>
       <div class="s-head">
-        <div class="s-tag">// Blog</div>
+        <IconLabel icon="newspaper" label="Blog" />
         <h2 class="s-title">Latest Updates</h2>
         <p class="s-sub">Patch breakdowns, meta analysis, and Arc Raiders cheats guides from our team.</p>
       </div>
-      <div class="blog-grid animate-grid">
-        {blogPosts.map((post) => (
+      <div class="blog-grid blog-grid--homepage animate-grid">
+        {blogPosts.map((post, index) => (
           <BlogCard
             title={post.data.title}
             description={post.data.description}
@@ -209,17 +204,30 @@ const schema = [
             href={`/blog/${post.id}/`}
             icon={post.data.icon}
             readTime={post.data.readTime}
+            coverImage={post.data.coverImage}
+            coverImageAlt={post.data.coverImageAlt}
+            category={post.data.category}
+            index={index}
             ctaLabel={`Read ${post.data.title.split('—')[0].trim()}`}
           />
         ))}
       </div>
+      <p class="homepage-blog-cta">
+        <a href="/blog/">
+          <Icon name="newspaper" size={14} />
+          View all guides
+          <Icon name="chevron-right" size={14} />
+        </a>
+      </p>
+      </MotionReveal>
     </div>
   </section>
 
-  <section class="section alt-bg" id="faq">
+  <section class="section section--below-fold alt-bg" id="faq">
     <div class="section-inner">
+      <MotionReveal client:visible>
       <div class="s-head">
-        <div class="s-tag">// FAQ</div>
+        <IconLabel icon="info" label="FAQ" />
         <h2 class="s-title">Quick Answers</h2>
       </div>
       <div class="faq-wrap">
@@ -228,18 +236,21 @@ const schema = [
         ))}
       </div>
       <p class="faq-more-link">
-        <a href="/faq/">See the full Arc Raiders Cheats FAQ →</a>
+        <a href="/faq/"><Icon name="chevron-right" size={14} /> See the full Arc Raiders Cheats FAQ</a>
       </p>
+      </MotionReveal>
     </div>
   </section>
 
-  <section class="section">
+  <section class="section section--below-fold">
     <div class="section-inner">
+      <MotionReveal client:visible>
       <div class="cta-banner">
-        <h2>Ready to Run Arc Raiders Cheats?</h2>
+        <h2><Icon name="zap" size={22} /> Ready to Run Arc Raiders Cheats?</h2>
         <p>Get Xray, Pro, or Private access — or add Cloud DMA, UGC, Skin Changer, and HWID Spoofer to your setup.</p>
-        <button type="button" class="btn-primary" data-go-url={GET_ACCESS_URL}>Get Access Now</button>
+        <button type="button" class="btn-primary" data-go-url={GET_ACCESS_URL}><Icon name="arrow-right" size={16} /> Get Access Now</button>
       </div>
+      </MotionReveal>
     </div>
   </section>
 </BaseLayout>

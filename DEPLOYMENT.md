@@ -32,5 +32,12 @@ Confirm product pages expose visible pricing and JSON-LD `Offer` objects with `p
 
 1. Submit **`https://arcraiderscheats.co/sitemap.xml`** (replace the old sitemap-index URL).
 2. **URL Inspection** — request indexing for priority URLs in small batches (home, `/cheats/`, `/products/cloud-dma/`, top blog posts).
-3. **Product snippets / Merchant listings** — open the failed validation report and click **Validate fix** after live pages show priced offers.
-4. Re-check indexing status in 1–2 weeks; “Discovered — currently not indexed” pages need recrawl time and authority beyond technical fixes.
+3. **Blog batch indexing (25 posts)** — after deploy, request indexing for **5–10 new blog URLs per week** in Search Console (do not submit all 22 new slugs at once). Suggested week-one batch:
+   - `/blog/arc-raiders-esp-guide/`
+   - `/blog/arc-raiders-aimbot-guide/`
+   - `/blog/arc-raiders-cheats-guide/`
+   - `/blog/arc-raiders-cheat-setup-checklist/`
+   - `/blog/arc-raiders-xray-tier-review/`
+   Week-two: loot ESP, pro tier, EAC guide, spoofer guides, season meta. Continue until all 25 post URLs are submitted.
+4. **Product snippets / Merchant listings** — open the failed validation report and click **Validate fix** after live pages show priced offers.
+5. Re-check indexing status in 1–2 weeks; “Discovered — currently not indexed” pages need recrawl time and authority beyond technical fixes.

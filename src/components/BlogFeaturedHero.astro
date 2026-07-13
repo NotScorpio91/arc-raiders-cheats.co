@@ -1,0 +1,133 @@
+---
+import type { BlogCardData } from '../lib/blog';
+import { BLOG_CATEGORY_LABELS, BLOG_CATEGORY_ICONS } from '../lib/blog';
+import type { BlogCategory } from '../lib/blog';
+import IconLabel from './IconLabel.astro';
+import Icon from './Icon.astro';
+import MotionButton from './react/MotionButton';
+
+interface Props {
+  post: BlogCardData;
+}
+
+const { post } = Astro.props;
+const category = post.category as BlogCategory | undefined;
+const categoryLabel = category ? BLOG_CATEGORY_LABELS[category] : 'Guide';
+const categoryIcon = category ? BLOG_CATEGORY_ICONS[category] : 'guide';
+---
+
+<section class="blog-featured-hero">
+  <div class="blog-featured-glow" aria-hidden="true"></div>
+  {post.coverImage && (
+    <div class="blog-featured-cover">
+      <img
+        src={post.coverImage}
+        alt={post.coverImageAlt ?? post.title}
+        width="1280"
+        height="720"
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+      />
+    </div>
+  )}
+  <div class="blog-featured-content">
+    <IconLabel icon={categoryIcon} label={`Featured · ${categoryLabel}`} />
+    <h2 class="blog-featured-title">{post.title}</h2>
+    <p class="blog-featured-desc">{post.description}</p>
+    <div class="blog-featured-meta">
+      <span class="listing-meta-pill">
+        <Icon name="calendar" size={11} />
+        {post.date}
+      </span>
+      {post.readTime && (
+        <span class="listing-meta-pill">
+          <Icon name="clock" size={11} />
+          {post.readTime}
+        </span>
+      )}
+    </div>
+    <MotionButton client:visible href={post.href} className="btn-primary">
+      Read featured guide
+    </MotionButton>
+  </div>
+</section>
+
+<style>
+  .blog-featured-hero {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+    padding: 1.25rem;
+    border: 1px solid var(--border);
+    background: var(--bg2);
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%);
+    overflow: hidden;
+    text-align: left;
+  }
+
+  .blog-featured-glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 20% 20%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 55%);
+    pointer-events: none;
+  }
+
+  .blog-featured-cover {
+    position: relative;
+    z-index: 1;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+  }
+
+  .blog-featured-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+
+  .blog-featured-hero:hover .blog-featured-cover img {
+    transform: scale(1.03);
+  }
+
+  .blog-featured-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.75rem;
+  }
+
+  .blog-featured-title {
+    font-size: clamp(1.35rem, 3vw, 1.85rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.5px;
+    line-height: 1.12;
+    margin: 0;
+  }
+
+  .blog-featured-desc {
+    color: var(--muted);
+    font-size: 0.92rem;
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  .blog-featured-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  @media (max-width: 900px) {
+    .blog-featured-hero {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

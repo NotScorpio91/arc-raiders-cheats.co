@@ -91,122 +91,173 @@ const slideCount = images.length;
 
 <script is:inline>
   (function () {
-    function initShowcaseSliders() {
-      document.querySelectorAll('[data-showcase-slider]').forEach(function (root) {
-        if (root.getAttribute('data-ready') === 'true') return;
-        root.setAttribute('data-ready', 'true');
+    function bindShowcase(root) {
+      if (root.__showcaseBound) return true;
 
-        var track = root.querySelector('[data-showcase-track]');
-        var viewport = root.querySelector('[data-showcase-viewport]');
-        var slides = Array.prototype.slice.call(root.querySelectorAll('[data-showcase-slide]'));
-        var dots = Array.prototype.slice.call(root.querySelectorAll('[data-showcase-dot]'));
-        var prev = root.querySelector('[data-showcase-prev]');
-        var next = root.querySelector('[data-showcase-next]');
-        var progress = root.querySelector('[data-showcase-progress]');
-        var currentLabel = root.querySelector('[data-showcase-current]');
-        var count = slides.length;
-        if (!track || !viewport || count < 2) return;
+      var track = root.querySelector('[data-showcase-track]');
+      var viewport = root.querySelector('[data-showcase-viewport]');
+      var slides = Array.prototype.slice.call(root.querySelectorAll('[data-showcase-slide]'));
+      var dots = Array.prototype.slice.call(root.querySelectorAll('[data-showcase-dot]'));
+      var prev = root.querySelector('[data-showcase-prev]');
+      var next = root.querySelector('[data-showcase-next]');
+      var progress = root.querySelector('[data-showcase-progress]');
+      var currentLabel = root.querySelector('[data-showcase-current]');
+      var count = slides.length;
 
-        var index = 0;
-        var timer = null;
-        var delay = 4500;
-        var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!track || !viewport || count < 2 || viewport.clientWidth < 1) return false;
 
-        function slideWidth() {
-          return viewport.clientWidth || root.clientWidth;
-        }
+      root.__showcaseBound = true;
 
-        function render() {
-          var offset = slideWidth() * index;
-          track.style.transform = 'translate3d(-' + offset + 'px, 0, 0)';
+      var index = 0;
+      var timer = null;
+      var delay = 4500;
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-          slides.forEach(function (slide, i) {
-            var active = i === index;
-            slide.classList.toggle('is-active', active);
-            slide.setAttribute('aria-hidden', active ? 'false' : 'true');
-          });
+      function slideWidth() {
+        return viewport.clientWidth || root.clientWidth;
+      }
 
-          dots.forEach(function (dot, i) {
-            var active = i === index;
-            dot.classList.toggle('is-active', active);
-            dot.setAttribute('aria-selected', active ? 'true' : 'false');
-          });
+      function render() {
+        var width = slideWidth();
+        if (width < 1) return;
+        track.style.transform = 'translate3d(-' + (width * index) + 'px, 0, 0)';
 
-          if (currentLabel) currentLabel.textContent = String(index + 1);
+        slides.forEach(function (slide, i) {
+          var active = i === index;
+          slide.classList.toggle('is-active', active);
+          slide.setAttribute('aria-hidden', active ? 'false' : 'true');
+        });
 
-          if (progress) {
-            progress.style.transition = 'none';
-            progress.style.width = '0%';
-            if (!reduceMotion) {
+        dots.forEach(function (dot, i) {
+          var active = i === index;
+          dot.classList.toggle('is-active', active);
+          dot.setAttribute('aria-selected', active ? 'true' : 'false');
+        });
+
+        if (currentLabel) currentLabel.textContent = String(index + 1);
+
+        if (progress) {
+          progress.style.transition = 'none';
+          progress.style.width = '0%';
+          if (!reduceMotion) {
+            window.requestAnimationFrame(function () {
               window.requestAnimationFrame(function () {
-                window.requestAnimationFrame(function () {
-                  progress.style.transition = 'width ' + delay + 'ms linear';
-                  progress.style.width = '100%';
-                });
+                progress.style.transition = 'width ' + delay + 'ms linear';
+                progress.style.width = '100%';
               });
-            } else {
-              progress.style.width = '100%';
-            }
+            });
+          } else {
+            progress.style.width = '100%';
           }
         }
+      }
 
-        function goTo(nextIndex) {
-          index = (nextIndex + count) % count;
-          render();
-          restart();
+      function goTo(nextIndex) {
+        index = (nextIndex + count) % count;
+        render();
+        restart();
+      }
+
+      function stop() {
+        if (timer) {
+          window.clearInterval(timer);
+          timer = null;
         }
+      }
 
-        function stop() {
-          if (timer) {
-            window.clearInterval(timer);
-            timer = null;
-          }
-        }
+      function restart() {
+        stop();
+        if (reduceMotion) return;
+        timer = window.setInterval(function () {
+          goTo(index + 1);
+        }, delay);
+      }
 
-        function restart() {
-          stop();
-          if (reduceMotion) return;
-          timer = window.setInterval(function () {
-            goTo(index + 1);
-          }, delay);
-        }
+      if (prev) prev.addEventListener('click', function () { goTo(index - 1); });
+      if (next) next.addEventListener('click', function () { goTo(index + 1); });
 
-        if (prev) prev.addEventListener('click', function () { goTo(index - 1); });
-        if (next) next.addEventListener('click', function () { goTo(index + 1); });
-
-        dots.forEach(function (dot) {
-          dot.addEventListener('click', function () {
-            goTo(Number(dot.getAttribute('data-showcase-dot') || '0'));
-          });
+      dots.forEach(function (dot) {
+        dot.addEventListener('click', function () {
+          goTo(Number(dot.getAttribute('data-showcase-dot') || '0'));
         });
+      });
 
-        viewport.addEventListener('keydown', function (event) {
-          if (event.key === 'ArrowLeft') {
-            event.preventDefault();
-            goTo(index - 1);
-          }
-          if (event.key === 'ArrowRight') {
-            event.preventDefault();
-            goTo(index + 1);
-          }
-        });
+      viewport.addEventListener('keydown', function (event) {
+        if (event.key === 'ArrowLeft') {
+          event.preventDefault();
+          goTo(index - 1);
+        }
+        if (event.key === 'ArrowRight') {
+          event.preventDefault();
+          goTo(index + 1);
+        }
+      });
 
-        root.addEventListener('mouseenter', stop);
-        root.addEventListener('mouseleave', restart);
-        root.addEventListener('focusin', stop);
-        root.addEventListener('focusout', restart);
-        window.addEventListener('resize', render);
+      root.addEventListener('mouseenter', stop);
+      root.addEventListener('mouseleave', restart);
+      root.addEventListener('focusin', stop);
+      root.addEventListener('focusout', restart);
+      window.addEventListener('resize', render);
 
+      window.requestAnimationFrame(function () {
         render();
         restart();
       });
+
+      return true;
+    }
+
+    function initShowcaseSliders() {
+      document.querySelectorAll('[data-showcase-slider]').forEach(function (root) {
+        if (root.__showcaseBound) return;
+
+        var viewport = root.querySelector('[data-showcase-viewport]');
+        if (!viewport) return;
+
+        var observer = null;
+        var resizeObserver = null;
+
+        function tryBind() {
+          if (!bindShowcase(root)) return;
+          if (observer) observer.disconnect();
+          if (resizeObserver) resizeObserver.disconnect();
+        }
+
+        if (viewport.clientWidth > 0) {
+          tryBind();
+          return;
+        }
+
+        observer = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting) tryBind();
+            });
+          },
+          { threshold: 0, rootMargin: '120px 0px' }
+        );
+        observer.observe(root);
+
+        if (typeof ResizeObserver !== 'undefined') {
+          resizeObserver = new ResizeObserver(function () {
+            tryBind();
+          });
+          resizeObserver.observe(viewport);
+        }
+      });
+    }
+
+    function scheduleInit() {
+      window.requestAnimationFrame(initShowcaseSliders);
     }
 
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initShowcaseSliders);
+      document.addEventListener('DOMContentLoaded', scheduleInit);
     } else {
-      initShowcaseSliders();
+      scheduleInit();
     }
+
+    document.addEventListener('astro:page-load', scheduleInit);
   })();
 </script>
 
@@ -335,7 +386,7 @@ const slideCount = images.length;
     border: 1px solid color-mix(in srgb, var(--accent2) 40%, var(--border));
     clip-path: polygon(6px 0, 100% 0, calc(100% - 6px) 100%, 0 100%);
     cursor: pointer;
-    opacity: 0;
+    opacity: 0.85;
     transition: opacity 0.25s ease, background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
   }
 
@@ -427,7 +478,6 @@ const slideCount = images.length;
 
   @media (max-width: 720px) {
     .showcase-nav {
-      opacity: 1;
       width: 36px;
       height: 36px;
     }

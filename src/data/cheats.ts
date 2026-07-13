@@ -1,7 +1,6 @@
 import type { IconName } from '../lib/icons';
 import type { MediaItem } from '../lib/media';
 import { getCheatTierMedia } from '../lib/cheat-media';
-import { CHEAT_PRICING, type PricingPlan } from '../lib/pricing';
 
 export type CheatFaq = {
   question: string;
@@ -16,9 +15,7 @@ export type CheatTier = {
   description: string;
   overview?: string[];
   setupSteps?: string[];
-  limitations?: string[];
   lastUpdated: string;
-  pricingPlans: PricingPlan[];
   features: string[];
   media: MediaItem[];
   systemRequirements?: string[];
@@ -43,21 +40,15 @@ export const cheats: CheatTier[] = [
       'Use Xray when you mainly need awareness — seeing raiders, loot value, and weak points — and plan to upgrade later if you want deeper aim or trigger tooling.',
     ],
     setupSteps: [
-      'Select monthly ($35) or lifetime ($150) access at checkout for instant delivery.',
-      'Download the loader, disable conflicting overlays, and run as administrator if prompted.',
+      'Complete checkout for instant delivery and download the loader.',
+      'Disable conflicting overlays and run as administrator if prompted.',
       'Enable ESP categories you actually use — player boxes, loot filters, and FOV limits first.',
       'Save a low-noise config and test in a private session before stacking high-value extractions.',
     ],
-    limitations: [
-      'Xray does not include full aimbot, trigger automation, or Private-tier radar tooling.',
-      'All cheat use violates Arc Raiders terms and carries ban risk despite external delivery.',
-      'Feature availability can change after Embark patches — check status notes before launching.',
-    ],
     lastUpdated: '2026-07-12',
-    pricingPlans: CHEAT_PRICING,
     seoTitle: 'Xray Arc Raiders Cheat — ESP 2026',
     seoDescription:
-      'Buy Xray Arc Raiders cheat — player ESP, loot ESP, skeleton markers, and smooth targeting. Entry tier from $35/month with Season 1 support.',
+      'Buy Xray Arc Raiders cheat — player ESP, loot ESP, skeleton markers, and smooth targeting. Entry tier with Season 1 support and instant delivery.',
     keywords: [
       'xray arc raiders cheat',
       'arc raiders esp',
@@ -105,22 +96,16 @@ export const cheats: CheatTier[] = [
       'It suits players who want cleaner gunfights without paying for the full Private extraction and radar suite. Settings stay configurable so you can keep behavior subtle.',
     ],
     setupSteps: [
-      'Choose monthly or lifetime pricing and complete checkout for instant access.',
-      'Install the Pro build and import a conservative aim profile (wide FOV, smoothing on).',
+      'Complete checkout for instant access and install the Pro build.',
+      'Import a conservative aim profile (wide FOV, smoothing on).',
       'Bind aim and trigger keys separately so you can disable automation during loot phases.',
       'Compare features with Xray and Private on our tier table before committing long term.',
     ],
-    limitations: [
-      'Pro lacks Private-only tools such as full radar styles, drone aimbot, and complete extraction intel.',
-      'Aggressive aim or trigger settings increase report and ban risk even on external builds.',
-      'Steam-only support applies to the Private documentation path — confirm launcher compatibility at checkout.',
-    ],
     lastUpdated: '2026-07-12',
-    pricingPlans: CHEAT_PRICING,
     featured: true,
     seoTitle: 'Pro Arc Raiders Cheat — Aim & ESP',
     seoDescription:
-      'Buy Pro Arc Raiders cheat — aim assist, trigger tools, weapon ESP, and deep overlays. Mid tier from $35/month for Season 1 combat raids.',
+      'Buy Pro Arc Raiders cheat — aim assist, trigger tools, weapon ESP, and deep overlays. Mid tier for Season 1 combat raids with instant delivery.',
     keywords: [
       'pro arc raiders cheat',
       'arc raiders aim assist',
@@ -179,21 +164,15 @@ export const cheats: CheatTier[] = [
       'It is our in-house Viper build, maintained directly by our team with patch-aware updates. Pair it with Cloud DMA or HWID Spoofer only if your setup requires that infrastructure.',
     ],
     setupSteps: [
-      'Pick monthly ($35) or lifetime ($150) and finish checkout for instant delivery.',
+      'Complete checkout for instant delivery.',
       'Verify BIOS virtualization settings and Steam launcher requirements before installing.',
       'Configure radar, ESP, and aim profiles separately — start with visibility tools first.',
       'Read our cheats guide and spoofer guide if you are returning from a prior hardware flag.',
     ],
-    limitations: [
-      'Steam version only — Epic Games launcher is not supported for this build.',
-      'No cheat eliminates anti-cheat risk; Embark uses EAC plus behavioral systems.',
-      'Private includes the largest feature surface — more settings means more ways to misconfigure.',
-    ],
     lastUpdated: '2026-07-12',
-    pricingPlans: CHEAT_PRICING,
     seoTitle: 'Private Arc Raiders Cheat — Viper',
     seoDescription:
-      'Buy Private Arc Raiders cheat (Viper) — full aimbot, ESP, 2D radar, and extraction intel. In-house tier from $35/month with documented setup.',
+      'Buy Private Arc Raiders cheat (Viper) — full aimbot, ESP, 2D radar, and extraction intel. In-house tier with documented setup and instant delivery.',
     keywords: [
       'private arc raiders cheat',
       'viper arc raiders',

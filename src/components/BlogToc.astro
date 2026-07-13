@@ -1,0 +1,111 @@
+---
+import Icon from './Icon.astro';
+import type { IconName } from '../lib/icons';
+
+interface TocHeading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+interface Props {
+  headings: TocHeading[];
+}
+
+const { headings } = Astro.props;
+const items = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
+
+function tocIcon(slug: string, text: string, depth: number): IconName {
+  if (depth === 3) return 'chevron-right';
+
+  const key = `${slug} ${text}`.toLowerCase();
+
+  if (key.includes('dma') || key.includes('cloud')) return 'cloud';
+  if (key.includes('tier') || key.includes('xray') || key.includes('pro') || key.includes('private')) return 'layers';
+  if (key.includes('hwid') || key.includes('spoofer') || key.includes('account')) return 'shield';
+  if (key.includes('esp') || key.includes('overlay') || key.includes('xray')) return 'eye';
+  if (key.includes('radar') || key.includes('position')) return 'radar';
+  if (key.includes('loot') || key.includes('extract')) return 'loot';
+  if (key.includes('aim') || key.includes('trigger') || key.includes('pvp')) return 'crosshair';
+  if (key.includes('setup') || key.includes('order') || key.includes('checklist') || key.includes('loader')) return 'wrench';
+  if (key.includes('eac') || key.includes('undetected') || key.includes('risk') || key.includes('stealth')) return 'shield';
+  if (key.includes('cost') || key.includes('benefit') || key.includes('meta') || key.includes('season')) return 'chart';
+  if (key.includes('failure') || key.includes('mistake') || key.includes('myth') || key.includes('alert')) return 'alert';
+  if (key.includes('maintenance') || key.includes('patch') || key.includes('update')) return 'settings';
+  if (key.includes('squad') || key.includes('solo') || key.includes('skeleton')) return 'movement';
+  if (key.includes('enemy') || key.includes('arc ')) return 'enemy';
+  if (key.includes('stream') || key.includes('obs') || key.includes('capture')) return 'scan';
+  if (key.includes('bottom') || key.includes('conclusion') || key.includes('summary') || key.includes('takeaway')) return 'bookmark';
+  if (key.includes('feature') || key.includes('guide') || key.includes('want')) return 'guide';
+  if (key.includes('who') || key.includes('player')) return 'user';
+  if (key.includes('display') || key.includes('habit')) return 'eye';
+
+  return 'file-text';
+}
+---
+
+{items.length > 0 && (
+  <nav class="blog-toc" aria-label="Table of contents" data-blog-toc>
+    <p class="blog-toc-title">
+      <Icon name="layers" size={12} class="blog-toc-title-icon" />
+      On this page
+    </p>
+    <ul class="blog-toc-list">
+      {items.map((item) => (
+        <li class:list={['blog-toc-item', { 'blog-toc-item--sub': item.depth === 3 }]}>
+          <a href={`#${item.slug}`} class="blog-toc-link" data-toc-link={item.slug}>
+            <Icon
+              name={tocIcon(item.slug, item.text, item.depth)}
+              size={item.depth === 3 ? 11 : 13}
+              class="blog-toc-link-icon"
+            />
+            <span class="blog-toc-link-text">{item.text}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+)}
+
+<script>
+  function initBlogToc() {
+    const toc = document.querySelector('[data-blog-toc]');
+    if (!toc) return;
+
+    const links = [...toc.querySelectorAll<HTMLAnchorElement>('[data-toc-link]')];
+    const ids = links.map((l) => l.dataset.tocLink).filter(Boolean) as string[];
+    const headings = ids.map((id) => document.getElementById(id)).filter(Boolean) as HTMLElement[];
+
+    if (headings.length === 0) return;
+
+    const setActive = (id: string) => {
+      links.forEach((link) => {
+        link.classList.toggle('is-active', link.dataset.tocLink === id);
+      });
+    };
+
+    links.forEach((link) => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const id = link.dataset.tocLink;
+        const target = id ? document.getElementById(id) : null;
+        target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if (id) setActive(id);
+      });
+    });
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries.filter((e) => e.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+        const id = visible[0]?.target.id;
+        if (id) setActive(id);
+      },
+      { rootMargin: '-15% 0px -65% 0px', threshold: [0, 0.25, 0.5] },
+    );
+
+    headings.forEach((h) => observer.observe(h));
+  }
+
+  initBlogToc();
+  document.addEventListener('astro:page-load', initBlogToc);
+</script>

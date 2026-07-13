@@ -1,6 +1,9 @@
 ---
 import type { IconName } from '../lib/icons';
+import { BLOG_CATEGORY_LABELS, BLOG_CATEGORY_ICONS } from '../lib/blog';
+import type { BlogCategory } from '../lib/blog';
 import Icon from './Icon.astro';
+import MotionBlogCard from './react/MotionBlogCard';
 
 interface Props {
   title: string;
@@ -10,43 +13,93 @@ interface Props {
   icon?: IconName;
   readTime?: string;
   ctaLabel?: string;
+  coverImage?: string;
+  coverImageAlt?: string;
+  category?: BlogCategory;
+  index?: number;
 }
 
-const { title, description, date, href, icon = 'file-text', readTime, ctaLabel = 'Read guide' } = Astro.props;
+const {
+  title,
+  description,
+  date,
+  href,
+  icon = 'file-text',
+  readTime,
+  ctaLabel = 'Read guide',
+  coverImage,
+  coverImageAlt,
+  category,
+  index = 0,
+} = Astro.props;
+
+const categoryLabel = category ? BLOG_CATEGORY_LABELS[category] : null;
+const categoryIcon = category ? BLOG_CATEGORY_ICONS[category] : icon;
+
+function blogCoverSrcset(src: string | undefined): { src: string; srcset?: string } {
+  if (!src || !src.endsWith('.webp')) return { src: src ?? '' };
+  const thumb = src.replace(/\.webp$/, '-640.webp');
+  return {
+    src: thumb,
+    srcset: `${thumb} 640w, ${src} 1280w`,
+  };
+}
+
+const cover = blogCoverSrcset(coverImage);
 ---
 
-  <a href={href} class="blog-card">
-  <div class="blog-card-accent" aria-hidden="true"></div>
-  <div class="blog-card-head">
-    <div class="blog-card-icon">
-      <Icon name={icon} size={22} />
-    </div>
-    <div class="blog-card-title-wrap">
-      <span class="blog-card-date">
-        <Icon name="calendar" size={12} />
-        {date}
-      </span>
-      <h3 class="blog-card-name">{title}</h3>
-    </div>
-  </div>
-
-  <p class="blog-card-desc">{description}</p>
-
-  <div class="blog-card-meta">
-    {readTime && (
-      <span class="blog-card-pill">
-        <Icon name="clock" size={11} />
-        {readTime}
-      </span>
+<MotionBlogCard client:visible delay={index * 0.05}>
+  <a href={href} class="blog-card blog-card--cover">
+    <div class="blog-card-accent" aria-hidden="true"></div>
+    {coverImage && (
+      <div class="blog-card-cover">
+        <img
+          src={cover.src}
+          srcset={cover.srcset}
+          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          alt={coverImageAlt ?? title}
+          loading="lazy"
+          decoding="async"
+          width="640"
+          height="360"
+        />
+      </div>
     )}
-    <span class="blog-card-pill">
-      <Icon name="newspaper" size={11} />
-      Article
-    </span>
-  </div>
+    <div class="blog-card-body">
+      <div class="blog-card-head">
+        <div class="blog-card-icon">
+          <Icon name={categoryIcon} size={22} />
+        </div>
+        <div class="blog-card-title-wrap">
+          <span class="blog-card-date">
+            <Icon name="calendar" size={12} />
+            {date}
+          </span>
+          <h3 class="blog-card-name">{title}</h3>
+        </div>
+      </div>
 
-  <span class="blog-card-btn">
-    {ctaLabel}
-    <Icon name="chevron-right" size={14} />
-  </span>
-</a>
+      <p class="blog-card-desc">{description}</p>
+
+      <div class="blog-card-meta">
+        {categoryLabel && (
+          <span class="blog-card-pill">
+            <Icon name={categoryIcon} size={11} />
+            {categoryLabel}
+          </span>
+        )}
+        {readTime && (
+          <span class="blog-card-pill">
+            <Icon name="clock" size={11} />
+            {readTime}
+          </span>
+        )}
+      </div>
+
+      <span class="blog-card-btn">
+        {ctaLabel}
+        <Icon name="chevron-right" size={14} />
+      </span>
+    </div>
+  </a>
+</MotionBlogCard>

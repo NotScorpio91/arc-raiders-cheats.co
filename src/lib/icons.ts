@@ -29,5 +29,14 @@ export type IconName =
   | 'mail'
   | 'home'
   | 'newspaper'
-  | 'arrow-left';
-
+  | 'arrow-left'
+  | 'eye'
+  | 'radar'
+  | 'zap'
+  | 'tag'
+  | 'share'
+  | 'bookmark'
+  | 'layers'
+  | 'alert'
+  | 'info'
+  | 'link';

@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import Breadcrumb from '../../components/Breadcrumb.astro';
 import ProductCard from '../../components/ProductCard.astro';
 import MotionReveal from '../../components/react/MotionReveal';
 import MotionFAQ from '../../components/react/MotionFAQ';
@@ -15,7 +14,7 @@ const productFaqs = [
   {
     question: 'What is Cloud DMA?',
     answer:
-      'Cloud DMA is the $50 lifetime infrastructure license that provisions a Hyper-V environment on one PC. AWS and GREENWARD are separate purchases required for the supported workflow described at checkout.',
+      'Cloud DMA is the infrastructure license that provisions a Hyper-V environment on one PC. AWS and GREENWARD are separate purchases required for the supported workflow described at checkout.',
   },
   {
     question: 'What is UGC used for?',
@@ -65,7 +64,7 @@ const schema = [
 
 <BaseLayout
   title="Arc Raiders Products — DMA, UGC, Spoofer"
-  description="Buy Cloud DMA, UGC, Skin Changer, and HWID Spoofer for Arc Raiders. Infrastructure, account tools, cosmetics, and hardware spoofing with visible pricing."
+  description="Buy Cloud DMA, UGC, Skin Changer, and HWID Spoofer for Arc Raiders. Infrastructure, account tools, cosmetics, and hardware spoofing with instant delivery."
   canonical={`${SITE.url}/products/`}
   ogImage={productsSocial.src}
   ogImageAlt={productsSocial.alt}
@@ -80,12 +79,6 @@ const schema = [
 >
   <section class="section listing-section">
     <div class="section-inner">
-      <Breadcrumb
-        items={[
-          { name: 'Home', href: '/' },
-          { name: 'Products' },
-        ]}
-      />
       <MotionReveal client:visible>
         <div class="listing-intro">
           <div class="s-tag">// Products</div>

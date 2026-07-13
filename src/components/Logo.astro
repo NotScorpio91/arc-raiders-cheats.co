@@ -8,7 +8,7 @@ const { class: className = '' } = Astro.props;
 
 <a href="/" class:list={['logo-brand', className]} aria-label="Arc Raiders Cheats">
   <img
-    src="/favicon.svg"
+    src="/logo.svg"
     alt="Arc Raiders Cheats logo mark"
     class="logo-mark"
     width="34"
@@ -25,6 +25,15 @@ const { class: className = '' } = Astro.props;
     gap: 0.7rem;
     text-decoration: none;
     color: inherit;
+    transition: transform 0.25s ease, filter 0.25s ease;
+  }
+
+  .logo-brand:hover {
+    transform: translateY(-1px);
+  }
+
+  .logo-brand:hover .logo-mark {
+    filter: drop-shadow(0 0 8px color-mix(in srgb, var(--accent2) 45%, transparent));
   }
 
   .logo-mark {
@@ -33,6 +42,11 @@ const { class: className = '' } = Astro.props;
     width: 34px;
     height: 34px;
     border-radius: 8px;
+    transition: filter 0.25s ease, transform 0.25s ease;
+  }
+
+  .logo-brand:active .logo-mark {
+    transform: scale(0.96);
   }
 
   .logo-text {

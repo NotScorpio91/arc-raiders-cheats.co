@@ -9,7 +9,7 @@ export const SITE = {
   twitter: '@arcraiderscheats',
   logo: '/logo.png',
   logoAlt: 'Arc Raiders Cheats',
-  themeColor: '#7c3aed',
+  themeColor: '#14b8a6',
   updated: '2026-06-29',
   rating: 'general',
 } as const;

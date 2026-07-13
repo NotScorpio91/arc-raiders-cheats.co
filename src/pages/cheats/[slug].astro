@@ -1,9 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import Breadcrumb from '../../components/Breadcrumb.astro';
 import CheatCompareTable from '../../components/CheatCompareTable.astro';
 import Icon from '../../components/Icon.astro';
-import PricingPlans from '../../components/PricingPlans.astro';
 import RelatedLinks from '../../components/RelatedLinks.astro';
 import MediaSwiper from '../../components/react/MediaSwiper';
 import MotionButton from '../../components/react/MotionButton';
@@ -43,7 +41,6 @@ const schema = [
     imageAlt: socialImage.alt,
     category: 'GameApplication',
     featureList: cheatFeatures,
-    pricingPlans: cheat.pricingPlans,
   }),
   breadcrumbSchema([
     { name: 'Home', url: `${SITE.url}/` },
@@ -65,13 +62,6 @@ const schema = [
 >
   <section class="section cheat-detail-section">
     <div class="section-inner">
-      <Breadcrumb
-        items={[
-          { name: 'Home', href: '/' },
-          { name: 'Cheats', href: '/cheats/' },
-          { name: cheat.name },
-        ]}
-      />
       <div class="cheat-detail-layout">
         <div class="cheat-detail-left">
           <div class="cheat-detail-left-head">
@@ -89,7 +79,6 @@ const schema = [
           {cheat.overview?.map((paragraph) => (
             <p class="cheat-detail-desc">{paragraph}</p>
           ))}
-          <PricingPlans plans={cheat.pricingPlans} />
         </div>
 
         <div class="cheat-detail-features">
@@ -131,17 +120,6 @@ const schema = [
                     <Icon name="check" size={15} class="cheat-feature-check" />
                     {req}
                   </li>
-                ))}
-              </ul>
-            </div>
-          )}
-
-          {cheat.limitations && cheat.limitations.length > 0 && (
-            <div class="detail-block detail-block--warn">
-              <h2 class="cheat-detail-section-title">Limitations &amp; Risk Notes</h2>
-              <ul class="detail-bullets">
-                {cheat.limitations.map((item) => (
-                  <li>{item}</li>
                 ))}
               </ul>
             </div>

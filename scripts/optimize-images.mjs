@@ -6,6 +6,7 @@ import sharp from 'sharp';
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const sourceDir = join(root, 'assets', 'source', 'cheats');
 const cheatsDir = join(root, 'public', 'images', 'cheats');
+const blogDir = join(root, 'public', 'images', 'blog');
 const publicDir = join(root, 'public');
 
 async function exists(path) {
@@ -53,4 +54,41 @@ async function optimizeCheats() {
   }
 }
 
+async function optimizeBlog() {
+  if (!(await exists(blogDir))) {
+    console.log('No public/images/blog — skipping blog image optimization');
+    return;
+  }
+
+  const slugs = await readdir(blogDir, { withFileTypes: true });
+  let count = 0;
+
+  for (const entry of slugs) {
+    if (!entry.isDirectory()) continue;
+
+    const slugDir = join(blogDir, entry.name);
+    const files = (await readdir(slugDir)).filter((f) => f.endsWith('.webp'));
+
+  for (const file of files) {
+    const input = join(slugDir, file);
+    if (file.endsWith('-640.webp')) continue;
+
+    const base = file.replace(/\.webp$/i, '');
+    const thumb = `${base}-640.webp`;
+    const thumbPath = join(slugDir, thumb);
+
+    if (!(await exists(thumbPath))) {
+      await writeWebp(input, thumbPath, 640, 360, 72);
+      count++;
+      console.log(`Blog thumb: ${entry.name}/${thumb}`);
+    }
+  }
+  }
+
+  if (count === 0) {
+    console.log('Blog images already optimized or none found');
+  }
+}
+
 await optimizeCheats();
+await optimizeBlog();

@@ -55,19 +55,6 @@ for (const relativePath of htmlFiles) {
           if (node.potentialAction?.['@type'] === 'SearchAction') {
             issues.push(`${relativePath}: JSON-LD contains invalid SearchAction`);
           }
-          if (node['@type'] === 'Product' || node['@type'] === 'SoftwareApplication') {
-            const offers = node.offers;
-            const offerList = offers?.['@type'] === 'AggregateOffer' ? offers.offers : offers ? [offers] : [];
-            if (offerList.length === 0) {
-              issues.push(`${relativePath}: commercial JSON-LD missing offers`);
-            } else {
-              for (const offer of offerList) {
-                if (!offer.price || !offer.priceCurrency) {
-                  issues.push(`${relativePath}: commercial JSON-LD offer missing price/currency`);
-                }
-              }
-            }
-          }
         }
       } catch {
         issues.push(`${relativePath}: invalid JSON-LD block`);

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none" role="img" aria-label="Arc Raiders Cheats">
+  <defs>
+    <linearGradient id="logo-bg" x1="32" y1="32" x2="224" y2="224" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0f766e"/>
+      <stop offset="1" stop-color="#14b8a6"/>
+    </linearGradient>
+    <linearGradient id="logo-cut" x1="128" y1="64" x2="128" y2="192" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#22d3ee"/>
+      <stop offset="1" stop-color="#5eead4"/>
+    </linearGradient>
+  </defs>
+  <rect width="256" height="256" rx="48" fill="url(#logo-bg)"/>
+  <path d="M48 208L128 40L208 208H172L128 114L84 208H48Z" fill="#e8edf4"/>
+  <path d="M92 172H164L128 100L92 172Z" fill="url(#logo-cut)"/>
+  <path d="M48 208H208" stroke="#22d3ee" stroke-width="4" opacity="0.35"/>
+</svg>

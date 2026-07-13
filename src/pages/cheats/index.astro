@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import Breadcrumb from '../../components/Breadcrumb.astro';
 import CheatTierCard from '../../components/CheatTierCard.astro';
 import MotionReveal from '../../components/react/MotionReveal';
 import { cheats, getCheatFeatures } from '../../data/cheats';
@@ -35,7 +34,7 @@ const schema = [
 
 <BaseLayout
   title="Buy Arc Raiders Cheats — Xray, Pro, Private"
-  description="Buy Arc Raiders cheats — Xray, Pro, and Private tiers with ESP, aim tools, and extraction intel. Compare features and pricing from $35/month."
+  description="Buy Arc Raiders cheats — Xray, Pro, and Private tiers with ESP, aim tools, and extraction intel. Compare features and choose the tier that fits your raids."
   canonical={`${SITE.url}/cheats/`}
   ogImage={cheatsSocial.src}
   ogImageAlt={cheatsSocial.alt}
@@ -50,12 +49,6 @@ const schema = [
 >
   <section class="section listing-section">
     <div class="section-inner">
-      <Breadcrumb
-        items={[
-          { name: 'Home', href: '/' },
-          { name: 'Cheats' },
-        ]}
-      />
       <MotionReveal client:visible>
         <div class="listing-intro">
           <div class="s-tag">// Cheats</div>

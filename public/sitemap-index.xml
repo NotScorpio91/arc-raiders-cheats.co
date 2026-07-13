@@ -42,7 +42,7 @@
   </url>
   <url>
     <loc>https://arcraiderscheats.co/blog/</loc>
-    <lastmod>2026-06-29T00:00:00.000Z</lastmod>
+    <lastmod>2026-07-12T00:00:00.000Z</lastmod>
     <priority>0.8</priority>
     <image:image>
       <image:loc>https://images.igdb.com/igdb/image/upload/t_screenshot_huge/sc11kk7.jpg</image:loc>
@@ -91,31 +91,251 @@
     </image:image>
   </url>
   <url>
-    <loc>https://arcraiderscheats.co/blog/arc-raiders-cheats-guide/</loc>
-    <lastmod>2026-06-28T00:00:00.000Z</lastmod>
+    <loc>https://arcraiderscheats.co/blog/arc-raiders-2d-radar-guide/</loc>
+    <lastmod>2026-07-08T00:00:00.000Z</lastmod>
     <priority>0.8</priority>
     <image:image>
-      <image:loc>https://images.igdb.com/igdb/image/upload/t_screenshot_huge/scii62.jpg</image:loc>
+      <image:loc>/images/blog/arc-raiders-2d-radar-guide/cover.webp</image:loc>
+      <image:title>2D circular radar with player and drone blips on dark grid</image:title>
+      <image:caption>2D circular radar with player and drone blips on dark grid</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://arcraiderscheats.co/blog/arc-raiders-aimbot-guide/</loc>
+    <lastmod>2026-07-04T00:00:00.000Z</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>/images/blog/arc-raiders-aimbot-guide/cover.webp</image:loc>
+      <image:title>Crosshair and FOV cone overlay on a dark Arc Raiders combat grid</image:title>
+      <image:caption>Crosshair and FOV cone overlay on a dark Arc Raiders combat grid</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://arcraiderscheats.co/blog/arc-raiders-arc-enemy-esp/</loc>
+    <lastmod>2026-07-12T00:00:00.000Z</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>/images/blog/arc-raiders-arc-enemy-esp/cover.webp</image:loc>
+      <image:title>Arc Raiders ARC enemy ESP highlighting patrol units and weakpoint markers</image:title>
+      <image:caption>Arc Raiders ARC enemy ESP highlighting patrol units and weakpoint markers</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://arcraiderscheats.co/blog/arc-raiders-best-cheat-features/</loc>
+    <lastmod>2026-07-12T00:00:00.000Z</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>/images/blog/arc-raiders-best-cheat-features/cover.webp</image:loc>
+      <image:title>ARC Raiders loot route — feature priority for extraction efficiency</image:title>
+      <image:caption>ARC Raiders loot route — feature priority for extraction efficiency</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://arcraiderscheats.co/blog/arc-raiders-cheat-settings-low-profile/</loc>
+    <lastmod>2026-07-01T00:00:00.000Z</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>/images/blog/arc-raiders-cheat-settings-low-profile/cover.webp</image:loc>
+      <image:title>Arc Raiders overlay menu with conservative ESP and aim settings highlighted</image:title>
+      <image:caption>Arc Raiders overlay menu with conservative ESP and aim settings highlighted</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://arcraiderscheats.co/blog/arc-raiders-cheat-setup-checklist/</loc>
+    <lastmod>2026-07-08T00:00:00.000Z</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>/images/blog/arc-raiders-cheat-setup-checklist/cover.webp</image:loc>
+      <image:title>Arc Raiders cheat setup checklist — loader, overlays, and first session verification</image:title>
+      <image:caption>Arc Raiders cheat setup checklist — loader, overlays, and first session verification</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://arcraiderscheats.co/blog/arc-raiders-cheats-guide/</loc>
+    <lastmod>2026-07-12T00:00:00.000Z</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>/images/blog/arc-raiders-cheats-guide/cover.webp</image:loc>
       <image:title>ARC Raiders Raider surveying a hostile surface zone before extraction</image:title>
       <image:caption>ARC Raiders Raider surveying a hostile surface zone before extraction</image:caption>
     </image:image>
   </url>
   <url>
-    <loc>https://arcraiderscheats.co/blog/arc-raiders-spoofer-guide/</loc>
-    <lastmod>2026-06-29T00:00:00.000Z</lastmod>
+    <loc>https://arcraiderscheats.co/blog/arc-raiders-cloud-dma-with-cheats/</loc>
+    <lastmod>2026-07-10T00:00:00.000Z</lastmod>
     <priority>0.8</priority>
     <image:image>
-      <image:loc>https://images.igdb.com/igdb/image/upload/t_screenshot_huge/sc11kk9.jpg</image:loc>
+      <image:loc>/images/blog/arc-raiders-cloud-dma-with-cheats/cover.webp</image:loc>
+      <image:title>Cloud DMA hardware topology paired with Arc Raiders cheat tier workflow</image:title>
+      <image:caption>Cloud DMA hardware topology paired with Arc Raiders cheat tier workflow</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://arcraiderscheats.co/blog/arc-raiders-eac-and-cheats/</loc>
+    <lastmod>2026-07-05T00:00:00.000Z</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>/images/blog/arc-raiders-eac-and-cheats/cover.webp</image:loc>
+      <image:title>Arc Raiders security concept — EAC shield and extraction raid risk awareness</image:title>
+      <image:caption>Arc Raiders security concept — EAC shield and extraction raid risk awareness</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://arcraiderscheats.co/blog/arc-raiders-esp-guide/</loc>
+    <lastmod>2026-07-01T00:00:00.000Z</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>/images/blog/arc-raiders-esp-guide/cover.webp</image:loc>
+      <image:title>Abstract purple ESP box overlays on a dark extraction-shooter grid</image:title>
+      <image:caption>Abstract purple ESP box overlays on a dark extraction-shooter grid</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://arcraiderscheats.co/blog/arc-raiders-extraction-esp/</loc>
+    <lastmod>2026-07-12T00:00:00.000Z</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>/images/blog/arc-raiders-extraction-esp/cover.webp</image:loc>
+      <image:title>Arc Raiders extraction zone ESP highlighting an active evac point under contested conditions</image:title>
+      <image:caption>Arc Raiders extraction zone ESP highlighting an active evac point under contested conditions</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://arcraiderscheats.co/blog/arc-raiders-hwid-spoofer-with-cheats/</loc>
+    <lastmod>2026-07-12T00:00:00.000Z</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>/images/blog/arc-raiders-hwid-spoofer-with-cheats/cover.webp</image:loc>
+      <image:title>ARC Raiders surface raid — hardware protection layered with cheat deployment</image:title>
+      <image:caption>ARC Raiders surface raid — hardware protection layered with cheat deployment</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://arcraiderscheats.co/blog/arc-raiders-loot-esp-guide/</loc>
+    <lastmod>2026-07-02T00:00:00.000Z</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>/images/blog/arc-raiders-loot-esp-guide/cover.webp</image:loc>
+      <image:title>Abstract loot marker overlays on a dark extraction route grid</image:title>
+      <image:caption>Abstract loot marker overlays on a dark extraction route grid</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://arcraiderscheats.co/blog/arc-raiders-private-viper-guide/</loc>
+    <lastmod>2026-07-12T00:00:00.000Z</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>/images/blog/arc-raiders-private-viper-guide/cover.webp</image:loc>
+      <image:title>Arc Raiders Private Viper overlay with 2D radar and extraction zone markers</image:title>
+      <image:caption>Arc Raiders Private Viper overlay with 2D radar and extraction zone markers</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://arcraiderscheats.co/blog/arc-raiders-pro-tier-review/</loc>
+    <lastmod>2026-07-12T00:00:00.000Z</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>/images/blog/arc-raiders-pro-tier-review/cover.webp</image:loc>
+      <image:title>Arc Raiders Pro tier overlay showing aim FOV and weapon ESP during a surface firefight</image:title>
+      <image:caption>Arc Raiders Pro tier overlay showing aim FOV and weapon ESP during a surface firefight</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://arcraiderscheats.co/blog/arc-raiders-pvp-positioning-esp/</loc>
+    <lastmod>2026-07-12T00:00:00.000Z</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>/images/blog/arc-raiders-pvp-positioning-esp/cover.webp</image:loc>
+      <image:title>Arc Raiders PvP positioning with ESP skeleton markers showing peek angles</image:title>
+      <image:caption>Arc Raiders PvP positioning with ESP skeleton markers showing peek angles</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://arcraiderscheats.co/blog/arc-raiders-season-patch-survival/</loc>
+    <lastmod>2026-07-12T00:00:00.000Z</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>/images/blog/arc-raiders-season-patch-survival/cover.webp</image:loc>
+      <image:title>ARC Raiders Season shift — adapting loadouts and software after a patch</image:title>
+      <image:caption>ARC Raiders Season shift — adapting loadouts and software after a patch</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://arcraiderscheats.co/blog/arc-raiders-skeleton-esp/</loc>
+    <lastmod>2026-07-10T00:00:00.000Z</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>/images/blog/arc-raiders-skeleton-esp/cover.webp</image:loc>
+      <image:title>Skeleton bone lines and head marker on dark humanoid silhouette grid</image:title>
+      <image:caption>Skeleton bone lines and head marker on dark humanoid silhouette grid</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://arcraiderscheats.co/blog/arc-raiders-solo-vs-squad-cheats/</loc>
+    <lastmod>2026-07-12T00:00:00.000Z</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>/images/blog/arc-raiders-solo-vs-squad-cheats/cover.webp</image:loc>
+      <image:title>ARC Raiders firefight — solo awareness versus squad coordination</image:title>
+      <image:caption>ARC Raiders firefight — solo awareness versus squad coordination</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://arcraiderscheats.co/blog/arc-raiders-spoofer-guide/</loc>
+    <lastmod>2026-07-12T00:00:00.000Z</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>/images/blog/arc-raiders-spoofer-guide/cover.webp</image:loc>
       <image:title>ARC Raiders extraction zone — where clean hardware sessions matter most</image:title>
       <image:caption>ARC Raiders extraction zone — where clean hardware sessions matter most</image:caption>
     </image:image>
   </url>
   <url>
-    <loc>https://arcraiderscheats.co/blog/season-1-meta-analysis/</loc>
-    <lastmod>2026-06-22T00:00:00.000Z</lastmod>
+    <loc>https://arcraiderscheats.co/blog/arc-raiders-stream-safe-overlays/</loc>
+    <lastmod>2026-07-03T00:00:00.000Z</lastmod>
     <priority>0.8</priority>
     <image:image>
-      <image:loc>https://images.igdb.com/igdb/image/upload/t_screenshot_huge/sc11kk8.jpg</image:loc>
+      <image:loc>/images/blog/arc-raiders-stream-safe-overlays/cover.webp</image:loc>
+      <image:title>Arc Raiders gameplay with OBS stream layout and overlay capture settings</image:title>
+      <image:caption>Arc Raiders gameplay with OBS stream layout and overlay capture settings</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://arcraiderscheats.co/blog/arc-raiders-triggerbot-tips/</loc>
+    <lastmod>2026-07-06T00:00:00.000Z</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>/images/blog/arc-raiders-triggerbot-tips/cover.webp</image:loc>
+      <image:title>Trigger timing overlay with crosshair gate on dark combat grid</image:title>
+      <image:caption>Trigger timing overlay with crosshair gate on dark combat grid</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://arcraiderscheats.co/blog/arc-raiders-undetected-myths/</loc>
+    <lastmod>2026-07-12T00:00:00.000Z</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>/images/blog/arc-raiders-undetected-myths/cover.webp</image:loc>
+      <image:title>ARC Raiders contested surface zone — where detection risk meets player behavior</image:title>
+      <image:caption>ARC Raiders contested surface zone — where detection risk meets player behavior</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://arcraiderscheats.co/blog/arc-raiders-xray-tier-review/</loc>
+    <lastmod>2026-07-12T00:00:00.000Z</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>/images/blog/arc-raiders-xray-tier-review/cover.webp</image:loc>
+      <image:title>Arc Raiders Xray tier ESP overlay highlighting raiders and loot on the surface</image:title>
+      <image:caption>Arc Raiders Xray tier ESP overlay highlighting raiders and loot on the surface</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://arcraiderscheats.co/blog/season-1-meta-analysis/</loc>
+    <lastmod>2026-07-12T00:00:00.000Z</lastmod>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>/images/blog/season-1-meta-analysis/cover.webp</image:loc>
       <image:title>ARC Raiders Season 1 firefight — meta loadouts and extraction strategy</image:title>
       <image:caption>ARC Raiders Season 1 firefight — meta loadouts and extraction strategy</image:caption>
     </image:image>

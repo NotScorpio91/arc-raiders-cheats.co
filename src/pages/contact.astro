@@ -1,6 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumb from '../components/Breadcrumb.astro';
+import Icon from '../components/Icon.astro';
+import IconLabel from '../components/IconLabel.astro';
+import MotionReveal from '../components/react/MotionReveal';
 import { contactPageSchema, breadcrumbSchema } from '../lib/schema';
 import { SITE, CONTACT_URL } from '../lib/site';
 import { resolveSocialImage } from '../lib/social-images';
@@ -31,8 +34,9 @@ const schema = [
           { name: 'Contact' },
         ]}
       />
+      <MotionReveal client:visible>
       <div class="listing-intro">
-        <div class="s-tag">// Contact</div>
+        <IconLabel icon="mail" label="Contact" />
         <h1>Contact Arc Raiders Cheats Support</h1>
         <p class="listing-intro-desc">
           Need help with Arc Raiders cheats, Cloud DMA, UGC, Skin Changer, or HWID Spoofer? Use the
@@ -45,18 +49,19 @@ const schema = [
         <p>
           Before contacting support, check the <a href="/faq/">FAQ</a>, our
           <a href="/blog/arc-raiders-cheats-guide/">cheats guide</a>, and the relevant product or
-          cheat detail page for pricing and prerequisites — especially for Cloud DMA.
+          cheat detail page for prerequisites — especially for Cloud DMA.
         </p>
         <p>
           Include your order email, product name, and Windows version when asking about activation
           or loader issues. That helps the team respond faster on weekdays.
         </p>
         <div class="form-page form-page--inline">
-          <button type="button" class="btn-primary" data-go-url={CONTACT_URL}>Open Support</button>
-          <a href="/cheats/" class="btn-ghost">Browse Cheats</a>
-          <a href="/products/" class="btn-ghost">View Products</a>
+          <button type="button" class="btn-primary" data-go-url={CONTACT_URL}><Icon name="mail" size={14} /> Open Support</button>
+          <a href="/cheats/" class="btn-ghost"><Icon name="crosshair" size={14} /> Browse Cheats</a>
+          <a href="/products/" class="btn-ghost"><Icon name="cloud" size={14} /> View Products</a>
         </div>
       </div>
+      </MotionReveal>
     </div>
   </section>
 </BaseLayout>

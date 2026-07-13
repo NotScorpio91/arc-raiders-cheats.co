@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumb from '../components/Breadcrumb.astro';
+import IconLabel from '../components/IconLabel.astro';
+import MotionReveal from '../components/react/MotionReveal';
 import { breadcrumbSchema } from '../lib/schema';
 import { SITE, CONTACT_URL } from '../lib/site';
 
@@ -25,8 +27,9 @@ const schema = breadcrumbSchema([
           { name: 'Terms of Use' },
         ]}
       />
+      <MotionReveal client:visible>
       <div class="listing-intro">
-        <div class="s-tag">// Legal</div>
+        <IconLabel icon="file-text" label="Legal" />
         <h1>Terms of Use</h1>
         <p class="listing-intro-desc">Last updated: June 28, 2026</p>
       </div>
@@ -96,6 +99,7 @@ const schema = breadcrumbSchema([
       <button type="button" class="btn-primary" data-go-url={CONTACT_URL}>Contact</button>
     </p>
       </div>
+      </MotionReveal>
     </div>
   </section>
 </BaseLayout>
