@@ -3,10 +3,17 @@ import { cheatScreenshotMedia } from '../lib/cheat-media';
 export { cheatScreenshotMedia as homepageShowcase };
 
 export const homepageHero = {
-  badge: 'ESP · Aimbot · Radar',
-  title: 'Arc Raiders Cheats',
+  badge: 'Aimbot · Wallhack · Radar',
+  title: 'ARC Raiders Cheats & Hacks with Aimbot, Wallhack & Radar',
   description:
-    'Arc Raiders Cheats – Player ESP, loot ESP, aim tools, and extraction intel. Pick Xray, Pro, or Private — add Cloud DMA, Skin Changer, or HWID Spoofer from the products page when you need the full stack.',
+    'ARC Raiders cheats and hacks with aimbot, wallhack ESP, loot radar, and 2D extraction intel. Choose Xray, Pro, or Private — updated after every major patch.',
+};
+
+/** Document title/description — tuned for SERP length while matching hero messaging. */
+export const homepageMeta = {
+  title: 'ARC Raiders Cheats — Aimbot, Wallhack',
+  description:
+    'ARC Raiders cheats & hacks with aimbot, wallhack ESP, loot radar, and 2D extraction intel. Xray, Pro & Private tiers updated after major patches.',
 };
 
 export const homepageHeroImage = {

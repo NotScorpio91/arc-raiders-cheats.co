@@ -73,7 +73,7 @@ export function websiteSchema() {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: SITE.name,
-    alternateName: ['Arc Raiders Cheats', 'ArcRaidersCheats.co', 'Arc Raiders Hack', 'Arc Raiders ESP'],
+    alternateName: ['Arc Raiders Cheats', 'Arc Raiders Hack', 'Arc Raiders Hacks', 'Arc Raiders ESP', 'Arc Raiders Aimbot'],
     url: SITE.url,
     description: SITE.description,
     inLanguage: SITE.locale.replace('_', '-'),
@@ -92,7 +92,7 @@ export function organizationSchema() {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: SITE.name,
-    alternateName: ['Arc Raiders Cheats', 'ArcRaidersCheats.co'],
+    alternateName: ['Arc Raiders Cheats', 'Arc Raiders Hack', 'Arc Raiders ESP'],
     url: SITE.url,
     description: SITE.description,
     logo: organizationLogo(),
@@ -327,13 +327,14 @@ export function homepageSoftwareApplicationSchema(image?: string, pricingPlans?:
   return {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
-    name: 'Arc Raiders Cheats',
+    name: 'ARC Raiders Cheats & Hacks',
     alternateName: [
       'Arc Raiders Hack',
+      'Arc Raiders Hacks',
+      'Arc Raiders Wallhack',
       'Arc Raiders ESP',
       'Arc Raiders Aimbot',
       'ArcRaidersCheats',
-      'arcraiderscheats.co',
     ],
     url: SITE.url,
     applicationCategory: 'GameApplication',
@@ -341,13 +342,13 @@ export function homepageSoftwareApplicationSchema(image?: string, pricingPlans?:
     operatingSystem: 'Windows 10, Windows 11',
     softwareVersion: '2026',
     releaseNotes:
-      'Updated for recent Arc Raiders patches. External overlay stack with Player ESP, Loot ESP, aim tools, 2D radar, and extraction intel.',
-    ...(image ? { image: socialImageObject(image, 'Arc Raiders Cheats — ESP, Aimbot and Radar 2026') } : {}),
+      'Updated for recent Arc Raiders patches. External overlay stack with aimbot, wallhack ESP, loot radar, 2D radar, and extraction intel.',
+    ...(image ? { image: socialImageObject(image, 'ARC Raiders Cheats & Hacks — Aimbot, Wallhack & Radar') } : {}),
     ...(pricingPlans?.length
       ? { offers: offersFromPlans(pricingPlans, `${SITE.url}/cheats/`) }
       : {}),
     description:
-      'Arc Raiders cheat tiers with player ESP, loot ESP, aim tools, 2D radar, and extraction intel. Xray, Pro, and Private packages with documented setup and patch-aware support.',
+      'ARC Raiders cheats and hacks with aimbot, wallhack ESP, loot radar, and 2D extraction intel. Xray, Pro, and Private packages with documented setup and patch-aware support.',
     featureList:
       'Player ESP, Loot ESP, Drone ESP, Skeleton ESP, Health & Armor Bars, Distance Readout, Aimbot, Bone Targeting, Aim Smoothing, Custom FOV, 2D Radar Hack, Extraction Zone ESP, ARC Patrol ESP, Stream-Safe Mode, HWID Spoofer',
   };

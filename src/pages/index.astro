@@ -10,10 +10,10 @@ import IconLabel from '../components/IconLabel.astro';
 import MotionReveal from '../components/react/MotionReveal';
 import { getCollection } from 'astro:content';
 import { cheats, getCheatFeatures } from '../data/cheats';
-import { homepageShowcase, homepageHero } from '../data/homepage';
+import { homepageShowcase, homepageHero, homepageMeta } from '../data/homepage';
 import { homepageGuideIntro, homepageGuideSections, homepageGuideTakeaways } from '../data/homepage-guide';
 import { homepageFaqs, products } from '../data/products';
-import { GET_ACCESS_URL, SITE } from '../lib/site';
+import { GET_ACCESS_URL, SITE, SITE_KEYWORDS } from '../lib/site';
 import { resolveSocialImage } from '../lib/social-images';
 import {
   websiteSchema,
@@ -35,11 +35,11 @@ const schema = [
 ---
 
 <BaseLayout
-  title="Arc Raiders Cheats"
-  description="Arc Raiders Cheats with player ESP, loot ESP, aim tools, and 2D radar. Choose Xray, Pro, or Private tiers — updated after major Season 1 patches."
+  title={homepageMeta.title}
+  description={homepageMeta.description}
   canonical={`${SITE.url}/`}
   schema={schema}
-  keywords={['arc raiders cheats', 'arc raiders esp', 'arc raiders aimbot', 'arc raiders hack']}
+  keywords={[...SITE_KEYWORDS]}
 >
   <section class="hero">
     <div class="hero-bg"></div>
@@ -50,7 +50,7 @@ const schema = [
     <div class="section-inner hero-inner">
       <div class="hero-content hero-animate">
         <div class="hero-badge">{homepageHero.badge}</div>
-        <h1>Arc Raiders Cheats &amp; Tools</h1>
+        <h1>{homepageHero.title}</h1>
         <p class="hero-desc">{homepageHero.description}</p>
         <div class="hero-btns">
           <button type="button" class="btn-primary" data-go-url={GET_ACCESS_URL}>Browse Cheats</button>
