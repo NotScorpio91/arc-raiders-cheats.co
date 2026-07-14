@@ -295,10 +295,12 @@ html[data-theme='light'] body::after {
   justify-content: center;
 }
 
-.nav-toggle {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+@media (max-width: 1100px) {
+  .nav-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
 
 /* Blog post mobile */

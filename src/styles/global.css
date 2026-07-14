@@ -334,6 +334,11 @@ a {
     min-width: 40px;
     padding: 0 0.65rem;
   }
+
+  .nav-toggle,
+  .nav-drawer {
+    display: none;
+  }
 }
 
 .nav-drawer {
