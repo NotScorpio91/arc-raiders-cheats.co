@@ -1,0 +1,60 @@
+---
+import { I18N_LOCALES, getLocaleMeta } from '../lib/i18n';
+import { localeHref, pathWithoutLocale } from '../lib/i18n';
+
+const locale = Astro.currentLocale ?? 'en';
+const currentMeta = getLocaleMeta(locale);
+const basePath = pathWithoutLocale(Astro.url.pathname);
+---
+
+<div class="lang-switcher">
+  <button
+    type="button"
+    class="lang-switcher__trigger"
+    aria-haspopup="listbox"
+    aria-expanded="false"
+    aria-label={`${currentMeta.label} — change language`}
+  >
+    <svg class="lang-switcher__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="10"></circle>
+      <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+      <path d="M2 12h20"></path>
+    </svg>
+    <span class="lang-switcher__code">{locale.toUpperCase()}</span>
+  </button>
+  <ul class="lang-switcher__menu" role="listbox" aria-label="Site language">
+    {I18N_LOCALES.map((entry) => (
+      <li role="option" aria-selected={entry.code === locale}>
+        <a
+          href={localeHref(entry.code, basePath)}
+          hreflang={entry.hreflang}
+          lang={entry.code}
+          class:list={{ 'is-active': entry.code === locale }}
+        >
+          <span class="lang-switcher__menu-code">{entry.code.toUpperCase()}</span>
+          <span class="lang-switcher__menu-label">{entry.label}</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+</div>
+
+<script>
+  document.querySelectorAll('.lang-switcher').forEach((root) => {
+    const trigger = root.querySelector('.lang-switcher__trigger');
+    if (!trigger) return;
+
+    trigger.addEventListener('click', (event) => {
+      event.stopPropagation();
+      const open = root.classList.toggle('is-open');
+      trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!root.contains(event.target)) {
+        root.classList.remove('is-open');
+        trigger.setAttribute('aria-expanded', 'false');
+      }
+    });
+  });
+</script>

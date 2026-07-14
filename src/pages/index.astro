@@ -13,7 +13,8 @@ import { cheats, getCheatFeatures } from '../data/cheats';
 import { homepageShowcase, homepageHero, homepageMeta } from '../data/homepage';
 import { homepageGuideIntro, homepageGuideSections, homepageGuideTakeaways } from '../data/homepage-guide';
 import { homepageFaqs, products } from '../data/products';
-import { GET_ACCESS_URL, SITE, SITE_KEYWORDS } from '../lib/site';
+import { GET_ACCESS_URL, SITE_KEYWORDS } from '../lib/site';
+import { getMessages, localeHref } from '../lib/i18n';
 import { resolveSocialImage } from '../lib/social-images';
 import {
   websiteSchema,
@@ -22,6 +23,8 @@ import {
 } from '../lib/schema';
 
 const homeSocial = resolveSocialImage('/');
+const locale = Astro.currentLocale ?? 'en';
+const t = getMessages(locale);
 
 const blogPosts = (await getCollection('blog'))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
@@ -37,7 +40,6 @@ const schema = [
 <BaseLayout
   title={homepageMeta.title}
   description={homepageMeta.description}
-  canonical={`${SITE.url}/`}
   schema={schema}
   keywords={[...SITE_KEYWORDS]}
 >
@@ -53,8 +55,8 @@ const schema = [
         <h1>{homepageHero.title}</h1>
         <p class="hero-desc">{homepageHero.description}</p>
         <div class="hero-btns">
-          <button type="button" class="btn-primary" data-go-url={GET_ACCESS_URL}>Browse Cheats</button>
-          <a href="/products/" class="btn-ghost">View Products</a>
+          <button type="button" class="btn-primary" data-go-url={GET_ACCESS_URL}>{t.home.browseCheats}</button>
+          <a href={localeHref(locale, '/products/')} class="btn-ghost">{t.home.viewProducts}</a>
         </div>
       </div>
     </div>

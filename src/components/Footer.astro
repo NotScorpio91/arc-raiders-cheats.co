@@ -1,7 +1,11 @@
 ---
 import { SITE } from '../lib/site';
+import { getMessages, localeHref } from '../lib/i18n';
 import Logo from './Logo.astro';
 import Icon from './Icon.astro';
+
+const locale = Astro.currentLocale ?? 'en';
+const t = getMessages(locale);
 ---
 
 <footer>
@@ -9,41 +13,35 @@ import Icon from './Icon.astro';
     <div class="f-grid">
       <div class="f-brand">
         <Logo />
-        <p>
-          Arc Raiders cheats, premium tools, and raid guides — buy ESP and aimbot tiers, grab Cloud
-          DMA or a spoofer, and get set up for Season 1.
-        </p>
+        <p>{t.footer.tagline}</p>
       </div>
       <div class="f-col">
-        <h3>Content</h3>
+        <h3>{t.footer.content}</h3>
         <ul>
-          <li><a href="/cheats/"><Icon name="crosshair" size={14} /> Cheats</a></li>
-          <li><a href="/products/"><Icon name="cloud" size={14} /> Products</a></li>
-          <li><a href="/blog/"><Icon name="newspaper" size={14} /> Blog</a></li>
+          <li><a href={localeHref(locale, '/cheats/')}><Icon name="crosshair" size={14} /> {t.footer.cheats}</a></li>
+          <li><a href={localeHref(locale, '/products/')}><Icon name="cloud" size={14} /> {t.footer.products}</a></li>
+          <li><a href={localeHref(locale, '/blog/')}><Icon name="newspaper" size={14} /> {t.footer.blog}</a></li>
         </ul>
       </div>
       <div class="f-col">
-        <h3>Site</h3>
+        <h3>{t.footer.site}</h3>
         <ul>
-          <li><a href="/about/"><Icon name="guide" size={14} /> About</a></li>
-          <li><a href="/contact/"><Icon name="mail" size={14} /> Contact</a></li>
-          <li><a href="/faq/"><Icon name="file-text" size={14} /> FAQ</a></li>
+          <li><a href={localeHref(locale, '/about/')}><Icon name="guide" size={14} /> {t.footer.about}</a></li>
+          <li><a href={localeHref(locale, '/contact/')}><Icon name="mail" size={14} /> {t.footer.contact}</a></li>
+          <li><a href={localeHref(locale, '/faq/')}><Icon name="file-text" size={14} /> {t.footer.faq}</a></li>
         </ul>
       </div>
       <div class="f-col">
-        <h3>Legal</h3>
+        <h3>{t.footer.legal}</h3>
         <ul>
-          <li><a href="/privacy-policy/"><Icon name="shield" size={14} /> Privacy Policy</a></li>
-          <li><a href="/terms/"><Icon name="file-text" size={14} /> Terms of Use</a></li>
+          <li><a href={localeHref(locale, '/privacy-policy/')}><Icon name="shield" size={14} /> {t.footer.privacy}</a></li>
+          <li><a href={localeHref(locale, '/terms/')}><Icon name="file-text" size={14} /> {t.footer.terms}</a></li>
         </ul>
       </div>
     </div>
     <div class="f-bottom">
-      <p>© {new Date().getFullYear()} {SITE.name}. Not affiliated with Embark Studios.</p>
-      <p class="f-disclaimer">
-        Arc Raiders is a trademark of Embark Studios. This site is an independent fan resource and is
-        not endorsed by or affiliated with the developer or publisher.
-      </p>
+      <p>© {new Date().getFullYear()} {SITE.name}. {t.footer.copyright}</p>
+      <p class="f-disclaimer">{t.footer.disclaimer}</p>
     </div>
   </div>
 </footer>

@@ -14,12 +14,12 @@ for (const relativePath of htmlFiles) {
   const titleMatch = html.match(/<title>(.*?)<\/title>/);
   const descMatch = html.match(/<meta name="description" content="([^"]*)"/);
   const canonicalMatch = html.match(/<link rel="canonical" href="([^"]*)"/);
-  const hreflangMatch = html.match(/<link rel="alternate" hreflang="en" href="([^"]*)"/);
+  const hreflangLinks = [...html.matchAll(/<link rel="alternate" hreflang="([^"]*)" href="([^"]*)"/g)];
   const robotsMatch = html.match(/<meta name="robots" content="([^"]*)"/);
   const title = titleMatch?.[1] ?? '';
   const description = descMatch?.[1] ?? '';
   const canonical = canonicalMatch?.[1] ?? '';
-  const hreflang = hreflangMatch?.[1] ?? '';
+  const hreflang = hreflangLinks.find(([, , href]) => href === canonical)?.[2] ?? '';
 
   const robots = robotsMatch?.[1] ?? '';
   const isNoindex = robots.includes('noindex');
@@ -30,8 +30,8 @@ for (const relativePath of htmlFiles) {
   if (!isNoindex && (description.length < 120 || description.length > 160)) {
     issues.push(`${relativePath}: description length ${description.length}`);
   }
-  if (canonical && hreflang && canonical !== hreflang) {
-    issues.push(`${relativePath}: canonical/hreflang mismatch`);
+  if (!isNoindex && canonical && hreflangLinks.length > 0 && !hreflangLinks.some(([, , href]) => href === canonical)) {
+    issues.push(`${relativePath}: canonical missing from hreflang alternates`);
   }
   if (!robotsMatch?.[1]?.includes('noindex') && !canonical.startsWith('https://arcraiderscheats.co')) {
     issues.push(`${relativePath}: non-canonical host in canonical`);

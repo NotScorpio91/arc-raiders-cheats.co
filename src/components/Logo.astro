@@ -1,12 +1,16 @@
 ---
+import { localeHref } from '../lib/i18n';
+
 interface Props {
   class?: string;
 }
 
 const { class: className = '' } = Astro.props;
+const locale = Astro.currentLocale ?? 'en';
+const homeHref = localeHref(locale, '/');
 ---
 
-<a href="/" class:list={['logo-brand', className]} aria-label="Arc Raiders Cheats">
+<a href={homeHref} class:list={['logo-brand', className]} aria-label="Arc Raiders Cheats">
   <img
     src="/logo.svg"
     alt="Arc Raiders Cheats logo mark"

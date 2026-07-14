@@ -1,31 +1,92 @@
 ---
-import { NAV_LINKS, GET_ACCESS_URL } from '../lib/site';
+import { GET_ACCESS_URL } from '../lib/site';
+import { getMessages, navLinks } from '../lib/i18n';
 import Logo from './Logo.astro';
 import Icon from './Icon.astro';
 import ThemeToggle from './ThemeToggle.astro';
+import LanguageSwitcher from './LanguageSwitcher.astro';
 
+const locale = Astro.currentLocale ?? 'en';
+const t = getMessages(locale);
+const links = navLinks(locale);
 const currentPath = Astro.url.pathname;
+
+function isActive(href: string) {
+  const path = currentPath.endsWith('/') ? currentPath : `${currentPath}/`;
+  const link = href.endsWith('/') ? href : `${href}/`;
+  const isHome = link === '/' || /^\/[a-z]{2}\/$/.test(link);
+  if (isHome) return path === link;
+  return path.startsWith(link);
+}
 ---
 
 <nav class="site-nav" aria-label="Main navigation">
+  <input type="checkbox" id="nav-open" class="nav-check" aria-hidden="true" tabindex="-1" />
+
   <div class="nav-inner">
-    <input type="checkbox" id="nav-open" class="nav-check" aria-hidden="true" tabindex="-1" />
-    <Logo />
-    <ul class="nav-links" id="nav-menu">
-      {NAV_LINKS.map((link) => (
+    <div class="nav-brand">
+      <Logo />
+    </div>
+
+    <ul class="nav-links nav-links--desktop" id="nav-menu">
+      {links.map((link) => (
         <li>
-          <a href={link.href} class:list={{ active: currentPath.startsWith(link.href) }}>
+          <a href={link.href} class:list={{ active: isActive(link.href) }}>
             {link.label}
           </a>
         </li>
       ))}
     </ul>
+
     <div class="nav-actions">
-      <ThemeToggle />
-      <button type="button" class="nav-cta" data-go-url={GET_ACCESS_URL}>Get Access</button>
+      <div class="nav-toolbar">
+        <LanguageSwitcher />
+        <ThemeToggle />
+      </div>
+      <button type="button" class="nav-cta nav-cta--desktop" data-go-url={GET_ACCESS_URL}>
+        {t.nav.getAccess}
+      </button>
       <label for="nav-open" class="nav-toggle" aria-label="Toggle menu">
         <Icon name="menu" size={20} />
       </label>
     </div>
   </div>
+
+  <div class="nav-drawer" id="nav-drawer">
+    <ul class="nav-drawer-links">
+      {links.map((link) => (
+        <li>
+          <a href={link.href} class:list={{ active: isActive(link.href) }}>
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+    <div class="nav-drawer-footer">
+      <LanguageSwitcher />
+      <ThemeToggle />
+      <button type="button" class="nav-cta nav-cta--drawer" data-go-url={GET_ACCESS_URL}>
+        {t.nav.getAccess}
+      </button>
+    </div>
+  </div>
 </nav>
+
+<script>
+  const navOpen = document.getElementById('nav-open');
+  const navDrawer = document.getElementById('nav-drawer');
+
+  if (navOpen && navDrawer) {
+    navDrawer.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        navOpen.checked = false;
+      });
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && navOpen.checked) {
+        navOpen.checked = false;
+      }
+    });
+  }
+</script>

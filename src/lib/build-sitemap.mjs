@@ -10,6 +10,7 @@ import {
   STATIC_CONTENT_LASTMOD,
 } from './sitemap-meta.mjs';
 import { CHEAT_DETAIL_PATHS, PRODUCT_DETAIL_PATHS } from './page-catalog.mjs';
+import { I18N_LOCALES, LOCALE_CODES, localePathForSitemap } from './i18n-config.mjs';
 
 const STATIC_SITEMAP_PATHS = [
   '/',
@@ -65,35 +66,51 @@ function getLastmod(pathname, blogMeta, buildTime) {
   return STATIC_CONTENT_LASTMOD;
 }
 
+function hreflangLinksForPath(pathname) {
+  return I18N_LOCALES.map((locale) => {
+    const localizedPath = localePathForSitemap(pathname, locale.code);
+    const href = `${SITE_URL}${localizedPath === '/' ? '/' : localizedPath}`;
+    return `    <xhtml:link rel="alternate" hreflang="${escapeXml(locale.hreflang)}" href="${escapeXml(href)}" />`;
+  }).concat(
+    `    <xhtml:link rel="alternate" hreflang="x-default" href="${escapeXml(`${SITE_URL}${pathname === '/' ? '/' : pathname}`)}" />`,
+  );
+}
+
 /** @param {string} [buildTime] */
 export function buildSitemapXml(buildTime = new Date().toISOString()) {
   const blogMeta = getBlogSitemapMeta();
   const paths = getAllSitemapPaths();
 
-  const urlNodes = paths.map((pathname) => {
+  const urlNodes = paths.flatMap((pathname) => {
     const path = normalizePath(pathname);
-    const loc = `${SITE_URL}${path === '/' ? '/' : path}`;
     const lastmod = getLastmod(path, blogMeta, buildTime);
     const priority = getPagePriority(path);
     const image = getPageSitemapImage(path);
+    const alternates = hreflangLinksForPath(path);
 
-    return [
-      '  <url>',
-      `    <loc>${escapeXml(loc)}</loc>`,
-      `    <lastmod>${escapeXml(lastmod)}</lastmod>`,
-      `    <priority>${priority.toFixed(1)}</priority>`,
-      '    <image:image>',
-      `      <image:loc>${escapeXml(image.url)}</image:loc>`,
-      `      <image:title>${escapeXml(image.title)}</image:title>`,
-      `      <image:caption>${escapeXml(image.title)}</image:caption>`,
-      '    </image:image>',
-      '  </url>',
-    ].join('\n');
+    return LOCALE_CODES.map((locale) => {
+      const localizedPath = localePathForSitemap(path, locale);
+      const loc = `${SITE_URL}${localizedPath === '/' ? '/' : localizedPath}`;
+
+      return [
+        '  <url>',
+        `    <loc>${escapeXml(loc)}</loc>`,
+        ...alternates,
+        `    <lastmod>${escapeXml(lastmod)}</lastmod>`,
+        `    <priority>${priority.toFixed(1)}</priority>`,
+        '    <image:image>',
+        `      <image:loc>${escapeXml(image.url)}</image:loc>`,
+        `      <image:title>${escapeXml(image.title)}</image:title>`,
+        `      <image:caption>${escapeXml(image.title)}</image:caption>`,
+        '    </image:image>',
+        '  </url>',
+      ].join('\n');
+    });
   });
 
   return [
     '<?xml version="1.0" encoding="UTF-8"?>',
-    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">',
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:xhtml="http://www.w3.org/1999/xhtml">',
     ...urlNodes,
     '</urlset>',
   ].join('\n');

@@ -5,6 +5,8 @@ import { SITE, SITE_LOGO_URL, SITE_FONT } from '../lib/site';
 import { buildTitle, buildCanonical, trimDescription } from '../lib/seo';
 import { organizationSchema, webPageSchema } from '../lib/schema';
 import { resolveSocialImage, resolveOgImageUrl } from '../lib/social-images';
+import { getLocaleMeta, getMessages, pathWithoutLocale } from '../lib/i18n';
+import { getAbsoluteLocaleUrl, getAbsoluteLocaleUrlList } from 'astro:i18n';
 import SchemaOrg from '../components/SchemaOrg.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
@@ -41,7 +43,13 @@ const {
 
 const pageTitle = buildTitle(title);
 const metaDescription = trimDescription(description);
-const canonicalUrl = canonical ?? buildCanonical(Astro.url.pathname);
+const locale = Astro.currentLocale ?? 'en';
+const localeMeta = getLocaleMeta(locale);
+const ui = getMessages(locale);
+const basePath = pathWithoutLocale(Astro.url.pathname);
+const canonicalUrl = buildCanonical(Astro.url.pathname);
+const alternateUrls = getAbsoluteLocaleUrlList(basePath);
+const defaultLocaleUrl = getAbsoluteLocaleUrl('en', basePath === '/' ? undefined : basePath.replace(/^\//, '').replace(/\/$/, ''));
 const socialImage = resolveSocialImage(Astro.url.pathname);
 const ogImageSrc = ogImage ?? socialImage.src;
 const ogImageAltText = ogImageAlt ?? socialImage.alt;
@@ -62,7 +70,7 @@ const jsonLd = [
 ---
 
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang={localeMeta.hreflang} data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -117,12 +125,14 @@ const jsonLd = [
     <meta name="rating" content={SITE.rating} />
     <link rel="canonical" href={canonicalUrl} />
     <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+    {alternateUrls.map((entry) => (
+      <link rel="alternate" hreflang={getLocaleMeta(entry.locale).hreflang} href={entry.url} />
+    ))}
+    <link rel="alternate" hreflang="x-default" href={defaultLocaleUrl} />
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" href="/logo.png" sizes="192x192" />
     <link rel="apple-touch-icon" href="/logo.png" />
-    <link rel="alternate" hreflang="en" href={canonicalUrl} />
-    <link rel="alternate" hreflang="x-default" href={canonicalUrl} />
     <link rel="preload" href={SITE_FONT.preload} as="font" type="font/woff2" crossorigin="anonymous" />
     {lcpImage && (
       <link rel="preload" as="image" href={lcpImage} fetchpriority="high" />
@@ -140,7 +150,7 @@ const jsonLd = [
     <meta property="og:image:height" content={String(socialImage.height)} />
     <meta property="og:image:alt" content={ogImageAltText} />
     <meta property="og:logo" content={SITE_LOGO_URL} />
-    <meta property="og:locale" content={SITE.locale} />
+    <meta property="og:locale" content={localeMeta.ogLocale} />
     <meta itemprop="name" content={pageTitle} />
     <meta itemprop="description" content={metaDescription} />
     <meta itemprop="logo" content={SITE_LOGO_URL} />
@@ -161,7 +171,7 @@ const jsonLd = [
     <meta name="generator" content={Astro.generator} />
   </head>
   <body class="arc-bg">
-    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <a class="skip-link" href="#main-content">{ui.common.skipToContent}</a>
 
     <Nav />
     <main id="main-content">
