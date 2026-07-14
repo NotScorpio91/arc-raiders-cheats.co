@@ -21,6 +21,7 @@ import {
   faqSchema,
   homepageSoftwareApplicationSchema,
 } from '../lib/schema';
+import { CHEAT_PRICING } from '../lib/pricing';
 
 const homeSocial = resolveSocialImage('/');
 const locale = Astro.currentLocale ?? 'en';
@@ -31,7 +32,7 @@ const blogPosts = (await getCollection('blog'))
   .slice(0, 6);
 
 const schema = [
-  homepageSoftwareApplicationSchema(homeSocial.src),
+  homepageSoftwareApplicationSchema(homeSocial.src, CHEAT_PRICING),
   websiteSchema(),
   faqSchema([...homepageFaqs], homeSocial.src),
 ];

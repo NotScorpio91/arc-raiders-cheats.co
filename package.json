@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "node scripts/optimize-images.mjs && node scripts/copy-fonts.mjs && node scripts/generate-sitemap.mjs && astro build && node scripts/verify-seo.mjs",
+    "build": "node scripts/optimize-images.mjs && node scripts/copy-fonts.mjs && node scripts/generate-sitemap.mjs && astro build && node scripts/verify-seo.mjs && node scripts/audit-seo.mjs",
     "preview": "npm run build && wrangler dev --assets=dist",
     "optimize:images": "node scripts/optimize-images.mjs",
     "generate:blog-images": "node scripts/generate-blog-images.mjs",

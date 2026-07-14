@@ -5,6 +5,7 @@ import MotionReveal from '../../components/react/MotionReveal';
 import MotionFAQ from '../../components/react/MotionFAQ';
 import { products } from '../../data/products';
 import { collectionPageSchema, breadcrumbSchema, itemListSchema, faqSchema } from '../../lib/schema';
+import { PRODUCT_PRICING } from '../../lib/pricing';
 import { SITE } from '../../lib/site';
 import { resolveSocialImage } from '../../lib/social-images';
 
@@ -51,6 +52,7 @@ const schema = [
       name: p.name,
       url: `${SITE.url}/products/${p.id}/`,
       description: p.description,
+      pricingPlans: PRODUCT_PRICING[p.id],
     })),
     'Product',
   ),

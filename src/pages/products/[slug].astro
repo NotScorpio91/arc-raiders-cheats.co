@@ -7,6 +7,7 @@ import MotionReveal from '../../components/react/MotionReveal';
 import { products, getProductById } from '../../data/products';
 import { getRelatedCheatsForProduct } from '../../data/cheats';
 import { breadcrumbSchema, productSchema } from '../../lib/schema';
+import { PRODUCT_PRICING } from '../../lib/pricing';
 import { SITE } from '../../lib/site';
 import { resolveSocialImage } from '../../lib/social-images';
 
@@ -50,6 +51,7 @@ const schema = [
     imageAlt: socialImage.alt,
     category: product.tier,
     sku: product.id,
+    pricingPlans: PRODUCT_PRICING[product.id],
   }),
   breadcrumbSchema([
     { name: 'Home', url: `${SITE.url}/` },

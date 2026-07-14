@@ -46,6 +46,8 @@ export function localePathForSitemap(pathname, locale) {
   if (locale === DEFAULT_LOCALE) {
     return base === '/' ? '/' : base;
   }
-  const suffix = base === '/' ? '' : base;
-  return `/${locale}${suffix}`;
+  if (base === '/') {
+    return `/${locale}/`;
+  }
+  return `/${locale}${base}`;
 }

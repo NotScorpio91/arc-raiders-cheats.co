@@ -1,10 +1,35 @@
-import { getRelativeLocaleUrl } from 'astro:i18n';
-import { DEFAULT_LOCALE, LOCALE_CODES } from '../i18n-config.mjs';
+import { getAbsoluteLocaleUrl, getRelativeLocaleUrl } from 'astro:i18n';
+import { DEFAULT_LOCALE, I18N_LOCALES, LOCALE_CODES, stripLocalePrefix } from '../i18n-config.mjs';
 import { getMessages } from './messages';
 
 export { DEFAULT_LOCALE, I18N_LOCALES, LOCALE_CODES, getLocaleMeta } from '../i18n-config.mjs';
 export type { LocaleCode, LocaleMessages } from './messages';
 export { getMessages, messages } from './messages';
+
+/** Astro i18n route key (no slashes) for a pathname. */
+export function toRouteSegment(pathname: string): string | undefined {
+  const base = stripLocalePrefix(pathname);
+  if (base === '/') return undefined;
+  return base.replace(/^\//, '').replace(/\/$/, '');
+}
+
+/** Absolute canonical URL for the active locale + path. */
+export function localizedCanonical(locale: string, pathname: string): string {
+  return getAbsoluteLocaleUrl(locale, toRouteSegment(pathname));
+}
+
+/** hreflang alternates for every configured locale. */
+export function localizedHreflangAlternates(pathname: string) {
+  const route = toRouteSegment(pathname);
+  return I18N_LOCALES.map((meta) => ({
+    hreflang: meta.hreflang,
+    href: getAbsoluteLocaleUrl(meta.code, route),
+  }));
+}
+
+export function localizedDefaultUrl(pathname: string): string {
+  return getAbsoluteLocaleUrl(DEFAULT_LOCALE, toRouteSegment(pathname));
+}
 
 /** Localized path for internal links (e.g. cheats → /es/cheats/). */
 export function localeHref(locale: string, path: string): string {

@@ -8,6 +8,7 @@ import MotionButton from '../../components/react/MotionButton';
 import { cheats, getCheatById, getCheatFeatures } from '../../data/cheats';
 import { getProductById } from '../../data/products';
 import { breadcrumbSchema, softwareApplicationSchema } from '../../lib/schema';
+import { CHEAT_PRICING } from '../../lib/pricing';
 import { SITE, GET_ACCESS_URL } from '../../lib/site';
 import { resolveSocialImage } from '../../lib/social-images';
 
@@ -41,6 +42,7 @@ const schema = [
     imageAlt: socialImage.alt,
     category: 'GameApplication',
     featureList: cheatFeatures,
+    pricingPlans: CHEAT_PRICING,
   }),
   breadcrumbSchema([
     { name: 'Home', url: `${SITE.url}/` },

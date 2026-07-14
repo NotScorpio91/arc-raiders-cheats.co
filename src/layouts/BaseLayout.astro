@@ -2,11 +2,10 @@
 import '../styles/global.css';
 import '../styles/arc-theme.css';
 import { SITE, SITE_LOGO_URL, SITE_FONT } from '../lib/site';
-import { buildTitle, buildCanonical, trimDescription } from '../lib/seo';
+import { buildTitle, trimDescription } from '../lib/seo';
 import { organizationSchema, webPageSchema } from '../lib/schema';
 import { resolveSocialImage, resolveOgImageUrl } from '../lib/social-images';
-import { getLocaleMeta, getMessages, pathWithoutLocale } from '../lib/i18n';
-import { getAbsoluteLocaleUrl, getAbsoluteLocaleUrlList } from 'astro:i18n';
+import { getLocaleMeta, getMessages, localizedCanonical, localizedDefaultUrl, localizedHreflangAlternates } from '../lib/i18n';
 import SchemaOrg from '../components/SchemaOrg.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
@@ -46,10 +45,9 @@ const metaDescription = trimDescription(description);
 const locale = Astro.currentLocale ?? 'en';
 const localeMeta = getLocaleMeta(locale);
 const ui = getMessages(locale);
-const basePath = pathWithoutLocale(Astro.url.pathname);
-const canonicalUrl = buildCanonical(Astro.url.pathname);
-const alternateUrls = getAbsoluteLocaleUrlList(basePath);
-const defaultLocaleUrl = getAbsoluteLocaleUrl('en', basePath === '/' ? undefined : basePath.replace(/^\//, '').replace(/\/$/, ''));
+const canonicalUrl = localizedCanonical(locale, Astro.url.pathname);
+const alternateUrls = localizedHreflangAlternates(Astro.url.pathname);
+const defaultLocaleUrl = localizedDefaultUrl(Astro.url.pathname);
 const socialImage = resolveSocialImage(Astro.url.pathname);
 const ogImageSrc = ogImage ?? socialImage.src;
 const ogImageAltText = ogImageAlt ?? socialImage.alt;
@@ -126,7 +124,7 @@ const jsonLd = [
     <link rel="canonical" href={canonicalUrl} />
     <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
     {alternateUrls.map((entry) => (
-      <link rel="alternate" hreflang={getLocaleMeta(entry.locale).hreflang} href={entry.url} />
+      <link rel="alternate" hreflang={entry.hreflang} href={entry.href} />
     ))}
     <link rel="alternate" hreflang="x-default" href={defaultLocaleUrl} />
     <link rel="icon" href="/favicon.ico" sizes="any" />

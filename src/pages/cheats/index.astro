@@ -4,6 +4,7 @@ import CheatTierCard from '../../components/CheatTierCard.astro';
 import MotionReveal from '../../components/react/MotionReveal';
 import { cheats, getCheatFeatures } from '../../data/cheats';
 import { collectionPageSchema, breadcrumbSchema, itemListSchema } from '../../lib/schema';
+import { CHEAT_PRICING } from '../../lib/pricing';
 import { SITE } from '../../lib/site';
 import { resolveSocialImage } from '../../lib/social-images';
 
@@ -22,6 +23,7 @@ const schema = [
       name: cheat.name,
       url: `${SITE.url}/cheats/${cheat.id}/`,
       description: cheat.description,
+      pricingPlans: CHEAT_PRICING,
     })),
     'SoftwareApplication',
   ),

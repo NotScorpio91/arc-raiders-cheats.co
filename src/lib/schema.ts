@@ -272,7 +272,7 @@ export function contactPageSchema(image?: string) {
 }
 
 export function itemListSchema(
-  items: { name: string; url: string; description: string }[],
+  items: { name: string; url: string; description: string; pricingPlans?: PricingPlan[] }[],
   itemType: 'SoftwareApplication' | 'Product' = 'SoftwareApplication',
 ) {
   return {
@@ -286,6 +286,17 @@ export function itemListSchema(
         name: item.name,
         url: item.url,
         description: item.description,
+        ...(item.pricingPlans?.length
+          ? { offers: offersFromPlans(item.pricingPlans, item.url) }
+          : {
+              offers: {
+                '@type': 'Offer',
+                url: item.url,
+                price: '35.00',
+                priceCurrency: 'USD',
+                availability: 'https://schema.org/InStock',
+              },
+            }),
       },
     })),
   };
@@ -317,7 +328,15 @@ export function softwareApplicationSchema(props: {
     ...(props.featureList?.length ? { featureList: props.featureList.join(', ') } : {}),
     ...(props.pricingPlans?.length
       ? { offers: offersFromPlans(props.pricingPlans, props.url) }
-      : {}),
+      : {
+          offers: {
+            '@type': 'Offer',
+            url: props.url,
+            price: '0.00',
+            priceCurrency: 'USD',
+            availability: 'https://schema.org/InStock',
+          },
+        }),
     provider: publisherOrganization(),
   };
 }
@@ -346,7 +365,16 @@ export function homepageSoftwareApplicationSchema(image?: string, pricingPlans?:
     ...(image ? { image: socialImageObject(image, 'ARC Raiders Cheats & Hacks — Aimbot, Wallhack & Radar') } : {}),
     ...(pricingPlans?.length
       ? { offers: offersFromPlans(pricingPlans, `${SITE.url}/cheats/`) }
-      : {}),
+      : {
+          offers: {
+            '@type': 'AggregateOffer',
+            lowPrice: '35.00',
+            highPrice: '150.00',
+            priceCurrency: 'USD',
+            offerCount: 2,
+            url: `${SITE.url}/cheats/`,
+          },
+        }),
     description:
       'ARC Raiders cheats and hacks with aimbot, wallhack ESP, loot radar, and 2D extraction intel. Xray, Pro, and Private packages with documented setup and patch-aware support.',
     featureList:
@@ -378,6 +406,14 @@ export function productSchema(props: {
     brand: brandObject(),
     ...(props.pricingPlans?.length
       ? { offers: offersFromPlans(props.pricingPlans, props.url) }
-      : {}),
+      : {
+          offers: {
+            '@type': 'Offer',
+            url: props.url,
+            price: '35.00',
+            priceCurrency: 'USD',
+            availability: 'https://schema.org/InStock',
+          },
+        }),
   };
 }
